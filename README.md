@@ -9,6 +9,8 @@
 ## ✨ Features
 - ✅ Setup takes only a few minutes ([single file config](https://github.com/tuanphungcz/nextjs-notion-blog-starter/blob/main/data/siteData.ts)) 💪
 - ✅ Newsletter subscription via [Convertkit API](https://github.com/tuanphungcz/nextjs-notion-blog-starter/blob/main/pages/api/subscribe-convertkit.tsx) 
+- ✅ Simple analytics with [Umami](https://github.com/umami-software/umami)
+
 - ✅ Automatic OG social images with [Tailwind template](https://github.com/tuanphungcz/nextjs-notion-blog-starter/blob/main/components/OgTemplate.tsx)
 - ✅ Automatic pretty URLs
 - ✅ Excellent page speed

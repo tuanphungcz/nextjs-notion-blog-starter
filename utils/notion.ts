@@ -15,12 +15,6 @@ export const getAllArticles = async databaseId => {
           select: {
             equals: '✅ Published'
           }
-        },
-        {
-          property: 'Status',
-          select: {
-            equals: '✏️ Draft'
-          }
         }
       ]
     },
