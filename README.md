@@ -49,6 +49,21 @@ npm run dev
 Create a `.env` file similar to `.env.example` and include the appropriate keys.
 
 
+## 🚀 Deploy to vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ftuanphungcz%2Fnextjs-notion-blog-starter&env=NOTION_SECRET,DATABASE_ID&envDescription=Notion%20secret%20API%20key%20&envLink=https%3A%2F%2Fnextjs-notion-blog-starter.vercel.app%2Fblog%2Fdeploy-your-notion-blog-powered-by-nextjs-and-tailwind&project-name=my-notion-blog&repo-name=my-notion-blog)
+
+```
+NOTION_SECRET=
+BLOG_DATABASE_ID=
+
+# ConvertKit is optional
+NEXT_PUBLIC_CONVERTKIT_FORM_ID=
+NEXT_PUBLIC_CONVERTKIT_API_KEY=
+
+# Umami is optional
+NEXT_PUBLIC_UMAMI_ID=
+```
+
 
 
 ## 💁‍♀️ How to use
