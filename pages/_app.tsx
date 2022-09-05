@@ -6,12 +6,14 @@ import 'styles/globals.css';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      {process.env.NEXT_PUBLIC_UMAMI_ID && process.env.NODE_ENV === 'production' && (
-        <Script
-          data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
-          src="https://umami-production-55de.up.railway.app/umami.js"
-        />
-      )}
+      {process.env.NEXT_PUBLIC_UMAMI_ID &&
+        process.env.NEXT_PUBLIC_UMAMI_URL &&
+        process.env.NODE_ENV === 'production' && (
+          <Script
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_ID}
+            src={process.env.NEXT_PUBLIC_UMAMI_URL}
+          />
+        )}
       <Toaster />
       <Component {...pageProps} />;
     </>
