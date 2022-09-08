@@ -1,3 +1,4 @@
+import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
@@ -5,7 +6,7 @@ import 'styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <SessionProvider session={pageProps.session} refetchInterval={0}>
       {process.env.NEXT_PUBLIC_UMAMI_ID &&
         process.env.NEXT_PUBLIC_UMAMI_URL &&
         process.env.NODE_ENV === 'production' && (
@@ -16,6 +17,6 @@ export default function App({ Component, pageProps }: AppProps) {
         )}
       <Toaster />
       <Component {...pageProps} />;
-    </>
+    </SessionProvider>
   );
 }

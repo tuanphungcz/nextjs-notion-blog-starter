@@ -4,7 +4,7 @@ import Header from './Navbar';
 import { MetaHead } from './MetaHead';
 
 export function Layout(props) {
-  const { children, date, imageUrl, title, description, ogUrl } = props;
+  const { children, date, imageUrl, title, description, ogUrl, blog } = props;
 
   const FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
   const API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
@@ -20,11 +20,11 @@ export function Layout(props) {
   return (
     <>
       <MetaHead {...metaHeadProps} />
-      <Header />
+      <Header blog={blog} />
       <div className="pt-14">{children}</div>
       {FORM_ID && API_KEY && <Subscribe />}
 
-      <Footer />
+      <Footer blog={blog} />
     </>
   );
 }
