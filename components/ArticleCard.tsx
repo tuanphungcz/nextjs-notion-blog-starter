@@ -12,6 +12,8 @@ export default function ArticleCard({ article }: Props) {
 
   const formattedTime = getLocalizedDate(article.publishedDate);
 
+  console.log(article.coverImage)
+
   return (
     <a href={`/blog/${slug}`}>
       <div className="flex flex-col overflow-hidden cursor-pointer group">

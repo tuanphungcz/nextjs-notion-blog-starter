@@ -1,25 +1,25 @@
 import siteData from 'data/siteData';
 import Image from 'next/image';
 
-const socials = [
-  {
-    name: 'Twitter',
-    href: siteData.twitter,
-    icon: '/socials/twitter.svg'
-  },
-  {
-    name: 'GitHub',
-    href: siteData.github,
-    icon: '/socials/github.svg'
-  },
-  {
-    name: 'LinkedIn',
-    href: siteData.linkedin,
-    icon: '/socials/linkedin.svg'
-  }
-];
+export default function Socials({ blog }) {
+  const socials = [
+    {
+      name: 'Twitter',
+      href: blog?.twitter,
+      icon: '/socials/twitter.svg'
+    },
+    {
+      name: 'GitHub',
+      href: blog?.github,
+      icon: '/socials/github.svg'
+    },
+    {
+      name: 'LinkedIn',
+      href: blog?.linkedin,
+      icon: '/socials/linkedin.svg'
+    }
+  ];
 
-export default function Socials() {
   return (
     <div className="flex justify-center space-x-6 md:order-2">
       {socials.map(item => (
