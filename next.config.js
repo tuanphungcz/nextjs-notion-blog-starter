@@ -1,5 +1,8 @@
 module.exports = {
   images: {
+    unoptimized: true
+  },
+  images: {
     domains: [
       's3.us-west-2.amazonaws.com', // Images coming from Notion
       'via.placeholder.com', // for articles that do not have a cover image

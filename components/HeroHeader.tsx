@@ -5,7 +5,7 @@ export default function HeroHeader() {
   return (
     <div className="py-16 text-center bg-gray-100">
       {siteData?.profileUrl && (
-        <Image
+        <img
           src={siteData.profileUrl}
           className="mx-auto rounded-full"
           width={96}
