@@ -83,12 +83,12 @@ export function renderBlocks(block) {
       const caption = value.caption.length >= 1 ? value.caption[0].plain_text : '';
       return (
         <figure className="mt-0">
-          <img
+            <Image
             className="rounded-lg aspect-video"
-            // objectFit="cover"
+            objectFit="cover"
             src={src}
             placeholder="blur"
-            // blurDataURL={src}
+            blurDataURL={src}
             width={1200}
             height={684}
             alt={caption ? caption : 'A visual depiction of what is being written about'}
