@@ -13,7 +13,7 @@ export function middleware(req: any) {
 
   if (!pathname.includes('.') && !pathname.startsWith('/api') && !pathname.includes('/_next/image')) {
     if (trimmedHost.length > 0) {
-      url.pathname = `/_sites/${trimmedHost}`;
+      url.pathname = `/_sites/${trimmedHost}` + `${pathname}`;
       return NextResponse.rewrite(url);
     }
   }
