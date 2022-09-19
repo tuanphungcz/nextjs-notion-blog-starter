@@ -3,7 +3,7 @@ import Socials from 'components/Socials';
 import siteData from 'data/siteData';
 import Link from 'next/link';
 
-export default function Header() {
+export default function Navbar() {
   return (
     <div className="fixed z-10 w-full bg-white border-b">
       <Container>

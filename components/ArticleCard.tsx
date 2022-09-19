@@ -27,13 +27,13 @@ export default function ArticleCard({ article }: Props) {
             ))}
           </div>
           <div className=" filter contrast-[0.9]">
-            <img
+            <Image
               className="object-cover w-full h-48 transition rounded-lg aspect-video group-hover:opacity-90 bg-gray-50"
               src={article.coverImage}
-              // blurDataURL={article.coverImage}
-              // objectFit="cover"
+              blurDataURL={article.coverImage}
+              objectFit="cover"
               placeholder="blur"
-              // layout="intrinsic"
+              layout="intrinsic"
               width={800}
               height={400}
               alt={'article cover'}

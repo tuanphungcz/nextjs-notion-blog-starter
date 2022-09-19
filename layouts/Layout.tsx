@@ -1,6 +1,6 @@
 import Subscribe from 'components/Subscribe';
 import Footer from './Footer';
-import Header from './Header';
+import Header from './Navbar';
 import { MetaHead } from './MetaHead';
 
 export function Layout(props) {
