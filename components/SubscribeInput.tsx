@@ -40,7 +40,7 @@ export default function SubscribeInput() {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid items-center max-w-md mx-auto mt-8 grid-gap-4"
+        className="grid items-center max-w-md gap-4 mx-auto mt-8"
       >
         <div className="w-full">
           <label htmlFor="cta-email" className="sr-only">
