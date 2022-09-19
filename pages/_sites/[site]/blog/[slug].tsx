@@ -8,17 +8,19 @@ import getLocalizedDate from 'utils/getLocalizedDate';
 import Container from 'components/Container';
 import slugify from 'slugify';
 import ArticleList from 'components/ArticleList';
-import siteData from 'data/siteData';
+import prisma, { blogSelect } from 'utils/prisma';
 
-const ArticlePage = ({
-  content,
-  title,
-  coverImage,
-  publishedDate,
-  lastEditedAt,
-  summary,
-  moreArticles
-}) => {
+const ArticlePage = ({ result, blog }) => {
+  const {
+    content,
+    title,
+    coverImage,
+    publishedDate,
+    lastEditedAt,
+    summary,
+    moreArticles
+  } = result;
+
   const publishedOn = getLocalizedDate(publishedDate);
   const modifiedDate = getLocalizedDate(lastEditedAt);
 
@@ -28,7 +30,7 @@ const ArticlePage = ({
   //   title
   // )}&date=${encodeURIComponent(publishedOn)}`;
 
-  const ogImage = `${siteData.websiteUrl}/api/og-image?title=${encodeURIComponent(
+  const ogImage = `${blog?.websiteUrl}/api/og-image?title=${encodeURIComponent(
     title
   )}&date=${encodeURIComponent(publishedOn)}`;
 
@@ -40,6 +42,7 @@ const ArticlePage = ({
         imageUrl={ogImage}
         date={new Date(publishedDate).toISOString()}
         ogUrl={`/blog/${slug}`}
+        blog={blog}
       >
         <div>
           <div className="px-6 py-16 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
@@ -108,7 +111,8 @@ export const getStaticPaths = async () => {
     if (result.object === 'page') {
       paths.push({
         params: {
-          slug: slugify(result.properties.Name.title[0].plain_text).toLowerCase()
+          slug: slugify(result.properties.Name.title[0].plain_text).toLowerCase(),
+          site: ''
         }
       });
     }
@@ -120,14 +124,22 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getStaticProps = async ({ params: { slug, site } }) => {
   const data = await getAllArticles(process.env.BLOG_DATABASE_ID);
+
+  const blog = await prisma.blogWebsite.findFirst({
+    where: { slug: site },
+    select: blogSelect
+  });
 
   const page = getArticlePage(data, slug);
   const result = await getArticlePageData(page, slug, process.env.BLOG_DATABASE_ID);
 
   return {
-    props: result,
+    props: {
+      result,
+      blog
+    },
     revalidate: 30
   };
 };
