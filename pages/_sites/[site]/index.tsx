@@ -9,10 +9,10 @@ import { filterArticles } from 'utils/filterArticles';
 import { convertToArticleList, getAllArticles } from 'utils/notion';
 import prisma, { blogSelect } from 'utils/prisma';
 
-export default function Index({ articles, categories, blog }: any) {
+export default function Index({ articles, categories, blog, allblog }: any) {
   const [selectedTag, setSelectedTag] = useState<string>(null);
 
-  console.log({ articles, categories, blog });
+  console.log({ articles, categories, blog, allblog });
 
   return <div>ahoj</div>;
   const filteredArticles = filterArticles(articles, selectedTag);
@@ -73,7 +73,7 @@ export async function getServerSideProps(context: any) {
     select: blogSelect
   });
 
-  console.log(allblog);
+  console.log('allblog', allblog);
 
   if (!blog?.title) {
     return {
@@ -93,6 +93,7 @@ export async function getServerSideProps(context: any) {
     props: {
       blog,
       articles,
+      allblog,
       categories
     }
   };

@@ -16,7 +16,7 @@ export function middleware(req: any) {
 
   if (!pathname.includes('.') && !pathname.startsWith('/api') && !pathname.includes('/_next/image')) {
     if (trimmedHost.length > 0) {
-      url.pathname = `/_sites/${trimmedHost}${pathname}`;
+      url.pathname = `/_sites/${trimmedHost}`;
       console.log('tostring', url.toString())
       return NextResponse.rewrite(url);
     }
