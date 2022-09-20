@@ -1,20 +1,20 @@
-import siteData from 'data/siteData';
+// import siteData from 'data/siteData';
 import Head from 'next/head';
 
 export function MetaHead(props) {
-  const { date, title, imageUrl, description, ogUrl } = props;
+  const { date, title, imageUrl, description, ogUrl, blog } = props;
 
-  const titleName = title || siteData.title;
+  const titleName = title || blog?.title;
 
   return (
     <Head>
       <title>{titleName}</title>
       <meta name="robots" content="follow, index" />
       <meta content={description || titleName} name="description" />
-      <meta property="og:site_name" content={siteData.author} />
+      <meta property="og:site_name" content={blog?.author} />
       <meta property="og:description" content={description} />
-      <meta property="og:title" content={siteData.title} />
-      <meta property="og:image" content={imageUrl || siteData.ogBanner} />
+      <meta property="og:title" content={blog?.title} />
+      <meta property="og:image" content={imageUrl || blog?.ogBanner} />
 
       <meta property="og:url" content={ogUrl} />
       <meta property="og:type" content="website" />
@@ -23,7 +23,7 @@ export function MetaHead(props) {
       <meta property="og:image" content={imageUrl} />
 
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content={siteData.websiteUrl} />
+      <meta property="twitter:domain" content={blog?.websiteUrl} />
       <meta property="twitter:url" content={ogUrl} />
       <meta name="twitter:title" content={titleName} />
       <meta name="twitter:description" content={description} />

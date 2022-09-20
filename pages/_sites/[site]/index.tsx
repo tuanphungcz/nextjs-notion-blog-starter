@@ -11,6 +11,10 @@ import prisma, { blogSelect } from 'utils/prisma';
 
 export default function Index({ articles, categories, blog }: any) {
   const [selectedTag, setSelectedTag] = useState<string>(null);
+
+  console.log({ articles, categories, blog });
+
+  return <div>ahoj</div>;
   const filteredArticles = filterArticles(articles, selectedTag);
 
   if (!blog) {
