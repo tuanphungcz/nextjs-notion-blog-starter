@@ -63,6 +63,8 @@ export async function getServerSideProps(context: any) {
     select: blogSelect
   });
 
+  console.log('blog', blog);
+
   const data = await getAllArticles(blog.notionBlogDatabaseId);
 
   const { articles, categories } = convertToArticleList(data);

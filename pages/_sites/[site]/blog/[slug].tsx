@@ -10,17 +10,16 @@ import slugify from 'slugify';
 import ArticleList from 'components/ArticleList';
 import prisma, { blogSelect } from 'utils/prisma';
 
-const ArticlePage = ({ result, blog }) => {
-  const {
-    content,
-    title,
-    coverImage,
-    publishedDate,
-    lastEditedAt,
-    summary,
-    moreArticles
-  } = result;
-
+const ArticlePage = ({
+  content,
+  title,
+  coverImage,
+  publishedDate,
+  lastEditedAt,
+  summary,
+  moreArticles,
+  blog
+}) => {
   const publishedOn = getLocalizedDate(publishedDate);
   const modifiedDate = getLocalizedDate(lastEditedAt);
 
@@ -56,7 +55,7 @@ const ArticlePage = ({ result, blog }) => {
                   </>
                 )}
               </div>
-              <div className="font-extrabold tracking-tight text-gray-900 text-w-4xl sm:text-4xl">
+              <div className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:text-w-4xl">
                 {title}
               </div>
               <div className="max-w-3xl mx-auto mt-3 text-xl leading-8 text-gray-500 sm:mt-4">
@@ -103,28 +102,7 @@ const ArticlePage = ({ result, blog }) => {
   );
 };
 
-export const getStaticPaths = async () => {
-  const paths = [];
-  const data: any = await getAllArticles(process.env.BLOG_DATABASE_ID);
-
-  data.forEach(result => {
-    if (result.object === 'page') {
-      paths.push({
-        params: {
-          slug: slugify(result.properties.Name.title[0].plain_text).toLowerCase(),
-          site: ''
-        }
-      });
-    }
-  });
-
-  return {
-    paths,
-    fallback: 'blocking'
-  };
-};
-
-export const getStaticProps = async ({ params: { slug, site } }) => {
+export const getServerSideProps = async ({ params: { slug, site } }) => {
   const data = await getAllArticles(process.env.BLOG_DATABASE_ID);
 
   const blog = await prisma.blogWebsite.findFirst({
@@ -137,10 +115,9 @@ export const getStaticProps = async ({ params: { slug, site } }) => {
 
   return {
     props: {
-      result,
+      ...result,
       blog
-    },
-    revalidate: 30
+    }
   };
 };
 
