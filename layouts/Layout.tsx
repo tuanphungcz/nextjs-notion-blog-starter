@@ -14,7 +14,8 @@ export function Layout(props) {
     imageUrl,
     description,
     ogUrl,
-    title
+    title,
+    blog
   };
 
   return (
