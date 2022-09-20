@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import 'styles/globals.css';
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: any) {
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
       {process.env.NEXT_PUBLIC_UMAMI_ID &&
