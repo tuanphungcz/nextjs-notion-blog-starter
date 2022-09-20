@@ -69,6 +69,12 @@ export async function getServerSideProps(context: any) {
     select: blogSelect
   });
 
+  const allblog = await prisma.blogWebsite.findMany({
+    select: blogSelect
+  });
+
+  console.log(allblog);
+
   if (!blog?.title) {
     return {
       props: {
