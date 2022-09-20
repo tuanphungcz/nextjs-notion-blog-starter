@@ -58,10 +58,20 @@ export async function getServerSideProps(context: any) {
     };
   }
 
+  console.log('site', site);
+
   const blog = await prisma.blogWebsite.findFirst({
     where: { slug: site },
     select: blogSelect
   });
+
+  if (!blog?.title) {
+    return {
+      props: {
+        profile: null
+      }
+    };
+  }
 
   console.log('blog', blog);
 
