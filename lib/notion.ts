@@ -1,19 +1,25 @@
 import { Client } from '@notionhq/client';
 import slugify from 'slugify';
 
-const notion = new Client({
-  auth: process.env.NOTION_SECRET
-});
+export const getAllArticles = async (databaseId, notionSecret, route) => {
+  const notion = new Client({
+    auth: notionSecret
+  });
 
-export const getAllArticles = async databaseId => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      or: [
+      and: [
         {
           property: 'Status',
           select: {
             equals: '✅ Published'
+          }
+        },
+        {
+          property: 'Route',
+          select: {
+            equals: route
           }
         }
       ]
@@ -32,11 +38,17 @@ export const getAllArticles = async databaseId => {
 const mapArticleProperties = article => {
   const { id, properties } = article;
 
+  const summary = properties?.Summary.rich_text[0]?.plain_text ?? '';
+  const title = properties?.Name.title[0].plain_text || '';
+  const categories =
+    properties?.Categories?.multi_select.map((category: any) => category.name) || [];
+
+  const route = properties?.Route?.select?.name || '';
+
   return {
     id: id,
-    title: properties?.Name.title[0].plain_text || '',
-    categories:
-      properties?.Categories?.multi_select.map((category: any) => category.name) || [],
+    title,
+    categories,
     author: {
       name: properties.Author.created_by.name,
       imageUrl: properties.Author.created_by.avatar_url
@@ -47,12 +59,18 @@ const mapArticleProperties = article => {
       '/image-background.png',
     publishedDate: properties.Published?.date?.start,
     lastEditedAt: properties.LastEdited?.last_edited_time,
-    summary: properties?.Summary.rich_text[0]?.plain_text ?? ''
+    route,
+    summary,
+    fullText: [summary, title, categories]
+      .map(item => (Array.isArray(item) ? item.join(' ') : item))
+      .join(' ')
+      .toLowerCase()
   };
 };
 
 export const convertToArticleList = (tableData: any) => {
   let categories: string[] = [];
+  let routes: string[] = [];
 
   const articles = tableData.map((article: any) => {
     const { properties } = article;
@@ -64,13 +82,24 @@ export const convertToArticleList = (tableData: any) => {
       }
     });
 
+    const route = properties?.Route?.select?.name || '';
+
+    if (!routes.includes(route) && route) {
+      routes.push(route);
+    }
+
     return mapArticleProperties(article);
   });
 
-  return { articles, categories };
+  return { articles, categories, routes };
 };
 
-export const getMoreArticlesToSuggest = async (databaseId, currentArticleTitle) => {
+export const getMoreArticlesToSuggest = async (
+  databaseId,
+  currentArticleTitle,
+  notion,
+  route
+) => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -79,6 +108,12 @@ export const getMoreArticlesToSuggest = async (databaseId, currentArticleTitle) 
           property: 'Status',
           select: {
             equals: '✅ Published'
+          }
+        },
+        {
+          property: 'Route',
+          select: {
+            equals: route
           }
         },
         {
@@ -95,7 +130,7 @@ export const getMoreArticlesToSuggest = async (databaseId, currentArticleTitle) 
     mapArticleProperties(article)
   );
 
-  return shuffleArray(moreArticles).slice(0, 2);
+  return shuffleArray(moreArticles).slice(0, 3);
 };
 
 export const getArticlePage = (data, slug) => {
@@ -126,13 +161,28 @@ export function shuffleArray(array: Array<any>) {
   return array;
 }
 
-export const getArticlePageData = async (page: any, slug: any, databaseId) => {
+export const getArticlePageData = async (
+  page: any,
+  slug: any,
+  databaseId,
+  notionSecret,
+  route
+) => {
+  const notion = new Client({
+    auth: notionSecret
+  });
+
   let content = [];
   let title = '';
 
   title = page.properties.Name.title[0].plain_text;
 
-  const moreArticles: any = await getMoreArticlesToSuggest(databaseId, title);
+  const moreArticles: any = await getMoreArticlesToSuggest(
+    databaseId,
+    title,
+    notion,
+    route
+  );
 
   let blocks = await notion.blocks.children.list({
     block_id: page.id

@@ -2,7 +2,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 // import theme from 'prism-react-renderer/themes/nightOwl';
 import { theme } from './outputTheme';
 
-import { Language } from 'utils/types';
+import { Language } from 'lib/types';
 import { useCopyToClipboard } from 'hooks/useCopyToClipboard';
 
 type Props = {

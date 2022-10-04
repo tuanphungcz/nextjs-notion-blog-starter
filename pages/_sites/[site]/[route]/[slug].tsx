@@ -1,14 +1,14 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import { getAllArticles, getArticlePage, getArticlePageData } from 'utils/notion';
+import { getAllArticles, getArticlePage, getArticlePageData } from 'lib/notion';
 import { Layout } from 'layouts/Layout';
 import Image from 'next/image';
 import { renderBlocks } from 'components/notionBlocks/renderBlocks';
-import getLocalizedDate from 'utils/getLocalizedDate';
-import Container from 'components/Container';
+import getLocalizedDate from 'lib/getLocalizedDate';
+import Container from 'components/base/Container';
 import slugify from 'slugify';
-import ArticleList from 'components/ArticleList';
-import prisma, { blogSelect } from 'utils/prisma';
+import ArticleList from 'components/base/ArticleList';
+import prisma, { blogSelect } from 'lib/prisma';
 
 const ArticlePage = ({
   content,
@@ -17,6 +17,7 @@ const ArticlePage = ({
   publishedDate,
   lastEditedAt,
   summary,
+  route,
   moreArticles,
   blog
 }) => {
@@ -25,22 +26,19 @@ const ArticlePage = ({
 
   const slug = slugify(title).toLowerCase();
 
-  // const ogImage = `https://www.phung.io/api/og-image?title=${encodeURIComponent(
-  //   title
-  // )}&date=${encodeURIComponent(publishedOn)}`;
-
   const ogImage = `${blog?.websiteUrl}/api/og-image?title=${encodeURIComponent(
     title
   )}&date=${encodeURIComponent(publishedOn)}`;
 
+  const hasCoverImage = blog?.coverImage === '/image-background.png';
+
   return (
     <>
       <Layout
-        title={title}
         description={summary}
         imageUrl={ogImage}
         date={new Date(publishedDate).toISOString()}
-        ogUrl={`/blog/${slug}`}
+        ogUrl={`/${slug}`}
         blog={blog}
       >
         <div>
@@ -65,19 +63,22 @@ const ArticlePage = ({
           </div>
 
           <div className="max-w-5xl px-6 mx-auto my-16 md:px-8">
-            <Image
-              className="rounded-lg aspect-video"
-              objectFit="cover"
-              src={coverImage}
-              placeholder="blur"
-              blurDataURL={coverImage}
-              layout="intrinsic"
-              width={1200}
-              height={684}
-              alt={'article cover'}
-              priority
-            />
+            {hasCoverImage && (
+              <Image
+                className="rounded-lg aspect-video"
+                objectFit="cover"
+                src={coverImage}
+                placeholder="blur"
+                blurDataURL={coverImage}
+                layout="intrinsic"
+                width={1200}
+                height={684}
+                alt={'article cover'}
+                priority
+              />
+            )}
           </div>
+
           <div className="max-w-4xl px-6 mx-auto mb-24 space-y-8 md:px-8">
             {content.map(block => (
               <Fragment key={block.id}>{renderBlocks(block)}</Fragment>
@@ -86,10 +87,10 @@ const ArticlePage = ({
           <div className="py-12 border-t">
             <Container>
               <div className="flex items-center justify-between my-8">
-                <div className="text-3xl font-bold text-gray-900">Latest articles</div>
+                <div className="text-3xl font-bold text-gray-900">Latest {route}</div>
                 <Link href="/">
                   <span className="font-semibold text-gray-900 cursor-pointer">
-                    More articles ➜
+                    More {route} ➜
                   </span>
                 </Link>
               </div>
@@ -102,21 +103,31 @@ const ArticlePage = ({
   );
 };
 
-export const getServerSideProps = async ({ params: { slug, site } }) => {
-  const data = await getAllArticles(process.env.BLOG_DATABASE_ID);
+export const getServerSideProps = async context => {
+  const { site, slug, route } = context.query;
+
+  const findOptions = site.includes('.') ? { customDomain: site } : { slug: site };
 
   const blog = await prisma.blogWebsite.findFirst({
-    where: { slug: site },
+    where: findOptions,
     select: blogSelect
   });
 
+  const data = await getAllArticles(blog.notionBlogDatabaseId, blog.notionSecret, '');
   const page = getArticlePage(data, slug);
-  const result = await getArticlePageData(page, slug, process.env.BLOG_DATABASE_ID);
+  const result = await getArticlePageData(
+    page,
+    slug,
+    blog.notionBlogDatabaseId,
+    blog.notionSecret,
+    route
+  );
 
   return {
     props: {
       ...result,
-      blog
+      blog,
+      route
     }
   };
 };
