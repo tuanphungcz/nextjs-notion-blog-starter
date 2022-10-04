@@ -1,5 +1,4 @@
 import { SessionProvider } from 'next-auth/react';
-import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import 'styles/globals.css';

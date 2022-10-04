@@ -1,4 +1,6 @@
-import isValidEmail from 'utils/isValidEmail';
+import isValidEmail from 'lib/isValidEmail';
+import prisma from 'lib/prisma';
+import { getSession } from 'next-auth/react';
 
 const subscribeConvertkit = async (req, res) => {
   const { email } = JSON.parse(req.body);
@@ -7,20 +9,22 @@ const subscribeConvertkit = async (req, res) => {
     return res.status(400).json({ error: 'Email is required.' });
   }
 
-  const isValid = isValidEmail(email);
-
-  if (!isValid) {
+  if (!isValidEmail(email)) {
     return res.status(400).json({ error: 'Email is invalid.' });
   }
 
-  try {
-    const FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
-    const API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
+  const session = await getSession({ req });
 
+  const blog = await prisma.blogWebsite.findFirst({
+    where: { email: session?.user.email },
+    select: { convertkitApiKey: true, convertkitFormid: true }
+  });
+
+  try {
     const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`,
+      `https://api.convertkit.com/v3/forms/${blog.convertkitFormid}/subscribe`,
       {
-        body: JSON.stringify({ email, api_key: API_KEY }),
+        body: JSON.stringify({ email, api_key: blog.convertkitApiKey }),
         headers: { 'Content-Type': 'application/json' },
         method: 'POST'
       }

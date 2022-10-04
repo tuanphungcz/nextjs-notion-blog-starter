@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { formatHashLink } from 'utils/formatHashLink';
+import { formatHashLink } from 'lib/formatHashLink';
 
 type Props = {
   children: JSX.Element;
