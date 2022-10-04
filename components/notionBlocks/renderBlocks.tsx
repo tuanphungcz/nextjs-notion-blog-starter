@@ -83,7 +83,7 @@ export function renderBlocks(block) {
       const caption = value.caption.length >= 1 ? value.caption[0].plain_text : '';
       return (
         <figure className="mt-0">
-            <Image
+          <Image
             className="rounded-lg aspect-video"
             objectFit="cover"
             src={src}

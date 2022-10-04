@@ -1,4 +1,4 @@
-import Container from 'components/Container';
+import Container from 'components/base/Container';
 import Socials from 'components/Socials';
 
 export default function Footer({ blog }) {
