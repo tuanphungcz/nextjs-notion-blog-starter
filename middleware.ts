@@ -1,5 +1,20 @@
 import { NextResponse } from 'next/server';
 
+export const config = {
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /fonts (inside /public)
+     * 4. /examples (inside /public)
+     * 5. all root files inside /public (e.g. /favicon.ico)
+     */
+    "/((?!api|_next|fonts|examples|[\\w-]+\\.\\w+).*)",
+  ],
+};
+
+
 export function middleware(req: any) {
   const url = req.nextUrl.clone();
   const host = req.headers.get('host');
@@ -8,17 +23,24 @@ export function middleware(req: any) {
 
   const trimmedHost = host
     .replace(/^www\./, '')
-    .replace('notionlist.io', '')
-    .replace('.notionlist.io', '')
+    .replace(`.notionlist.io`, '')
+    .replace(`notionlist.io`, '')
     .replace(`.localhost:3000`, '')
     .replace(`localhost:3000`, '');
     
 
-  if (!pathname.includes('.') && !pathname.startsWith('/api') && !pathname.includes('/_next/image')) {
+    if (host === "localhost:3000" || host === "nocodelist.io") {
+      url.pathname = `${url.pathname}`;
+      return NextResponse.rewrite(url);
+    }
+
+
     if (trimmedHost.length > 0) {
-      url.pathname = `/_sites/${trimmedHost}`;
+      url.pathname = `/_sites/${trimmedHost}${pathname}`;
+      console.log('trimmedHost', trimmedHost)
+      console.log('pathname', pathname)
       console.log('tostring', url.toString())
       return NextResponse.rewrite(url);
     }
-  }
+  
 }
