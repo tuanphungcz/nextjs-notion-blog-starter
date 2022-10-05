@@ -27,9 +27,6 @@ export function middleware(req: any) {
     .replace(`.localhost:3000`, '')
     .replace(`localhost:3000`, '');
 
-  console.log('host', host);
-  console.log('trimmedHost', trimmedHost);
-
   if (host === 'localhost:3000' || host === 'notionlist.io') {
     url.pathname = `${url.pathname}`;
     return NextResponse.rewrite(url);

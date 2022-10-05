@@ -22,8 +22,6 @@ export async function getServerSideProps(context: any) {
   try {
     const { site } = context.query;
 
-    console.log('site', site);
-
     if (!site) {
       return {
         props: {
