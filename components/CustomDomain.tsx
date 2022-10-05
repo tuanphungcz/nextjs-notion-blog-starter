@@ -23,8 +23,8 @@ export default function CustomDomain({ blog }) {
   };
 
   const onDeleteCustomDomain = async () => {
-    if (confirm('Are you sure you want to remove this domain?'))
-      return await fetcher('/api/delete-domain', {
+    if (confirm('Are you sure you want to remove this domain?')) {
+      await fetcher('/api/delete-domain', {
         body: JSON.stringify({ id: blog.id, customDomain: customDomainValue }),
         headers: {
           'Content-Type': 'application/json'
@@ -32,7 +32,8 @@ export default function CustomDomain({ blog }) {
         method: 'POST'
       });
 
-    router.reload();
+      router.reload();
+    }
   };
 
   const { data: domainConfig } = useSWR(
