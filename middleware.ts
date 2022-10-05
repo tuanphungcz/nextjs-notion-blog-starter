@@ -10,10 +10,9 @@ export const config = {
      * 4. /examples (inside /public)
      * 5. all root files inside /public (e.g. /favicon.ico)
      */
-    "/((?!api|_next|fonts|examples|[\\w-]+\\.\\w+).*)",
-  ],
+    '/((?!api|_next|fonts|examples|[\\w-]+\\.\\w+).*)'
+  ]
 };
-
 
 export function middleware(req: any) {
   const url = req.nextUrl.clone();
@@ -27,20 +26,20 @@ export function middleware(req: any) {
     .replace(`notionlist.io`, '')
     .replace(`.localhost:3000`, '')
     .replace(`localhost:3000`, '');
-    
 
-    if (host === "localhost:3000" || host === "nocodelist.io") {
-      url.pathname = `${url.pathname}`;
-      return NextResponse.rewrite(url);
-    }
+  console.log('host', host);
+  console.log('trimmedHost', trimmedHost);
 
+  if (host === 'localhost:3000' || host === 'notionlist.io') {
+    url.pathname = `${url.pathname}`;
+    return NextResponse.rewrite(url);
+  }
 
-    if (trimmedHost.length > 0) {
-      url.pathname = `/_sites/${trimmedHost}${pathname}`;
-      console.log('trimmedHost', trimmedHost)
-      console.log('pathname', pathname)
-      console.log('tostring', url.toString())
-      return NextResponse.rewrite(url);
-    }
-  
+  if (trimmedHost.length > 0) {
+    url.pathname = `/_sites/${trimmedHost}${pathname}`;
+    console.log('trimmedHost', trimmedHost);
+    console.log('pathname', pathname);
+    console.log('tostring', url.toString());
+    return NextResponse.rewrite(url);
+  }
 }
