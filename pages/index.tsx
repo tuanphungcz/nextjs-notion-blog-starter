@@ -56,7 +56,7 @@ export default function Index({ blogs }) {
             </div>
           </Link>
         </div>
-        <div className="mt-8 overflow-hidden rounded-lg shadow ring-1 ring-black ring-opacity-5">
+        <div className="mt-8 overflow-auto rounded-lg shadow ring-1 ring-black ring-opacity-5">
           <table className="min-w-full divide-y divide-gray-300">
             <thead className="bg-gray-100">
               <tr>
