@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
@@ -29,15 +30,15 @@ export default function ArticleCard({ article, route }: any) {
               ))}
             </div> */}
             <div className=" filter contrast-[0.9]">
-              <Image
-                className="object-cover w-full h-48 transition rounded-lg aspect-video group-hover:opacity-90 "
+              <img
+                className="object-cover w-full transition rounded-lg aspect-video group-hover:opacity-90 "
                 src={article.coverImage}
-                blurDataURL={article.coverImage}
-                objectFit="cover"
-                placeholder="blur"
-                layout="intrinsic"
-                width={800}
-                height={400}
+                // blurDataURL={article.coverImage}
+                // objectFit="cover"
+                // placeholder="blur"
+                // layout="intrinsic"
+                // width={800}
+                // height={400}
                 alt={'article cover'}
               />
             </div>
