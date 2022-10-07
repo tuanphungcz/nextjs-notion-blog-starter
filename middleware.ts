@@ -22,12 +22,10 @@ export function middleware(req: any) {
 
   const trimmedHost = host
     .replace(/^www\./, '')
-    .replace(`.notionlist.io`, '')
-    .replace(`notionlist.io`, '')
-    .replace(`.localhost:3000`, '')
-    .replace(`localhost:3000`, '');
+    .replace(`.blogfolio.io`, '')
+    .replace(`.localhost:3000`, '');
 
-  if (host === 'localhost:3000' || host === 'notionlist.io') {
+  if (host === 'localhost:3000' || host === 'blogfolio.io') {
     url.pathname = `${url.pathname}`;
     return NextResponse.rewrite(url);
   }

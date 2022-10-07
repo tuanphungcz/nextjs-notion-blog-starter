@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { Fragment } from 'react';
 import Image from 'next/image';
 import Text from 'components/notionBlocks/Text';
@@ -83,15 +84,15 @@ export function renderBlocks(block) {
       const caption = value.caption.length >= 1 ? value.caption[0].plain_text : '';
       return (
         <figure className="mt-0">
-          <Image
-            className="rounded-lg aspect-video"
-            objectFit="cover"
+          <img
+            className="object-cover w-full rounded-lg aspect-video"
             src={src}
-            placeholder="blur"
-            blurDataURL={src}
-            width={1200}
-            height={684}
-            alt={caption ? caption : 'A visual depiction of what is being written about'}
+            // objectFit="cover"
+            // placeholder="blur"
+            // blurDataURL={src}
+            // width={1200}
+            // height={684}
+            alt="generic image"
           />
           {caption && <figcaption className="text-center">{caption}</figcaption>}
         </figure>
