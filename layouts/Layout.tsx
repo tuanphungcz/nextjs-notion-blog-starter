@@ -4,13 +4,12 @@ import Header from './Navbar';
 import { MetaHead } from './MetaHead';
 
 export function Layout(props) {
-  const { children, date, imageUrl, description, ogUrl, blog, title } = props;
+  const { children, imageUrl, description, ogUrl, blog, title } = props;
 
   const FORM_ID = blog.convertkitFormid;
   const API_KEY = blog.convertkitApiKey;
 
   const metaHeadProps = {
-    date,
     imageUrl,
     description,
     ogUrl,
