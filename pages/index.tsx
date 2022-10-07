@@ -117,7 +117,7 @@ export default function Index({ blogs }) {
                         onClick={e => {
                           e.preventDefault();
                           window.open(
-                            `https://${directory.slug}.notionlist.io`,
+                            `https://${directory.slug}.blogfolio.co`,
                             '_blank'
                           );
                         }}
