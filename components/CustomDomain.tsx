@@ -72,8 +72,8 @@ export default function CustomDomain({ blog }) {
 
         {blog?.customDomain && (
           <div className="p-8 space-y-4">
-            <div className="justify-between pb-4 md:flex">
-              <div className="space-y-4">
+            <div className="flex justify-between pb-4">
+              <div className="">
                 <a
                   href={`https://${blog?.customDomain}`}
                   target="_blank"
