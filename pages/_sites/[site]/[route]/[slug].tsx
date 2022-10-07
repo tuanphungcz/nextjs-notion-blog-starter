@@ -20,16 +20,19 @@ const ArticlePage = ({
   summary,
   route,
   moreArticles,
-  blog
+  blog,
+  host
 }) => {
   const publishedOn = getLocalizedDate(publishedDate);
   const modifiedDate = getLocalizedDate(lastEditedAt);
 
   const slug = slugify(title).toLowerCase();
 
-  const ogImage = `${blog?.websiteUrl}/api/og-image?title=${encodeURIComponent(
+  const ogImage = `https://${host}/api/og-image?title=${encodeURIComponent(
     title
   )}&date=${encodeURIComponent(publishedOn)}`;
+
+  console.log(ogImage);
 
   const hasCoverImage = coverImage !== '/image-background.png';
 
@@ -43,8 +46,8 @@ const ArticlePage = ({
         description={summary}
         imageUrl={ogImage}
         date={new Date(publishedDate).toISOString()}
-        ogUrl={`/${slug}`}
         blog={blog}
+        title={title}
       >
         <div>
           <div
@@ -96,14 +99,18 @@ const ArticlePage = ({
           <div className="py-12 border-t">
             <Container>
               <div className="flex items-center justify-between my-8">
-                <div className="text-3xl font-bold text-gray-900">{route}</div>
+                <div className="text-3xl font-bold text-gray-900">Other {route}</div>
                 <Link href="/">
                   <span className="font-semibold text-gray-900 cursor-pointer">
                     More {route} ➜
                   </span>
                 </Link>
               </div>
-              <ArticleList articles={moreArticles} routeSettings={routeSettings} route={route} />
+              <ArticleList
+                articles={moreArticles}
+                routeSettings={routeSettings}
+                route={route}
+              />
             </Container>
           </div>
         </div>
@@ -114,6 +121,7 @@ const ArticlePage = ({
 
 export const getServerSideProps = async context => {
   const { site, slug, route } = context.query;
+  const { headers } = context.req;
 
   const findOptions = site.includes('.') ? { customDomain: site } : { slug: site };
 
@@ -136,7 +144,8 @@ export const getServerSideProps = async context => {
     props: {
       ...result,
       blog,
-      route
+      route,
+      host: headers.host
     }
   };
 };

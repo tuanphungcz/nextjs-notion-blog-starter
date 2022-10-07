@@ -27,6 +27,8 @@ export const blogSelect = {
   linkedin: true,
   notionSecret: true,
   notionBlogDatabaseId: true,
+  convertkitFormid: true,
+  convertkitApiKey: true,
   customDomain: true
 };
 

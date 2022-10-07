@@ -30,14 +30,14 @@ export function middleware(req: any) {
     return NextResponse.rewrite(url);
   }
 
-  console.log('url', url);
-  console.log('trimmedHost', trimmedHost);
+  // console.log('pathname', pathname);
+  // console.log('trimmedHost', trimmedHost);
 
   if (trimmedHost.length > 0) {
     url.pathname = `/_sites/${trimmedHost}${pathname}`;
-    console.log('trimmedHost', trimmedHost);
-    console.log('pathname', pathname);
-    console.log('tostring', url.toString());
+    // console.log('trimmedHost', trimmedHost);
+    // console.log('pathname', pathname);
+    // console.log('tostring', url.toString());
     return NextResponse.rewrite(url);
   }
 }
