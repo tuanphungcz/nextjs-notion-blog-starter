@@ -2,7 +2,7 @@ import TwitterHead, { GeneralHead } from 'components/OgMeta';
 import Head from 'next/head';
 
 export function MetaHead(props) {
-  const { title, imageUrl, description, blog } = props;
+  const { title, imageUrl, description, blog, ogUrl } = props;
 
   return (
     <Head>
@@ -11,10 +11,12 @@ export function MetaHead(props) {
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={description} />
       <meta charSet="utf-8" />
+      <link rel="shortcut icon" href={blog?.profileUrl} />
+
       {/* OG Sharing Deets */}
       <GeneralHead
         description={description}
-        ogUrl={'www.phung.io'}
+        ogUrl={ogUrl}
         ogImage={imageUrl}
         ogTitle={title}
       />
@@ -22,7 +24,7 @@ export function MetaHead(props) {
       {/* Twitter Sharing Deets */}
       <TwitterHead
         description={description}
-        ogUrl={'www.phung.io'}
+        ogUrl={ogUrl}
         ogImage={imageUrl}
         ogTitle={title}
       />

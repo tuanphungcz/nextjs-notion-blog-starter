@@ -45,9 +45,9 @@ const ArticlePage = ({
       <Layout
         description={summary}
         imageUrl={ogImage}
-        date={new Date(publishedDate).toISOString()}
         blog={blog}
         title={title}
+        ogUrl={`https://${host}`}
       >
         <div>
           <div
