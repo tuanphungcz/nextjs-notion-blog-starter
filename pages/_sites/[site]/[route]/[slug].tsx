@@ -31,8 +31,6 @@ const ArticlePage = ({
     title
   )}&date=${encodeURIComponent(publishedOn)}`;
 
-  console.log(coverImage);
-
   const hasCoverImage = coverImage !== '/image-background.png';
 
   const routeSettings = JSON.parse(blog.settingData)?.links.find(setting =>
@@ -105,7 +103,7 @@ const ArticlePage = ({
                   </span>
                 </Link>
               </div>
-              <ArticleList articles={moreArticles} routeSettings={routeSettings} />
+              <ArticleList articles={moreArticles} routeSettings={routeSettings} route={route} />
             </Container>
           </div>
         </div>
