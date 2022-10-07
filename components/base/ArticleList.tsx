@@ -1,6 +1,7 @@
 import ArticleCard from '../ArticleCard';
 
 export default function ArticleList({ articles, route, routeSettings }: any) {
+  console.log(route);
   return (
     <div
       className={`grid gap-10 lg:gap-12 sm:grid-cols-2 ${

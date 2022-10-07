@@ -1,4 +1,6 @@
+import AppDropdown from 'components/AppDropdown';
 import Container from 'components/base/Container';
+import Dropdown from 'components/Dropdown';
 import Link from 'next/link';
 
 // export const navSettings = {
@@ -10,6 +12,7 @@ import Link from 'next/link';
 // };
 
 export default function Navbar({ blog }) {
+  const links = JSON.parse(blog.settingData)?.links || [];
   return (
     <div className="fixed z-10 w-full bg-white border-b">
       <Container>
@@ -28,11 +31,7 @@ export default function Navbar({ blog }) {
           </Link>
           <div className="flex items-center space-x-8 cursor-pointer">
             <div className="flex space-x-4">
-              {JSON.parse(blog?.settingData).links.map(item => (
-                <Link key={item.url} href={item.url}>
-                  <div className="p-1 font-medium text-gray-900">{item.name}</div>
-                </Link>
-              ))}
+              <AppDropdown links={links} />
             </div>
             {/* <Socials blog={blog} /> */}
           </div>

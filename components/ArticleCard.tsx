@@ -11,7 +11,7 @@ export default function ArticleCard({ article, route }: any) {
   const hasCoverImage = article?.coverImage === '/image-background.png';
 
   return (
-    <a href={`${route}/${slug}`}>
+    <a href={`/${route}/${slug}`}>
       <div
         className={`flex flex-col overflow-hidden cursor-pointer group ${
           hasCoverImage && 'border p-4 rounded-md hover:bg-gray-100 transition'
