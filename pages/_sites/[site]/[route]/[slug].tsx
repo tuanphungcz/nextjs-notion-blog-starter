@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { getAllArticles, getArticlePage, getArticlePageData } from 'lib/notion';
@@ -30,7 +31,13 @@ const ArticlePage = ({
     title
   )}&date=${encodeURIComponent(publishedOn)}`;
 
-  const hasCoverImage = blog?.coverImage === '/image-background.png';
+  console.log(coverImage);
+
+  const hasCoverImage = coverImage !== '/image-background.png';
+
+  const routeSettings = JSON.parse(blog.settingData)?.links.find(setting =>
+    setting?.url?.includes(route)
+  );
 
   return (
     <>
@@ -42,7 +49,11 @@ const ArticlePage = ({
         blog={blog}
       >
         <div>
-          <div className="px-6 py-16 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
+          <div
+            className={`px-6 py-16 pb-48 mx-auto -mb-48 text-center ${
+              hasCoverImage && 'bg-gray-100'
+            } md:pb-96 md:-mb-96`}
+          >
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
                 <div className="">{publishedOn}</div>
@@ -64,17 +75,17 @@ const ArticlePage = ({
 
           <div className="max-w-5xl px-6 mx-auto my-16 md:px-8">
             {hasCoverImage && (
-              <Image
-                className="rounded-lg aspect-video"
-                objectFit="cover"
+              <img
+                className="object-cover w-full mx-auto rounded-lg aspect-video"
                 src={coverImage}
-                placeholder="blur"
-                blurDataURL={coverImage}
-                layout="intrinsic"
-                width={1200}
-                height={684}
+                // objectFit="cover"
+                // placeholder="blur"
+                // blurDataURL={coverImage}
+                // layout="intrinsic"
+                // width={1200}
+                // height={684}
+                // priority
                 alt={'article cover'}
-                priority
               />
             )}
           </div>
@@ -87,14 +98,14 @@ const ArticlePage = ({
           <div className="py-12 border-t">
             <Container>
               <div className="flex items-center justify-between my-8">
-                <div className="text-3xl font-bold text-gray-900">Latest {route}</div>
+                <div className="text-3xl font-bold text-gray-900">{route}</div>
                 <Link href="/">
                   <span className="font-semibold text-gray-900 cursor-pointer">
                     More {route} ➜
                   </span>
                 </Link>
               </div>
-              <ArticleList articles={moreArticles} />
+              <ArticleList articles={moreArticles} routeSettings={routeSettings} />
             </Container>
           </div>
         </div>

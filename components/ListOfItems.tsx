@@ -18,6 +18,11 @@ export default function ListOfItems({
   const [selectedTag, setSelectedTag] = useState<string>(null);
   const [searchValue, setSearchValue] = useState('');
   const filteredArticles = filterArticles(articles, selectedTag, searchValue);
+
+  const routeSettings = JSON.parse(blog.settingData)?.links.find(setting =>
+    setting?.url?.includes(route)
+  );
+
   return (
     <Layout blog={blog} routes={routes}>
       {blog?.headerTitle && !hideHeader && <HeroHeader blog={blog} />}
@@ -33,34 +38,42 @@ export default function ListOfItems({
                 : `${selectedTag} ${route}`}
             </div>
 
-            <div className="relative max-w-sm">
-              <input
-                className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded"
-                type="text"
-                placeholder="Search articles"
-                value={searchValue}
-                onChange={(e: any) => {
-                  const value = e.target.value;
-                  setSelectedTag(null);
-                  setSearchValue(value);
-                }}
-              />
-              <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
-            </div>
-            <div className="flex flex-wrap justify-start gap-4">
-              {categories.map(tag => (
-                <Category
-                  tag={tag}
-                  key={tag}
-                  selectedTag={selectedTag}
-                  setSearchValue={setSearchValue}
-                  setSelectedTag={setSelectedTag}
+            {routeSettings?.isTagsVisible && (
+              <div className="relative max-w-sm">
+                <input
+                  className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded"
+                  type="text"
+                  placeholder="Search articles"
+                  value={searchValue}
+                  onChange={(e: any) => {
+                    const value = e.target.value;
+                    setSelectedTag(null);
+                    setSearchValue(value);
+                  }}
                 />
-              ))}
+                <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
+              </div>
+            )}
+            <div className="flex flex-wrap justify-start gap-4">
+              {routeSettings?.isTagsVisible &&
+                categories.map(tag => (
+                  <Category
+                    tag={tag}
+                    key={tag}
+                    selectedTag={selectedTag}
+                    setSearchValue={setSearchValue}
+                    setSelectedTag={setSelectedTag}
+                  />
+                ))}
             </div>
           </div>
 
-          <ArticleList articles={filteredArticles} route={route} />
+          <ArticleList
+            articles={filteredArticles}
+            route={route}
+            blog={blog}
+            routeSettings={routeSettings}
+          />
         </div>
       </Container>
     </Layout>
