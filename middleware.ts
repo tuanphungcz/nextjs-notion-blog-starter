@@ -22,13 +22,16 @@ export function middleware(req: any) {
 
   const trimmedHost = host
     .replace(/^www\./, '')
-    .replace(`.blogfolio.io`, '')
+    .replace(`.blogfolio.co`, '')
     .replace(`.localhost:3000`, '');
 
-  if (host === 'localhost:3000' || host === 'blogfolio.io') {
+  if (host === 'localhost:3000' || host === 'blogfolio.co') {
     url.pathname = `${url.pathname}`;
     return NextResponse.rewrite(url);
   }
+
+  console.log('url', url);
+  console.log('trimmedHost', trimmedHost);
 
   if (trimmedHost.length > 0) {
     url.pathname = `/_sites/${trimmedHost}${pathname}`;
