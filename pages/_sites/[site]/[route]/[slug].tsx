@@ -20,8 +20,7 @@ const ArticlePage = ({
   summary,
   route,
   moreArticles,
-  blog,
-  ...other
+  blog
 }) => {
   const publishedOn = getLocalizedDate(publishedDate);
   const modifiedDate = getLocalizedDate(lastEditedAt);
@@ -35,6 +34,10 @@ const ArticlePage = ({
   console.log(coverImage);
 
   const hasCoverImage = coverImage !== '/image-background.png';
+
+  const routeSettings = JSON.parse(blog.settingData)?.links.find(setting =>
+    setting?.url?.includes(route)
+  );
 
   return (
     <>
@@ -83,7 +86,7 @@ const ArticlePage = ({
                 // height={684}
                 // priority
                 alt={'article cover'}
-                />
+              />
             )}
           </div>
 
@@ -95,14 +98,14 @@ const ArticlePage = ({
           <div className="py-12 border-t">
             <Container>
               <div className="flex items-center justify-between my-8">
-                <div className="text-3xl font-bold text-gray-900">Latest {route}</div>
+                <div className="text-3xl font-bold text-gray-900">{route}</div>
                 <Link href="/">
                   <span className="font-semibold text-gray-900 cursor-pointer">
                     More {route} ➜
                   </span>
                 </Link>
               </div>
-              <ArticleList articles={moreArticles} />
+              <ArticleList articles={moreArticles} routeSettings={routeSettings} />
             </Container>
           </div>
         </div>
