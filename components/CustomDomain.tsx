@@ -24,7 +24,7 @@ export default function CustomDomain({ blog }) {
 
   const onDeleteCustomDomain = async () => {
     if (confirm('Are you sure you want to remove this domain?'))
-      return await fetcher('/api/delete-domain', {
+      await fetcher('/api/delete-domain', {
         body: JSON.stringify({ id: blog.id, customDomain: customDomainValue }),
         headers: {
           'Content-Type': 'application/json'
@@ -35,8 +35,9 @@ export default function CustomDomain({ blog }) {
     router.reload();
   };
 
-  const { data: domainConfig } = useSWR(
-    blog?.customDomain && `/api/get-domain/config${blog.customDomain}`
+  const { data: domainConfig }: any = useSWR(
+    blog?.customDomain && `/api/get-domain-config/${blog.customDomain}`,
+    fetcher
   );
 
   return (
@@ -46,7 +47,7 @@ export default function CustomDomain({ blog }) {
         <p className="mt-2 text-sm text-gray-500">
           {!blog?.customDomain
             ? 'Add custom domain'
-            : 'You can map your domain to Nocodelist by adding the following DNS record.'}
+            : 'You can map your domain to Blogfolio by adding the following DNS record.'}
         </p>
       </div>
 
@@ -62,7 +63,7 @@ export default function CustomDomain({ blog }) {
               <button
                 onClick={onCreateCustomDomain}
                 type="button"
-                className="px-4 py-1.5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                className="px-4 py-1.5 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
               >
                 <div>Add domain</div>
               </button>

@@ -4,7 +4,7 @@ import Header from './Navbar';
 import { MetaHead } from './MetaHead';
 
 export function Layout(props) {
-  const { children, date, imageUrl, description, ogUrl, blog } = props;
+  const { children, date, imageUrl, description, ogUrl, blog, title } = props;
 
   const FORM_ID = blog.convertkitFormid;
   const API_KEY = blog.convertkitApiKey;
@@ -14,6 +14,7 @@ export function Layout(props) {
     imageUrl,
     description,
     ogUrl,
+    title,
     blog
   };
 
@@ -23,7 +24,6 @@ export function Layout(props) {
       <Header blog={blog} />
       <div className="pt-14">{children}</div>
       {FORM_ID && API_KEY && <Subscribe />}
-
       <Footer blog={blog} />
     </>
   );

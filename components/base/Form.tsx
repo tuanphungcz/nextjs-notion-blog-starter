@@ -22,7 +22,9 @@ function InputWrapper({ label, rightHelper, prefix, suffix, error, helper, child
         )}
       </div>
       {helper && !error && (
-        <div className="text-xs text-gray-500 break-all whitespace-pre-line">{helper}</div>
+        <div className="text-xs text-gray-500 break-all whitespace-pre-line">
+          {helper}
+        </div>
       )}
 
       {error && <div className="text-sm text-red-500">{error.message}</div>}

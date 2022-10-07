@@ -2,8 +2,8 @@ import Container from './base/Container';
 import SubscribeInput from './SubscribeInput';
 
 export default function HeroHeader({ blog }: any) {
-  const FORM_ID = blog.convertkitFormid;
-  const API_KEY = blog.convertkitApiKey;
+  const formId = blog?.convertkitFormid;
+  const apiKey = blog?.convertkitApiKey;
 
   return (
     <div className="py-16 text-center bg-gray-100">
@@ -22,7 +22,7 @@ export default function HeroHeader({ blog }: any) {
           {blog?.headerDescription}
         </div>
 
-        {FORM_ID && API_KEY && (
+        {formId && apiKey && (
           <div className="mt-6">
             <SubscribeInput />
           </div>

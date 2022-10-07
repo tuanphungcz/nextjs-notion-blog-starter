@@ -45,8 +45,6 @@ export async function getServerSideProps(context: any) {
       };
     }
 
-    // console.log(JSON.parse(blog?.settingData));
-
     const route = JSON.parse(blog?.settingData)
       .links.find(item => item.isDefault === true)
       .name.toLowerCase();

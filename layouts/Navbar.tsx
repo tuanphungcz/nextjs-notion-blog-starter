@@ -1,6 +1,6 @@
 import AppDropdown from 'components/AppDropdown';
 import Container from 'components/base/Container';
-import Dropdown from 'components/Dropdown';
+import Socials from 'components/Socials';
 import Link from 'next/link';
 
 // export const navSettings = {
@@ -31,9 +31,8 @@ export default function Navbar({ blog }) {
           </Link>
           <div className="flex items-center space-x-8 cursor-pointer">
             <div className="flex space-x-4">
-              <AppDropdown links={links} />
+              {links.length > 1 ? <AppDropdown links={links} /> : <Socials blog={blog} />}
             </div>
-            {/* <Socials blog={blog} /> */}
           </div>
         </div>
       </Container>
