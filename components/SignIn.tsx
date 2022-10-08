@@ -17,7 +17,7 @@ export default function SignIn() {
           </span>
         </h1>
         <p className="mt-5 text-xl text-gray-600 sm:text-2xl">
-          Blogg is a free and open source blog starter built with Next.js and Notion.
+          Blogfolio is a free and open source blog starter built with Next.js and Notion.
         </p>
         <div className="flex mx-auto mt-10 space-x-4 max-w-fit">
           <div
