@@ -23,9 +23,11 @@ export default function ListOfItems({
     setting?.url?.includes(route)
   );
 
+  const site = blog?.settingData?.site;
+
   return (
     <Layout blog={blog} routes={routes}>
-      {blog?.headerTitle && !hideHeader && <HeroHeader blog={blog} />}
+      {site?.headerTitle && !hideHeader && <HeroHeader blog={blog} />}
 
       <Container>
         <div className="py-12">

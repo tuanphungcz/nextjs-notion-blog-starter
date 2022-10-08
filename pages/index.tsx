@@ -1,13 +1,14 @@
-import { useRouter } from 'next/router';
-import SignIn from 'components/SignIn';
-import AppNavbar from 'layouts/AppNavbar';
 import Container from 'components/base/Container';
+import HeroLanding from 'components/HeroLanding';
+import AppNavbar from 'layouts/AppNavbar';
 
 export default function Index() {
   return (
     <>
       <AppNavbar />
-      <SignIn />
+      <Container>
+        <HeroLanding />
+      </Container>
     </>
   );
 }

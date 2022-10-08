@@ -7,19 +7,8 @@ const createBlog = async (req: any, res: any) => {
   try {
     const {
       slug,
-      headerTitle,
-      profileUrl,
-      headerDescription,
-      footerText,
-      ogBanner,
-      blogName,
       settingData,
-      github,
-      twitter,
-      linkedin,
-      notionBlogDatabaseId,
-      convertkitFormid,
-      convertkitApiKey
+      notionBlogDatabaseId
     } = req.body;
 
     const session = await getSession({ req });
@@ -34,22 +23,11 @@ const createBlog = async (req: any, res: any) => {
 
     const profile = await prisma.blogWebsite.create({
       data: {
-        headerTitle,
-        profileUrl,
-        headerDescription,
-        footerText,
-        ogBanner,
         settingData,
-        blogName,
-        github,
-        twitter,
-        linkedin,
         notionBlogDatabaseId,
         slug: slug || autoSlug,
         email: session.user.email,
-        user: { connect: { email: session.user.email } },
-        convertkitFormid,
-        convertkitApiKey
+        user: { connect: { email: session.user.email } }
       }
     });
 

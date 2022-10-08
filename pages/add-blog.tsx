@@ -3,15 +3,21 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import EditForm from '../components/EditForm';
 import Container from '../components/base/Container';
-import SignIn from 'components/SignIn';
 import AppNavbar from 'layouts/AppNavbar';
-import { fetcher } from 'lib/utils';
+import { fetcher, getRandomArbitrary } from 'lib/utils';
 import { useEffect } from 'react';
+import slugify from 'slugify';
+
+const random2Numbers = getRandomArbitrary(0, 100).toFixed();
 
 export default function Index() {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
+
+  const autoSlug = slugify(session?.user?.name || '').toLowerCase() + random2Numbers;
   const { register, handleSubmit, setValue, watch, control, formState } = useForm({
-    defaultValues: null
+    defaultValues: {
+      slug: autoSlug
+    }
   });
   const router = useRouter();
 

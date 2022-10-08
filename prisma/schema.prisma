@@ -67,13 +67,10 @@ model BlogWebsite {
   headerDescription    String?
   profileUrl           String?
   footerText           String?
-  ogBanner             String?
   github               String?
   twitter              String?
   linkedin             String?
   customDomain         String?
   settingData          String?
-  convertkitFormid     String?
-  convertkitApiKey     String?
-  user                 User     @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }

@@ -1,4 +1,4 @@
-import { IconExternalLink, IconTrash } from '@tabler/icons';
+import { IconExternalLink, IconLink, IconTrash } from '@tabler/icons';
 import { fetcher } from 'lib/utils';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -58,6 +58,7 @@ export default function CustomDomain({ blog }) {
               label="Custom domain"
               value={customDomainValue}
               onChange={e => setCustomDomainValue(e.target.value)}
+              prefix={<IconLink />}
             />
             <div className="flex justify-end space-x-4">
               <button

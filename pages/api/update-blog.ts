@@ -3,23 +3,7 @@ import prisma from 'lib/prisma';
 
 const updateBlog = async (req: any, res: any) => {
   try {
-    const {
-      id,
-      slug,
-      headerTitle,
-      profileUrl,
-      headerDescription,
-      footerText,
-      ogBanner,
-      github,
-      twitter,
-      blogName,
-      linkedin,
-      settingData,
-      notionBlogDatabaseId,
-      convertkitFormid,
-      convertkitApiKey
-    } = req.body;
+    const { id, slug, notionBlogDatabaseId, settingData } = req.body;
 
     const session = await getSession({ req });
 
@@ -41,19 +25,8 @@ const updateBlog = async (req: any, res: any) => {
         updatedAt: new Date(),
         email: blog.email,
         slug,
-        headerTitle,
-        profileUrl,
-        headerDescription,
-        footerText,
-        blogName,
-        ogBanner,
-        github,
-        twitter,
-        linkedin,
         settingData,
-        notionBlogDatabaseId,
-        convertkitFormid,
-        convertkitApiKey
+        notionBlogDatabaseId
       }
     });
 

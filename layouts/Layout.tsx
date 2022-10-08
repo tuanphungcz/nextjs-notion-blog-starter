@@ -6,8 +6,10 @@ import { MetaHead } from './MetaHead';
 export function Layout(props) {
   const { children, imageUrl, description, ogUrl, blog, title } = props;
 
-  const FORM_ID = blog.convertkitFormid;
-  const API_KEY = blog.convertkitApiKey;
+  const site = blog.settingData?.site;
+
+  const formId = site?.convertkitFormid;
+  const apiKey = site?.convertkitApiKey;
 
   const metaHeadProps = {
     imageUrl,
@@ -22,7 +24,7 @@ export function Layout(props) {
       <MetaHead {...metaHeadProps} />
       <Header blog={blog} />
       <div className="pt-14">{children}</div>
-      {FORM_ID && API_KEY && <Subscribe />}
+      {formId && apiKey && <Subscribe />}
       <Footer blog={blog} />
     </>
   );

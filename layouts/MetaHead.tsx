@@ -4,14 +4,16 @@ import Head from 'next/head';
 export function MetaHead(props) {
   const { title, imageUrl, description, blog, ogUrl } = props;
 
+  const site = blog.settingData?.site;
+
   return (
     <Head>
-      <title>{title || blog?.blogName}</title>
+      <title>{title || site?.blogName}</title>
       <meta name="robots" content="follow, index" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={description} />
       <meta charSet="utf-8" />
-      <link rel="shortcut icon" href={blog?.profileUrl} />
+      <link rel="shortcut icon" href={site?.profileUrl} />
 
       <GeneralHead
         description={description}

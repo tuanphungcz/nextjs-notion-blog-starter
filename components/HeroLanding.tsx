@@ -2,7 +2,7 @@ import { IconStar } from '@tabler/icons';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-export default function SignIn() {
+export default function HeroLanding() {
   const { status } = useSession();
   const { push } = useRouter();
 
