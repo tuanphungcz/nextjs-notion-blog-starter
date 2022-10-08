@@ -8,7 +8,7 @@ function InputWrapper({ label, rightHelper, prefix, suffix, error, helper, child
         <label className="text-sm font-medium text-gray-700">{label}</label>
         <div>{rightHelper}</div>
       </div>
-      <div className="flex my-1 rounded">
+      <div className="flex my-2 rounded">
         {prefix && (
           <span className="inline-flex items-center px-3 text-sm text-gray-500 border border-r-0 border-gray-300 rounded-l-md bg-gray-50">
             {prefix}

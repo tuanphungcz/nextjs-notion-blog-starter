@@ -17,14 +17,16 @@ const subscribeConvertkit = async (req, res) => {
 
   const blog = await prisma.blogWebsite.findFirst({
     where: { email: session?.user.email },
-    select: { convertkitApiKey: true, convertkitFormid: true }
+    select: { settingData: true }
   });
+
+  const parsedBlog = JSON.parse(blog.settingData)?.site;
 
   try {
     const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${blog.convertkitFormid}/subscribe`,
+      `https://api.convertkit.com/v3/forms/${parsedBlog?.convertkitFormid}/subscribe`,
       {
-        body: JSON.stringify({ email, api_key: blog.convertkitApiKey }),
+        body: JSON.stringify({ email, api_key: parsedBlog?.convertkitApiKey }),
         headers: { 'Content-Type': 'application/json' },
         method: 'POST'
       }

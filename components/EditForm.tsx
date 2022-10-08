@@ -153,10 +153,11 @@ const defaultBaseInputs = [
   // },
   {
     id: 'slug',
-    label: 'slug',
+    label: 'Blogfolio domain',
     component: Input,
     placeholder: '',
-    helper: ''
+    helper: '',
+    suffix: '.blogfolio.co'
   },
   // {
   //   id: 'profileUrl',
@@ -181,6 +182,16 @@ const defaultBaseInputs = [
   //   helper: ''
   // },
   {
+    id: 'notionBlogDatabaseId',
+    label: 'Notion blog database id',
+    component: Input,
+    placeholder: '',
+    helper: ''
+  }
+];
+
+const integrations = [
+  {
     id: 'settingData',
     label: 'Setting in JSON',
     component: TextArea,
@@ -190,16 +201,6 @@ const defaultBaseInputs = [
     
     {"links":[{"name":"Articles","url":"/articles","template":3,"isDefault":true},{"name":"Projects","url":"/projects","isDefault":false},{"name":"Snippets","url":"/snippets","template":2,"isDefault":false}]}`
   }
-];
-
-const integrations = [
-  {
-    id: 'notionBlogDatabaseId',
-    label: 'Notion blog database id',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
   // {
   //   id: 'convertkitFormid',
   //   label: 'Convertkit form id',

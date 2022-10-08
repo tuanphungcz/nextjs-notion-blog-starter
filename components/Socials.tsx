@@ -1,24 +1,26 @@
 import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons';
 
 export default function Socials({ blog }) {
+  const socialIcons = blog.settingData?.site?.socials;
+
   const socials = [
     {
       name: 'Twitter',
-      href: blog?.twitter,
+      href: socialIcons?.twitter,
       icon: (
         <IconBrandTwitter className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
     },
     {
       name: 'GitHub',
-      href: blog?.github,
+      href: socialIcons?.github,
       icon: (
         <IconBrandGithub className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
     },
     {
       name: 'LinkedIn',
-      href: blog?.linkedin,
+      href: socialIcons?.linkedIn,
       icon: (
         <IconBrandLinkedin className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
