@@ -44,7 +44,7 @@ export default function EditForm({
           ))}
         </div>
 
-        <div className="p-8 border-b md:col-span-1">
+        {/* <div className="p-8 border-b md:col-span-1">
           <div className="text-lg font-medium leading-6 text-gray-900">
             Online presence
           </div>
@@ -66,14 +66,14 @@ export default function EditForm({
                 prefix={input?.prefix || ''}
               />
             ))}
-        </div>
+        </div> */}
 
         <div className="p-8 border-b md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Notion & Convertkit integration
+            Notion integration
           </h3>
           <p className="mt-2 text-sm text-gray-500">
-            This is a setting for Notion and Convertkit
+            This is your Notion database ID. You can find it in the URL of your database.
           </p>
         </div>
 
@@ -137,20 +137,20 @@ const defaultSocialInputs = [
 ];
 
 const defaultBaseInputs = [
-  {
-    id: 'blogName',
-    label: 'Blog name',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
-  {
-    id: 'headerTitle',
-    label: 'Header title',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
+  // {
+  //   id: 'blogName',
+  //   label: 'Blog name',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
+  // {
+  //   id: 'headerTitle',
+  //   label: 'Header title',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
   {
     id: 'slug',
     label: 'slug',
@@ -158,35 +158,28 @@ const defaultBaseInputs = [
     placeholder: '',
     helper: ''
   },
-  {
-    id: 'profileUrl',
-    label: 'Profile Url',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
+  // {
+  //   id: 'profileUrl',
+  //   label: 'Profile Url',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
 
-  {
-    id: 'headerDescription',
-    label: 'Header description',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
-  {
-    id: 'footerText',
-    label: 'Footer text',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
-  {
-    id: 'ogBanner',
-    label: 'OG banner',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
+  // {
+  //   id: 'headerDescription',
+  //   label: 'Header description',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
+  // {
+  //   id: 'footerText',
+  //   label: 'Footer text',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
   {
     id: 'settingData',
     label: 'Setting in JSON',
@@ -207,18 +200,18 @@ const integrations = [
     placeholder: '',
     helper: ''
   },
-  {
-    id: 'convertkitFormid',
-    label: 'Convertkit form id',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
-  {
-    id: 'convertkitApiKey',
-    label: 'Convertkit api key',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  }
+  // {
+  //   id: 'convertkitFormid',
+  //   label: 'Convertkit form id',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // },
+  // {
+  //   id: 'convertkitApiKey',
+  //   label: 'Convertkit api key',
+  //   component: Input,
+  //   placeholder: '',
+  //   helper: ''
+  // }
 ];

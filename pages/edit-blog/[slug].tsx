@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import EditForm from '../../components/EditForm';
@@ -8,16 +8,20 @@ import SignIn from 'components/SignIn';
 import AppNavbar from 'layouts/AppNavbar';
 import { fetcher } from 'lib/utils';
 import CustomDomain from 'components/CustomDomain';
+import { useEffect } from 'react';
 
 export default function Index({ blog, session }: any) {
   const { register, handleSubmit, setValue, watch, control } = useForm({
     defaultValues: blog
   });
   const router = useRouter();
+  const { status } = useSession();
 
-  if (!session) {
-    return <SignIn />;
-  }
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  }, [status]);
 
   const onSubmitForm = async (values: any) => {
     await fetcher('/api/update-blog', {

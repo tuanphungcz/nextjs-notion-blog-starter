@@ -10,8 +10,8 @@ export default function Dropdown() {
 
   return (
     <Menu as="div" className="relative inline-block text-left z-[50]">
-      <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50">
-        <div>{session?.user.name || 'Menu'}</div>
+      <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50">
+        <div>{session?.user.name.split(' ')[0] || 'Menu'}</div>
         <IconChevronDown className="w-5 h-5 ml-2 -mr-1" aria-hidden="true" />
       </Menu.Button>
 
@@ -28,14 +28,14 @@ export default function Dropdown() {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <Link passHref href="/">
+                <Link passHref href="/my-blogs">
                   <a
                     className={classnames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'block px-4 py-2 text-sm'
                     )}
                   >
-                    Dashboard
+                    My blogs
                   </a>
                 </Link>
               )}
