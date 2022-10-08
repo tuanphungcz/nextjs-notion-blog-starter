@@ -3,10 +3,13 @@ import React, { Fragment } from 'react';
 import Image from 'next/image';
 import Text from 'components/notionBlocks/Text';
 import AnchorLink from 'components/notionBlocks/AnchorLink';
-import CodeBlock from 'components/notionBlocks/CodeBlock';
+// import CodeBlock from 'components/notionBlocks/CodeBlock';
 import Callout from 'components/notionBlocks/Callout';
 import YoutubeEmbed from 'components/notionBlocks/YoutubeEmbed';
 
+const Paragraph = ({ children }) => {
+  return <p className="leading-[28px] text-lg">{children}</p>;
+};
 export function renderBlocks(block) {
   const { type, id } = block;
   const value = block[type];
@@ -14,9 +17,9 @@ export function renderBlocks(block) {
   switch (type) {
     case 'paragraph':
       return (
-        <p className="leading-[28px] text-lg">
+        <Paragraph>
           <Text text={value.text} />
-        </p>
+        </Paragraph>
       );
     case 'heading_1':
       return (
@@ -97,14 +100,14 @@ export function renderBlocks(block) {
           {caption && <figcaption className="text-center">{caption}</figcaption>}
         </figure>
       );
-    case 'code':
-      return (
-        <CodeBlock
-          language={value.language}
-          caption={value.caption.length >= 1 && value.caption[0].plain_text}
-          code={value.text[0].text.content}
-        />
-      );
+    // case 'code':
+    //   return (
+    //     <CodeBlock
+    //       language={value.language}
+    //       caption={value.caption.length >= 1 && value.caption[0].plain_text}
+    //       code={value.text[0].text.content}
+    //     />
+    //   );
     case 'callout':
       return (
         <Callout>

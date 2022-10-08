@@ -17,7 +17,6 @@ const createBlog = async (req: any, res: any) => {
       github,
       twitter,
       linkedin,
-      notionSecret,
       notionBlogDatabaseId,
       convertkitFormid,
       convertkitApiKey
@@ -45,7 +44,6 @@ const createBlog = async (req: any, res: any) => {
         github,
         twitter,
         linkedin,
-        notionSecret,
         notionBlogDatabaseId,
         slug: slug || autoSlug,
         email: session.user.email,

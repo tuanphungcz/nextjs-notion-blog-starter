@@ -20,7 +20,7 @@ const calculateLinesToHighlight = meta => {
   }
   const lineNumbers = RE.exec(meta)[1]
     .split(`,`)
-    .map(v => v.split(`-`).map(x =>parseInt(x, 10)));
+    .map(v => v.split(`-`).map(x => parseInt(x, 10)));
   return index => {
     const lineNumber = index + 1;
     const inRange = lineNumbers.some(([start, end]) =>
@@ -104,10 +104,10 @@ export default function CodeBlock({ code, language, metaString, caption }: Props
   return (
     <div>
       <Highlight {...defaultProps} code={code} language={language} theme={theme}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        {({ classname, style, tokens, getLineProps, getTokenProps }: any) => (
           <div className="relative not-prose">
             <pre
-              className={`rounded-lg relative overflow-hidden ${className}`}
+              className={`rounded-lg relative overflow-hidden ${classname}`}
               style={style}
             >
               <div className="relative flex text-xs leading-6 ">
@@ -127,7 +127,7 @@ export default function CodeBlock({ code, language, metaString, caption }: Props
                     const lineProps = getLineProps({ line, key: i });
 
                     if (shouldHighlightLine(i)) {
-                      lineProps.className = `${lineProps.className} highlight-line`;
+                      lineProps.classname = `${lineProps.classname} highlight-line`;
                     }
 
                     return (

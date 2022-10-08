@@ -1,3 +1,6 @@
+import "react-notion/src/styles.css";
+import "prismjs/themes/prism-tomorrow.css";
+
 import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';

@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classnames from 'classnames';
 import React from 'react';
 
 function InputWrapper({ label, rightHelper, prefix, suffix, error, helper, children }) {
@@ -59,7 +59,7 @@ export function Input({
         {...rest}
         {...(name && { ...register(name, validation) })}
         type="text"
-        className={classNames(
+        className={classnames(
           'flex-1 block w-full min-w-0 px-3 py-2 border text-gray-700 border-gray-300 rounded text-sm',
           { 'rounded-l-none': prefix },
           { 'rounded-r-none': suffix }
@@ -97,7 +97,7 @@ export function TextArea({
         {...(name && { ...register(name, validation) })}
         type="text"
         rows={4}
-        className={classNames(
+        className={classnames(
           'flex-1 block w-full min-w-0 px-3 py-2 border text-gray-700 border-gray-300 rounded text-sm',
           { 'rounded-l-none': prefix },
           { 'rounded-r-none': suffix }

@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { convertToArticleList, getAllArticles } from 'lib/notion';
+import { convertToArticleList } from 'lib/notion';
 import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
+import { getAllPosts } from 'lib/posts';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
   if (!blog) {
@@ -45,25 +46,26 @@ export async function getServerSideProps(context: any) {
       };
     }
 
-    const route = JSON.parse(blog?.settingData)
-      .links.find(item => item.isDefault === true)
+    const parsedSettingData = JSON.parse(blog?.settingData);
+
+    const route = parsedSettingData?.links
+      .find(item => item?.isDefault)
       .name.toLowerCase();
 
-    const data = await getAllArticles(
-      blog.notionBlogDatabaseId,
-      blog.notionSecret,
-      route
-    );
+    const allPosts = await getAllPosts(blog.notionBlogDatabaseId);
 
-    const { articles, categories, routes } = convertToArticleList(data);
+    const { articles, categories, routes } = convertToArticleList(allPosts, route);
 
     return {
       props: {
-        blog,
+        blog: {
+          ...blog,
+          settingData: parsedSettingData
+        },
         articles,
+        route,
         categories,
-        routes,
-        route
+        routes
       }
     };
   } catch (error) {

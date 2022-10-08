@@ -201,13 +201,6 @@ const defaultBaseInputs = [
 
 const integrations = [
   {
-    id: 'notionSecret',
-    label: 'Notion secret',
-    component: Input,
-    placeholder: '',
-    helper: ''
-  },
-  {
     id: 'notionBlogDatabaseId',
     label: 'Notion blog database id',
     component: Input,

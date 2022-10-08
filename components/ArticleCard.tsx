@@ -4,6 +4,7 @@ import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
 
 export default function ArticleCard({ article, route }: any) {
+  if (!article.title) return null;
   const slug = slugify(article.title).toLowerCase();
 
   const formattedTime = getLocalizedDate(article.publishedDate);

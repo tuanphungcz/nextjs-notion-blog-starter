@@ -1,5 +1,5 @@
-import isValidEmail from 'lib/isValidEmail';
 import prisma from 'lib/prisma';
+import { isValidEmail } from 'lib/utils';
 import { getSession } from 'next-auth/react';
 
 const subscribeConvertkit = async (req, res) => {

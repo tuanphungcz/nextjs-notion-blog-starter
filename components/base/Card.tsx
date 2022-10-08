@@ -1,10 +1,10 @@
-import classNames from 'classnames';
+import classnames from 'classnames';
 
 export default function Card(props: any) {
   return (
     <div
       {...props}
-      className={classNames(' bg-white rounded-lg border border-gray-200 ')}
+      className={classnames(' bg-white rounded-lg border border-gray-200 ')}
     />
   );
 }
