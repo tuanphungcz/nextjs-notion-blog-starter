@@ -6,17 +6,20 @@ import Container from '../components/base/Container';
 import SignIn from 'components/SignIn';
 import AppNavbar from 'layouts/AppNavbar';
 import { fetcher } from 'lib/utils';
+import { useEffect } from 'react';
 
 export default function Index() {
-  const { data: session } = useSession();
+  const { status } = useSession();
   const { register, handleSubmit, setValue, watch, control, formState } = useForm({
     defaultValues: null
   });
   const router = useRouter();
 
-  if (!session) {
-    return <SignIn />;
-  }
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/');
+    }
+  }, [status]);
 
   const onSubmitForm = async (values: any) => {
     await fetcher('/api/create-blog', {

@@ -4,21 +4,18 @@ import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
 
 export default function ArticleCard({ article, route }: any) {
-  if (!article.title) return null;
   const slug = slugify(article.title).toLowerCase();
 
   const formattedTime = getLocalizedDate(article.publishedDate);
-
-  const hasCoverImage = article?.coverImage === '/image-background.png';
 
   return (
     <a href={`/${route}/${slug}`}>
       <div
         className={`flex flex-col overflow-hidden cursor-pointer group ${
-          hasCoverImage && 'border p-4 rounded-md hover:bg-gray-100 transition'
+          !article?.coverImage && 'border p-4 rounded-md hover:bg-gray-100 transition'
         }`}
       >
-        {!hasCoverImage && (
+        {article?.coverImage && (
           <div className="relative">
             {/* <div className="absolute">
               {article?.categories?.map(category => (
@@ -48,7 +45,7 @@ export default function ArticleCard({ article, route }: any) {
         <div className="flex flex-col justify-between flex-1 py-4 ">
           <div className="flex-1">
             <p className="text-lg font-semibold text-gray-900">{article.title}</p>
-            <p className="mt-3 text-base text-gray-500 line-clamp-2">{article.summary}</p>
+            <p className="mt-3 text-base text-gray-500 line-clamp-1">{article.summary}</p>
           </div>
           <div className="flex items-center mt-4">
             <div className="flex mb-2 space-x-1 text-sm text-gray-400">

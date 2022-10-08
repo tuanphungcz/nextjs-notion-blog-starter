@@ -29,7 +29,7 @@ export default function ListOfItems({
 
       <Container>
         <div className="py-12">
-          <div className="mb-10 space-y-6">
+          <div className="mb-4 space-y-6">
             <div className="mb-2 text-4xl font-bold text-gray-900 ">
               {!selectedTag
                 ? `${

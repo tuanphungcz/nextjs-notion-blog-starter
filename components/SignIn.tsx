@@ -1,7 +1,11 @@
 import { IconStar } from '@tabler/icons';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function SignIn() {
+  const { status } = useSession();
+  const { push } = useRouter();
+
   return (
     <div className="flex-shrink-0 order-3 w-full mt-2 sm:order-2 sm:mt-0 sm:w-auto">
       <div className="sm:max-w-xl mt-20 mb-10 text-center mx-auto sm:px-0 px-2.5">
@@ -17,21 +21,23 @@ export default function SignIn() {
         </p>
         <div className="flex mx-auto mt-10 space-x-4 max-w-fit">
           <div
-            className="flex items-center px-3 py-2 space-x-2 text-sm font-semibold text-center text-white transition bg-gray-900 border border-gray-300 rounded shadow-sm cursor-pointer hover:opacity-90"
+            className="flex items-center px-5 py-3 space-x-2 font-semibold text-center text-white transition bg-gray-900 border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:opacity-90"
             onClick={e => {
               e.preventDefault();
-              signIn('google', { callbackUrl: '/' });
+              status === 'unauthenticated'
+                ? signIn('google', { callbackUrl: '/add-blog' })
+                : push('/my-blogs');
             }}
           >
-            Get started
+            {status === 'unauthenticated' ? 'Get started' : 'My blogs'}
           </div>
           <a
-            className="flex items-center px-3 py-2 space-x-2 text-sm font-semibold text-center text-gray-700 transition bg-white border border-gray-300 rounded shadow-sm cursor-pointer hover:opacity-90"
+            className="flex items-center px-5 py-3 space-x-2 text-sm font-semibold text-center text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:opacity-90"
             href="https://github.com/tuanphungcz/nextjs-notion-blog-starter"
             target="_blank"
             rel="noreferrer"
           >
-            <IconStar className='w-4' />
+            <IconStar className="w-4" />
             <p className="text-sm">Star on GitHub</p>
           </a>
         </div>

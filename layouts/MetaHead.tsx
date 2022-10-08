@@ -6,7 +6,7 @@ export function MetaHead(props) {
 
   return (
     <Head>
-      <title>{title || blog?.title}</title>
+      <title>{title || blog?.blogName}</title>
       <meta name="robots" content="follow, index" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={description} />
