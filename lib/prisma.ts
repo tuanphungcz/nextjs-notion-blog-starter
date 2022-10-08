@@ -25,7 +25,6 @@ export const blogSelect = {
   github: true,
   twitter: true,
   linkedin: true,
-  notionSecret: true,
   notionBlogDatabaseId: true,
   convertkitFormid: true,
   convertkitApiKey: true,

@@ -10,3 +10,8 @@ export async function fetcher<JSON = any>(
 export function getRandomArbitrary(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
+
+export function isValidEmail(email) {
+  const pattern = /\S+@\S+\.\S+/;
+  return pattern.test(email);
+}

@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { IconChevronDown } from '@tabler/icons';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -30,7 +30,7 @@ export default function Dropdown() {
               {({ active }) => (
                 <Link passHref href="/">
                   <a
-                    className={classNames(
+                    className={classnames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'block px-4 py-2 text-sm'
                     )}
@@ -44,7 +44,7 @@ export default function Dropdown() {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  className={classNames(
+                  className={classnames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block w-full text-left px-4 py-2 text-sm cursor-pointer'
                   )}

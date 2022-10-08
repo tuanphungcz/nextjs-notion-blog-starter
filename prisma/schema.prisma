@@ -71,7 +71,6 @@ model BlogWebsite {
   github               String?
   twitter              String?
   linkedin             String?
-  notionSecret         String?
   customDomain         String?
   settingData          String?
   convertkitFormid     String?

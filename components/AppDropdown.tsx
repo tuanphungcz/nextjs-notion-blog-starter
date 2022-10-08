@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import Link from 'next/link';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { IconChevronDown } from '@tabler/icons';
 
 export default function AppDropdown({ links }) {
@@ -25,16 +25,15 @@ export default function AppDropdown({ links }) {
           {links.map(link => (
             <Menu.Item key={link?.url}>
               {({ active }) => (
-                <Link passHref href={link.url}>
-                  <a
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm hover:bg-gray-100 '
-                    )}
-                  >
-                    {link.name}
-                  </a>
-                </Link>
+                <a
+                  href={link.url}
+                  className={classnames(
+                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                    'block px-4 py-2 text-sm hover:bg-gray-100 '
+                  )}
+                >
+                  {link.name}
+                </a>
               )}
             </Menu.Item>
           ))}

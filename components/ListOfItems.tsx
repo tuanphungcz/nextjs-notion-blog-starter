@@ -19,7 +19,7 @@ export default function ListOfItems({
   const [searchValue, setSearchValue] = useState('');
   const filteredArticles = filterArticles(articles, selectedTag, searchValue);
 
-  const routeSettings = JSON.parse(blog.settingData)?.links.find(setting =>
+  const routeSettings = blog?.settingData?.links.find(setting =>
     setting?.url?.includes(route)
   );
 
@@ -56,7 +56,7 @@ export default function ListOfItems({
             )}
             <div className="flex flex-wrap justify-start gap-4">
               {routeSettings?.isTagsVisible &&
-                categories.map(tag => (
+                categories?.map(tag => (
                   <Category
                     tag={tag}
                     key={tag}
@@ -71,7 +71,6 @@ export default function ListOfItems({
           <ArticleList
             articles={filteredArticles}
             route={route}
-            blog={blog}
             routeSettings={routeSettings}
           />
         </div>

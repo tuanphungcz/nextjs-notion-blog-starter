@@ -115,7 +115,7 @@ export default function CustomDomain({ blog }) {
                 <thead className="text-sm text-center text-gray-500 bg-gray-200">
                   <tr className="text-sm">
                     <th className="px-4 py-2">Record</th>
-                    <th className="px-4 py-2">Host Name</th>
+                    <th className="px-4 py-2">Host name</th>
                     <th className="px-4 py-2">Value</th>
                   </tr>
                 </thead>

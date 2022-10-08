@@ -1,8 +1,8 @@
 import { useConfetti } from 'hooks/useConfetti';
+import { isValidEmail } from 'lib/utils';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import isValidEmail from 'lib/isValidEmail';
 import ConfettiCanvas from './ConfettiCanvas';
 
 const CONVERTKIT_API = '/api/subscribe-convertkit';

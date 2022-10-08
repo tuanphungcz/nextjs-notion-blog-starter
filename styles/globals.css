@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.notion .notion-image-inset {
+  border-radius: 8px;
+}
+
+.notion .notion-code {
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.notion .notion-blank {
+  display: none;
+}
+
+.notion .notion-text {
+  padding: 0;
+}
+
+.notion > * {
+  padding: 16px 0;
+}

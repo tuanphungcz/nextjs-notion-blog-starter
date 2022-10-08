@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { convertToArticleList, getAllArticles } from 'lib/notion';
+import { convertToArticleList } from 'lib/notion';
 import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
+import { getAllPosts } from 'lib/posts';
 
 export default function Index({
   articles,
@@ -52,17 +53,18 @@ export async function getServerSideProps(context: any) {
       };
     }
 
-    const data = await getAllArticles(
-      blog.notionBlogDatabaseId,
-      blog.notionSecret,
-      route
-    );
+    const parsedSettingData = JSON.parse(blog?.settingData);
 
-    const { articles, categories, routes } = convertToArticleList(data);
+    const allPosts = await getAllPosts(blog.notionBlogDatabaseId);
+
+    const { articles, categories, routes } = convertToArticleList(allPosts, route);
 
     return {
       props: {
-        blog,
+        blog: {
+          ...blog,
+          settingData: parsedSettingData
+        },
         articles,
         categories,
         routes,

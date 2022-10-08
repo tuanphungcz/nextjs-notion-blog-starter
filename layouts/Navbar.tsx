@@ -12,7 +12,7 @@ import Link from 'next/link';
 // };
 
 export default function Navbar({ blog }) {
-  const links = JSON.parse(blog.settingData)?.links || [];
+  const links = blog.settingData?.links || [];
   return (
     <div className="fixed z-10 w-full bg-white border-b">
       <Container>

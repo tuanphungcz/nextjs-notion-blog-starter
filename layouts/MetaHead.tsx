@@ -13,7 +13,6 @@ export function MetaHead(props) {
       <meta charSet="utf-8" />
       <link rel="shortcut icon" href={blog?.profileUrl} />
 
-      {/* OG Sharing Deets */}
       <GeneralHead
         description={description}
         ogUrl={ogUrl}
@@ -21,7 +20,6 @@ export function MetaHead(props) {
         ogTitle={title}
       />
 
-      {/* Twitter Sharing Deets */}
       <TwitterHead
         description={description}
         ogUrl={ogUrl}
