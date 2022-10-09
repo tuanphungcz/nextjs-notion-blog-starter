@@ -16,7 +16,7 @@ export default function Navbar({ blog }) {
   const site = blog.settingData?.site;
 
   return (
-    <div className="fixed z-10 w-full bg-white border-b">
+    <div className="fixed z-10 w-full bg-white">
       <Container>
         <div className="flex justify-between w-full py-4 ">
           <Link href="/" passHref>

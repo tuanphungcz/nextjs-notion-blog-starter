@@ -50,7 +50,7 @@ export default function SubscribeInput() {
           <input
             {...register('email')}
             type="email"
-            className="w-full px-3 py-2 text-sm text-gray-900 placeholder-gray-500 border border-transparent rounded-md shadow-sm"
+            className="w-full px-3 py-2 text-sm text-gray-900 placeholder-gray-500 border rounded-md shadow-sm"
             placeholder="Enter your email"
           />
         </div>
@@ -73,7 +73,6 @@ export default function SubscribeInput() {
         </div>
       ) : (
         <div className="mt-2 text-sm text-gray-500">
-          Be the first to know when the blog is published
         </div>
       )}
     </>

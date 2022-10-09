@@ -9,7 +9,7 @@ const arraySearch = (array, keyword) => {
 
 const filterByTag = (articles, selectedTag) =>  {
   return articles
-    .sort((a, b) => Number(new Date(b.publishedDate)))
+    .sort((a, b) => Number(new Date(b.published)))
     .filter(article => {
       if (selectedTag === null) {
         return true;

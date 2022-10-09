@@ -52,3 +52,6 @@ export const parsePageId = (
 
   return null;
 };
+
+export const getSiteOptions = (site: string) =>
+  site.includes('.') ? { customDomain: site } : { slug: site };

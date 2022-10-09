@@ -13,7 +13,7 @@ const mapArticleProperties = article => {
     summary,
     route,
     coverImage: article?.coverImage?.length > 0 && article?.coverImage[0].url,
-    publishedDate: article?.published,
+    published: article?.published,
     lastEdited: article?.published,
     fullText: [summary, title, categories]
       .map(item => (Array.isArray(item) ? item.join(' ') : item))
@@ -22,29 +22,27 @@ const mapArticleProperties = article => {
   };
 };
 
-export const convertToArticleList = (rawArticles: any, route) => {
+export const filterArticlesWithMetadata = (rawArticles: any, route) => {
   let categories: string[] = [];
   let routes: string[] = [];
 
   const filteredArticles = rawArticles.filter(article => article.route === route);
 
   const articles = filteredArticles.map((article: any) => {
-    categories?.forEach((category: any) => {
-      if (!categories.includes(category) && category) {
+    article?.categories?.forEach((category: any) => {
+      if (!categories.includes(category)) {
         categories.push(category);
       }
     });
 
-    const route = article?.route || '';
-
-    if (!routes.includes(route) && route) {
-      routes.push(route);
+    if (!routes.includes(article?.route)) {
+      routes.push(article?.route);
     }
 
     return mapArticleProperties(article);
   });
 
-  return { articles, categories, routes };
+  return { categories, routes, articles };
 };
 
 export const getArticlePage = (data, slug) => {

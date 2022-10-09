@@ -2,6 +2,7 @@ import { IconExternalLink, IconLink, IconTrash } from '@tabler/icons';
 import { fetcher } from 'lib/utils';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import useSWR from 'swr';
 import Card from './base/Card';
 import { Input } from './base/Form';
@@ -11,7 +12,7 @@ export default function CustomDomain({ blog }) {
   const router = useRouter();
 
   const onCreateCustomDomain = async () => {
-    await fetcher('/api/create-domain', {
+    const res = await fetcher('/api/create-domain', {
       body: JSON.stringify({ id: blog.id, customDomain: customDomainValue }),
       headers: {
         'Content-Type': 'application/json'
@@ -19,7 +20,12 @@ export default function CustomDomain({ blog }) {
       method: 'POST'
     });
 
+    if (res?.error) {
+      return toast.error(res.error);
+    }
+
     router.reload();
+    toast.success('Custom domain created successfully');
   };
 
   const onDeleteCustomDomain = async () => {
@@ -33,6 +39,7 @@ export default function CustomDomain({ blog }) {
       });
 
     router.reload();
+    toast.success('Custom domain deleted successfully');
   };
 
   const { data: domainConfig }: any = useSWR(

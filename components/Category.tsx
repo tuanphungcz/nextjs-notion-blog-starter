@@ -12,10 +12,10 @@ export default function Category({ setSelectedTag, tag, selectedTag, setSearchVa
       key={tag}
       onClick={() => handleTagClick(tag)}
       className={`${
-        selectedTag === tag && 'ring-2 ring-gray-400 text-gray-700'
-      } inline-flex items-center px-3 py-1.5 uppercase bg-gray-100 rounded-md cursor-pointer outline-none `}
+        selectedTag === tag && 'ring-2 ring-gray-400 text-gray-600'
+      } inline-flex items-center px-3 py-1.5 uppercase bg-gray-100 rounded-lg cursor-pointer outline-none hover:bg-gray-200`}
     >
-      <span className="text-xs font-medium uppercase outline-none">{tag || 'All'}</span>
+      <span className="text-xs font-medium outline-none">{tag || 'All'}</span>
     </div>
   );
 }

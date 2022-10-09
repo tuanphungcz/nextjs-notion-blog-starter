@@ -1,4 +1,4 @@
-import { getSession, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import prisma, { blogSelect } from 'lib/prisma';
@@ -6,8 +6,9 @@ import AppNavbar from 'layouts/AppNavbar';
 import Container from 'components/base/Container';
 import { fetcher } from 'lib/utils';
 import { useEffect } from 'react';
+import absoluteUrl from 'next-absolute-url';
 
-export default function MyBlogs({ blogs }) {
+export default function MyBlogs({ blogs, protocol, host, session }) {
   const router = useRouter();
 
   const removeBlog = async (id: any) => {
@@ -22,17 +23,11 @@ export default function MyBlogs({ blogs }) {
     router.reload();
   };
 
-  const { status } = useSession();
-
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (session.status === 'unauthenticated') {
       router.push('/');
     }
-  }, [status]);
-
-  if (status === 'loading' || status === 'unauthenticated') {
-    return <p>Loading...</p>;
-  }
+  }, [session.status]);
 
   return (
     <div className="h-screen bg-gray-50">
@@ -61,7 +56,7 @@ export default function MyBlogs({ blogs }) {
                   scope="col"
                   className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                 >
-                  Slug
+                  Blogfolio domain
                 </th>
                 <th
                   scope="col"
@@ -80,7 +75,7 @@ export default function MyBlogs({ blogs }) {
                 <Link key={directory.id} passHref href={`/edit-blog/${directory.slug}`}>
                   <tr key={directory.email} className="cursor-pointer hover:bg-gray-50">
                     <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-                      {directory.slug}.blogfolio.co
+                      {directory.slug}.{host}
                     </td>
                     <td className="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
                       {directory.customDomain}
@@ -88,7 +83,7 @@ export default function MyBlogs({ blogs }) {
 
                     <td className="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                       <span
-                        className="mr-8 text-blue-600 hover:text-blue-900"
+                        className="mr-8 text-red-600 hover:text-red-800"
                         onClick={e => {
                           if (confirm('Are you sure to remove this blog?')) {
                             removeBlog(directory.id);
@@ -103,7 +98,7 @@ export default function MyBlogs({ blogs }) {
                         className="text-blue-600 hover:text-blue-900"
                         onClick={e => {
                           e.preventDefault();
-                          window.open(`https://${directory.slug}.blogfolio.co`, '_blank');
+                          window.open(`${protocol}//${directory.slug}.${host}`, '_blank');
                         }}
                       >
                         Visit
@@ -123,6 +118,8 @@ export default function MyBlogs({ blogs }) {
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
 
+  const { protocol, host } = absoluteUrl(context.req);
+
   const blogs = await prisma.blogWebsite.findMany({
     where: { email: session?.user.email },
     select: { ...blogSelect, id: true }
@@ -131,7 +128,9 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       session,
-      blogs
+      blogs,
+      protocol,
+      host
     }
   };
 }

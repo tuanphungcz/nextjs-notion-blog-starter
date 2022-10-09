@@ -2,7 +2,7 @@ import TwitterHead, { GeneralHead } from 'components/OgMeta';
 import Head from 'next/head';
 
 export function MetaHead(props) {
-  const { title, imageUrl, description, blog, ogUrl } = props;
+  const { title, imageUrl, description, blog, baseUrl } = props;
 
   const site = blog.settingData?.site;
 
@@ -17,14 +17,14 @@ export function MetaHead(props) {
 
       <GeneralHead
         description={description}
-        ogUrl={ogUrl}
+        ogUrl={baseUrl}
         ogImage={imageUrl}
         ogTitle={title}
       />
 
       <TwitterHead
         description={description}
-        ogUrl={ogUrl}
+        ogUrl={baseUrl}
         ogImage={imageUrl}
         ogTitle={title}
       />

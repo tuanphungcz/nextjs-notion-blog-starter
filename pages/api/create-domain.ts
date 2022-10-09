@@ -7,7 +7,20 @@ const createCustomDomain = async (req: any, res: any) => {
   const { id, customDomain } = req.body;
 
   try {
-    await createDomain(customDomain);
+    const domainCount = await prisma.blogWebsite.count({
+      where: { customDomain: customDomain.toLowerCase() }
+    });
+
+    if (domainCount > 0) {
+      console.log('domainCount');
+      return res
+        .status(400)
+        .json({ error: 'Domain is already assigned to a different blog' });
+    }
+
+    const result = await createDomain(customDomain);
+    console.log(result);
+
     await prisma.blogWebsite.update({
       where: {
         id
@@ -17,7 +30,7 @@ const createCustomDomain = async (req: any, res: any) => {
       }
     });
 
-    return res.status(200).json('deleted');
+    return res.status(200).json({ message: 'Domain created' });
   } catch (error) {
     console.log(error);
     return res.status(401).json(error);

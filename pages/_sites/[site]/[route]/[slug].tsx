@@ -1,25 +1,23 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
-import { convertToArticleList, getArticlePage, shuffleArray } from 'lib/notion';
+import { filterArticlesWithMetadata, getArticlePage, shuffleArray } from 'lib/notion';
 import { Layout } from 'layouts/Layout';
-
 import getLocalizedDate from 'lib/getLocalizedDate';
 import prisma, { blogSelect } from 'lib/prisma';
 import Container from 'components/base/Container';
 import ArticleList from 'components/base/ArticleList';
 import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
+import absoluteUrl from 'next-absolute-url';
+import { getSiteOptions } from 'lib/utils';
 
-const ArticlePage = ({ summary, route, blog, blockMap, page, host, moreArticles }) => {
+const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
   const publishedOn = getLocalizedDate(page.published);
 
-  // const slug = slugify(page.name).toLowerCase();
+  const ogImage = `${origin}/api/og-image?title=${encodeURIComponent(
+    page.title
+  )}&date=${encodeURIComponent(publishedOn)}`;
 
-  // const ogImage = `https://${host}/api/og-image?title=${encodeURIComponent(
-  //   page.name
-  // )}&date=${encodeURIComponent(publishedOn)}`;
-
-  const coverImage = (page?.coverImage?.length > 0 && page?.coverImage[0].url) || '';
+  const coverImage = page?.coverImage?.[0].url || '';
 
   const routeSettings = blog.settingData?.links.find(setting =>
     setting?.url?.includes(route)
@@ -29,10 +27,10 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, host, moreArticles 
     <>
       <Layout
         description={summary}
-        // imageUrl={ogImage}
+        imageUrl={ogImage}
         blog={blog}
-        title={page.name}
-        ogUrl={`https://${host}`}
+        title={page.title}
+        baseUrl={origin}
       >
         <div>
           <div
@@ -58,14 +56,7 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, host, moreArticles 
               <img
                 className="object-cover w-full mx-auto rounded-lg aspect-video"
                 src={coverImage}
-                // objectFit="cover"
-                // placeholder="blur"
-                // blurDataURL={coverImage}
-                // layout="intrinsic"
-                // width={1200}
-                // height={684}
-                // priority
-                alt={'article cover'}
+                alt="article cover"
               />
             )}
           </div>
@@ -109,22 +100,19 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, host, moreArticles 
 
 export const getServerSideProps = async context => {
   const { site, slug, route } = context.query;
-  const { headers } = context.req;
-
-  const findOptions = site.includes('.') ? { customDomain: site } : { slug: site };
+  const { req } = context;
+  const { origin } = absoluteUrl(req);
 
   const blog = await prisma.blogWebsite.findFirst({
-    where: findOptions,
+    where: getSiteOptions(site),
     select: blogSelect
   });
 
   const allPosts = await getAllPosts(blog.notionBlogDatabaseId);
+  const { articles } = filterArticlesWithMetadata(allPosts, route);
 
   const page = getArticlePage(allPosts, slug);
-
   const blockMap = await getPageById(page.id);
-
-  const { articles } = convertToArticleList(allPosts, route);
 
   return {
     props: {
@@ -136,7 +124,7 @@ export const getServerSideProps = async context => {
       route,
       blockMap,
       page,
-      host: headers.host
+      origin
     }
   };
 };
