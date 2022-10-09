@@ -80,6 +80,7 @@ export function TextArea({
   suffix,
   setValue,
   error,
+  rows = 5,
   ...rest
 }: any) {
   const inputWrapperProps = {
@@ -96,7 +97,7 @@ export function TextArea({
         {...rest}
         {...(name && { ...register(name, validation) })}
         type="text"
-        rows={4}
+        rows={rows}
         className={classnames(
           'flex-1 block w-full min-w-0 px-3 py-2 border text-gray-700 border-gray-300 rounded text-sm',
           { 'rounded-l-none': prefix },

@@ -5,11 +5,7 @@ import { getRandomArbitrary } from 'lib/utils';
 
 const createBlog = async (req: any, res: any) => {
   try {
-    const {
-      slug,
-      settingData,
-      notionBlogDatabaseId
-    } = req.body;
+    const { slug, settingData, notionBlogDatabaseId } = req.body;
 
     const session = await getSession({ req });
 
@@ -17,11 +13,19 @@ const createBlog = async (req: any, res: any) => {
       return res.status(401);
     }
 
+    const slugCount = await prisma.blogWebsite.count({
+      where: { slug: slug.toLowerCase() }
+    });
+
+    if (slugCount > 0) {
+      return res.status(400).json({ error: 'Slug already exists, please choose a different slug' });
+    }
+
     const random2Numbers = getRandomArbitrary(0, 100).toFixed();
 
     const autoSlug = slugify(session?.user?.name).toLowerCase() + random2Numbers;
 
-    const profile = await prisma.blogWebsite.create({
+    const blog = await prisma.blogWebsite.create({
       data: {
         settingData,
         notionBlogDatabaseId,
@@ -31,7 +35,7 @@ const createBlog = async (req: any, res: any) => {
       }
     });
 
-    return res.status(200).json(profile);
+    return res.status(200).json(blog);
   } catch (error) {
     console.log(error);
     return res.status(500).send(error);

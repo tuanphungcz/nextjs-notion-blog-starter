@@ -8,13 +8,23 @@ const updateBlog = async (req: any, res: any) => {
     const session = await getSession({ req });
 
     if (!session?.user?.email) {
-      return res.status(401);
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const slugCount = await prisma.blogWebsite.count({
+      where: { slug: slug.toLowerCase() }
+    });
+
+    if (slugCount > 0) {
+      return res
+        .status(400)
+        .json({ error: 'Slug already exists, please choose a different slug' });
     }
 
     const blog = await prisma.blogWebsite.findFirst(id);
 
     if (blog.email !== session?.user?.email) {
-      return res.status(402);
+      return res.status(402).json({ error: 'Not the owner of this blog' });
     }
 
     const profile = await prisma.blogWebsite.update({
@@ -32,7 +42,6 @@ const updateBlog = async (req: any, res: any) => {
 
     return res.status(200).json(profile);
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error);
   }
 };

@@ -8,8 +8,9 @@ import AppNavbar from 'layouts/AppNavbar';
 import { fetcher } from 'lib/utils';
 import CustomDomain from 'components/CustomDomain';
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
-export default function Index({ blog, session }: any) {
+export default function Index({ blog }: any) {
   const { register, handleSubmit, setValue, watch, control } = useForm({
     defaultValues: blog
   });
@@ -23,15 +24,23 @@ export default function Index({ blog, session }: any) {
   }, [status]);
 
   const onSubmitForm = async (values: any) => {
-    await fetcher('/api/update-blog', {
-      body: JSON.stringify({ ...values, id: blog.id, settingData: values?.settingData }),
+    const res = await fetcher('/api/update-blog', {
+      body: JSON.stringify({
+        ...values,
+        id: blog.id,
+        settingData: values?.settingData
+      }),
       headers: {
         'Content-Type': 'application/json'
       },
       method: 'POST'
     });
 
-    router.reload();
+    if (res?.error) {
+      return toast.error(res?.error);
+    }
+
+    toast.success('Blog updated successfully');
   };
 
   const editFormProps = {
@@ -80,7 +89,6 @@ export const getServerSideProps = async (context: any) => {
 
   return {
     props: {
-      session,
       blog
     }
   };

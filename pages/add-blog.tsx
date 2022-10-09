@@ -7,19 +7,12 @@ import AppNavbar from 'layouts/AppNavbar';
 import { fetcher, getRandomArbitrary } from 'lib/utils';
 import { useEffect } from 'react';
 import slugify from 'slugify';
+import toast from 'react-hot-toast';
 
 const random2Numbers = getRandomArbitrary(0, 100).toFixed();
 
 export default function Index() {
   const { status, data: session } = useSession();
-
-  const autoSlug = slugify(session?.user?.name || '').toLowerCase() + random2Numbers;
-  const { register, handleSubmit, setValue, watch, control, formState } = useForm({
-    defaultValues: {
-      slug: autoSlug
-    }
-  });
-  const router = useRouter();
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -27,8 +20,18 @@ export default function Index() {
     }
   }, [status]);
 
+  const autoSlug = slugify(session?.user?.name || '').toLowerCase() + random2Numbers;
+  const { register, handleSubmit, setValue, watch, control, formState } = useForm({
+    defaultValues: {
+      slug: autoSlug,
+      // notionBlogDatabaseId: 'https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850',
+      settingData: basicJson
+    }
+  });
+  const router = useRouter();
+
   const onSubmitForm = async (values: any) => {
-    await fetcher('/api/create-blog', {
+    const res = await fetcher('/api/create-blog', {
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +39,12 @@ export default function Index() {
       method: 'POST'
     });
 
-    router.reload();
+    if (res?.error) {
+      return toast.error(res?.error);
+    }
+
+    toast.success('Blog updated successfully');
+    router.push('/edit-blog/' + res?.slug);
   };
 
   const editFormProps = {
@@ -63,3 +71,42 @@ export default function Index() {
     </>
   );
 }
+
+const basicJson = `
+{
+  "links": [
+    {
+      "name": "Articles",
+      "url": "/articles",
+      "description": null,
+      "isDefault": true,
+      "isSearchVisible": true,
+      "isTagsVisible": true,
+      "cols": 3
+    },
+    {
+      "name": "Snippets",
+      "url": "/snippets",
+      "description": null,
+      "isDefault": false,
+      "isSearchVisible": true,
+      "isTagsVisible": true,
+      "cols": 3
+    }
+  ],
+  "site": {
+    "headerDescription": "Notion-powered blog starter with Nextjs and Tailwind ",
+    "headerTitle": "Hello, this is a blog starter",
+    "profileUrl": "https://raw.githubusercontent.com/tuanphungcz/blogfolio.co/main/public/nextjs-logo.png",
+    "footerText": "© All rights reserved",
+    "convertkitApiKey": "",
+    "convertkitFormid": "",
+    "blogName": "Blog starter",
+    "socials": {
+      "github": "https://github.com/tuanphungcz/blogfolio.co",
+      "twitter": "https://github.com/tuanphungcz/blogfolio.co",
+      "linkedIn": "https://github.com/tuanphungcz/blogfolio.co"
+    }
+  }
+}
+`;

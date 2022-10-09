@@ -1,12 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from 'next/image';
 import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
 
 export default function ArticleCard({ article, route }: any) {
   const slug = slugify(article.title).toLowerCase();
 
-  const formattedTime = getLocalizedDate(article.publishedDate);
+  const formattedTime = getLocalizedDate(article.published);
 
   return (
     <a href={`/${route}/${slug}`}>
@@ -16,46 +14,30 @@ export default function ArticleCard({ article, route }: any) {
         }`}
       >
         {article?.coverImage && (
-          <div className="relative">
-            {/* <div className="absolute">
-              {article?.categories?.map(category => (
-                <div
-                  key={category}
-                  className="relative shadow z-[2] inline-flex items-center px-3 py-1.5 mb-2 mr-2 text-xs font-bold text-gray-600 uppercase bg-gray-100 rounded left-3 top-3"
-                >
-                  {category}
-                </div>
-              ))}
-            </div> */}
-            <div className=" filter contrast-[0.9]">
-              <img
-                className="object-cover w-full transition rounded-lg aspect-video group-hover:opacity-90 "
-                src={article.coverImage}
-                // blurDataURL={article.coverImage}
-                // objectFit="cover"
-                // placeholder="blur"
-                // layout="intrinsic"
-                // width={800}
-                // height={400}
-                alt={'article cover'}
-              />
-            </div>
+          <div className=" filter contrast-[0.9]">
+            <img
+              className="object-cover w-full transition rounded-lg aspect-video group-hover:opacity-90 "
+              src={article.coverImage}
+              alt="article cover"
+            />
           </div>
         )}
-        <div className="flex flex-col justify-between flex-1 py-4 ">
-          <div className="flex-1">
-            <p className="text-lg font-semibold text-gray-900">{article.title}</p>
-            <p className="mt-3 text-base text-gray-500 line-clamp-1">{article.summary}</p>
+        <div className="flex flex-col justify-between flex-1 mt-4 space-y-2">
+          <div className="flex space-x-2 text-sm text-gray-400">
+            {article.categories?.slice(0, 2).map(category => (
+              <div
+                key={category}
+                className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg"
+              >
+                {category}
+              </div>
+            ))}
           </div>
-          <div className="flex items-center mt-4">
-            <div className="flex mb-2 space-x-1 text-sm text-gray-400">
-              {article.categories.map(category => (
-                <div key={category}>
-                  <span className="font-semibold text-gray-600">{category} </span>
-                </div>
-              ))}
-              <time dateTime={formattedTime}>{formattedTime}</time>
-            </div>
+          <p className="text-lg font-semibold text-gray-900">{article.title}</p>
+          <p className="mt-3 text-gray-500 line-clamp-2">{article.summary}</p>
+
+          <div className="text-sm text-gray-400">
+            <time dateTime={formattedTime}>{formattedTime}</time>
           </div>
         </div>
       </div>

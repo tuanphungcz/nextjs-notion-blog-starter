@@ -28,7 +28,7 @@ export default function Socials({ blog }) {
   ];
 
   return (
-    <div className="flex justify-center space-x-6 md:order-2">
+    <div className="flex justify-center space-x-6">
       {socials.map(
         item =>
           item?.href && (

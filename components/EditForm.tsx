@@ -1,13 +1,6 @@
 import { Input, TextArea } from './base/Form';
 import Card from './base/Card';
 
-import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandTwitter,
-  IconHome
-} from '@tabler/icons';
-
 export default function EditForm({
   blog,
   register,
@@ -43,31 +36,6 @@ export default function EditForm({
             />
           ))}
         </div>
-
-        {/* <div className="p-8 border-b md:col-span-1">
-          <div className="text-lg font-medium leading-6 text-gray-900">
-            Online presence
-          </div>
-          <div className="mt-2 text-sm text-gray-500">
-            Where are you active on the web?
-          </div>
-        </div>
-        <div className="p-8 mt-5 space-y-6 border-b md:mt-0 md:col-span-2">
-          {defaultSocialInputs.length > 0 &&
-            defaultSocialInputs.map(input => (
-              <Input
-                {...input}
-                label={input.label}
-                name={input.id}
-                register={register}
-                key={input.id}
-                error={formState?.errors[input.id]}
-                setValue={setValue}
-                prefix={input?.prefix || ''}
-              />
-            ))}
-        </div> */}
-
         <div className="p-8 border-b md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
             Notion integration
@@ -78,18 +46,17 @@ export default function EditForm({
         </div>
 
         <div className="p-8 mt-5 space-y-6 md:mt-0 md:col-span-2">
-          {integrations.length > 0 &&
-            integrations.map(input => (
-              <input.component
-                {...input}
-                label={input.label}
-                name={input.id}
-                register={register}
-                key={input.id}
-                error={formState?.errors[input.id]}
-                setValue={setValue}
-              />
-            ))}
+          {JsonSettings.map(input => (
+            <input.component
+              {...input}
+              label={input.label}
+              name={input.id}
+              register={register}
+              key={input.id}
+              error={formState?.errors[input.id]}
+              setValue={setValue}
+            />
+          ))}
         </div>
         <div className="flex justify-end p-8 space-x-4">
           <button
@@ -104,53 +71,7 @@ export default function EditForm({
   );
 }
 
-const defaultSocialInputs = [
-  {
-    id: 'github',
-    label: 'Github',
-    prefix: <IconBrandGithub className="w-4" />,
-    placeholder: 'username',
-    helper: 'Your github blog url'
-  },
-  {
-    id: 'linkedin',
-    label: 'Linkedin',
-    prefix: <IconBrandLinkedin className="w-4" />,
-    placeholder: 'username',
-    helper: 'Your linkedin blog url'
-  },
-  {
-    id: 'website',
-    label: 'Website',
-    prefix: <IconHome className="w-4" />,
-    placeholder: 'username',
-    helper: 'Your website url'
-  },
-
-  {
-    id: 'twitter',
-    label: 'Twitter',
-    prefix: <IconBrandTwitter className="w-4" />,
-    placeholder: 'username',
-    helper: 'Your twitter blog url'
-  }
-];
-
 const defaultBaseInputs = [
-  // {
-  //   id: 'blogName',
-  //   label: 'Blog name',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
-  // {
-  //   id: 'headerTitle',
-  //   label: 'Header title',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
   {
     id: 'slug',
     label: 'Blogfolio domain',
@@ -159,60 +80,39 @@ const defaultBaseInputs = [
     helper: '',
     suffix: '.blogfolio.co'
   },
-  // {
-  //   id: 'profileUrl',
-  //   label: 'Profile Url',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
-
-  // {
-  //   id: 'headerDescription',
-  //   label: 'Header description',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
-  // {
-  //   id: 'footerText',
-  //   label: 'Footer text',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
   {
     id: 'notionBlogDatabaseId',
     label: 'Notion blog database id',
     component: Input,
     placeholder: '',
-    helper: ''
+    helper: (
+      <div>
+        <div>
+          You can clone this template to get started:{' '}
+          <a
+            href="https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850"
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold hover:underline"
+          >
+            https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850
+          </a>
+        </div>
+        <div className="mt-1" /> or copy this database id for
+        testing <span className='font-semibold'>6a05e6e596ac4bc6b591734f5c3d9850</span>
+      </div>
+    )
   }
 ];
 
-const integrations = [
+const JsonSettings = [
   {
     id: 'settingData',
     label: 'Setting in JSON',
     component: TextArea,
     placeholder: '',
-    helper: `
-    This is an advanced setting, you can set the blog settings in JSON format.
-    
-    {"links":[{"name":"Articles","url":"/articles","template":3,"isDefault":true},{"name":"Projects","url":"/projects","isDefault":false},{"name":"Snippets","url":"/snippets","template":2,"isDefault":false}]}`
+    rows: 10,
+
+    helper: `This is an advanced setting, you can set the blog settings in JSON format.`
   }
-  // {
-  //   id: 'convertkitFormid',
-  //   label: 'Convertkit form id',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // },
-  // {
-  //   id: 'convertkitApiKey',
-  //   label: 'Convertkit api key',
-  //   component: Input,
-  //   placeholder: '',
-  //   helper: ''
-  // }
 ];
