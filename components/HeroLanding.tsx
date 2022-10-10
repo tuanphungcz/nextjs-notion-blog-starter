@@ -43,8 +43,8 @@ export default function HeroLanding() {
             className="flex items-center px-4 py-3 space-x-2 font-medium text-center text-white transition bg-gray-900 border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:opacity-90"
             onClick={e => {
               e.preventDefault();
-              status === 'unauthenticated'
-                ? signIn('google', { callbackUrl: '/add-blog' })
+              !session?.user
+                ? signIn('google', { callbackUrl: '/my-blogs' })
                 : push('/my-blogs');
             }}
           >
