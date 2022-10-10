@@ -26,7 +26,7 @@ export default function AppNavbar() {
                 className="flex items-center px-3 py-2 space-x-2 text-sm font-semibold text-center text-gray-700 transition bg-white border border-gray-300 rounded shadow-sm cursor-pointer hover:opacity-90"
                 onClick={e => {
                   e.preventDefault();
-                  signIn('google', { callbackUrl: '/?notionDatabaseId=123' });
+                  signIn('google', { callbackUrl: '/' });
                 }}
               >
                 Get started

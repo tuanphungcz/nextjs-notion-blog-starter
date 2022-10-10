@@ -11,6 +11,8 @@ import absoluteUrl from 'next-absolute-url';
 export default function MyBlogs({ blogs, protocol, host, session }) {
   const router = useRouter();
 
+  console.log(session)
+
   const removeBlog = async (id: any) => {
     await fetcher('/api/delete-blog', {
       body: JSON.stringify({ id }),
@@ -24,10 +26,10 @@ export default function MyBlogs({ blogs, protocol, host, session }) {
   };
 
   useEffect(() => {
-    if (session.status === 'unauthenticated') {
+    if (!session?.user) {
       router.push('/');
     }
-  }, [session.status]);
+  }, [session?.user]);
 
   return (
     <div className="h-screen bg-gray-50">
