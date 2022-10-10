@@ -58,7 +58,7 @@ export default function SubscribeInput() {
           <ConfettiCanvas getInstance={getInstance} />
           <button
             type="submit"
-            className="block w-full px-3 py-2 text-sm font-medium text-white transform bg-gray-600 border border-transparent rounded-md hover:bg-gray-500 sm:px-6"
+            className="block w-full px-3 py-2 text-sm font-medium text-white transform bg-gray-800 border border-transparent rounded-md hover:bg-gray-900 sm:px-6"
           >
             {formState === 'loading' ? 'Subscribing...' : 'Subscribe'}
           </button>

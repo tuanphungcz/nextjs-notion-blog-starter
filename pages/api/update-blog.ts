@@ -11,11 +11,16 @@ const updateBlog = async (req: any, res: any) => {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    const blog = await prisma.blogWebsite.findFirst(id);
+    const blog = await prisma.blogWebsite.findFirst({
+      where: { id }
+    });
 
     const slugCount = await prisma.blogWebsite.count({
       where: { slug: slug.toLowerCase() }
     });
+
+    console.log('slugCount', blog.slug, slug);
+    console.log('blog.slug !== slug.toLowerCase()', blog.slug !== slug.toLowerCase());
 
     if (slugCount > 0 && blog.slug !== slug.toLowerCase()) {
       return res
