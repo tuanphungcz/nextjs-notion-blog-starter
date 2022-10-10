@@ -50,7 +50,7 @@ export default function SubscribeInput() {
           <input
             {...register('email')}
             type="email"
-            className="w-full px-3 py-2 text-sm text-gray-900 placeholder-gray-500 border rounded-md shadow-sm"
+            className="w-full px-3 py-2 text-sm text-gray-600 placeholder-gray-500 border rounded-md"
             placeholder="Enter your email"
           />
         </div>
@@ -58,7 +58,7 @@ export default function SubscribeInput() {
           <ConfettiCanvas getInstance={getInstance} />
           <button
             type="submit"
-            className="block w-full px-3 py-2 text-sm font-medium text-white transform bg-gray-600 border border-transparent rounded-md shadow hover:bg-gray-500 sm:px-6"
+            className="block w-full px-3 py-2 text-sm font-medium text-white transform bg-gray-600 border border-transparent rounded-md hover:bg-gray-500 sm:px-6"
           >
             {formState === 'loading' ? 'Subscribing...' : 'Subscribe'}
           </button>
