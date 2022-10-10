@@ -1,5 +1,6 @@
 import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
+import Link from 'next/link';
 
 export default function ArticleCard({ article, route }: any) {
   const slug = slugify(article.title).toLowerCase();
@@ -7,27 +8,27 @@ export default function ArticleCard({ article, route }: any) {
   const formattedTime = getLocalizedDate(article.published);
 
   return (
-    <a href={`/${route}/${slug}`}>
+    <Link href={`/${route}/${slug}`}>
       <div
         className={`flex flex-col overflow-hidden cursor-pointer group ${
-          !article?.coverImage && 'border p-4 rounded-md hover:bg-gray-100 transition'
+          !article?.coverImage && 'border p-6 rounded-lg hover:bg-gray-100 transition'
         }`}
       >
         {article?.coverImage && (
-          <div className=" filter contrast-[0.9]">
+          <div className=" filter contrast-[0.9] mb-4">
             <img
-              className="object-cover w-full transition rounded-lg aspect-video group-hover:opacity-90 "
+              className="object-cover w-full transition rounded-lg aspect-[16/9] group-hover:opacity-90 "
               src={article.coverImage}
               alt="article cover"
             />
           </div>
         )}
-        <div className="flex flex-col justify-between flex-1 mt-4 space-y-2">
+        <div className="flex flex-col justify-between space-y-2">
           <div className="flex space-x-2 text-sm text-gray-400">
             {article.categories?.slice(0, 2).map(category => (
               <div
                 key={category}
-                className="px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg"
+                className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-lg select-none"
               >
                 {category}
               </div>
@@ -41,6 +42,6 @@ export default function ArticleCard({ article, route }: any) {
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }

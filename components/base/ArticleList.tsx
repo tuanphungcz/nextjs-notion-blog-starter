@@ -3,7 +3,7 @@ import ArticleCard from '../ArticleCard';
 export default function ArticleList({ articles, route, routeSettings }: any) {
   return (
     <div
-      className={`grid gap-10 lg:gap-12 sm:grid-cols-2 ${
+      className={`grid gap-10 lg:gap-12 sm:grid-cols-2 auto-rows-max	 ${
         routeSettings?.cols === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
       }`}
     >

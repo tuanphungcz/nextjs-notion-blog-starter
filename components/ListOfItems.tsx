@@ -1,4 +1,4 @@
-import { IconSearch } from '@tabler/icons';
+import { IconChevronRight, IconSearch } from '@tabler/icons';
 import { Layout } from 'layouts/Layout';
 import { filterArticles } from 'lib/filterArticles';
 import { useState } from 'react';
@@ -31,41 +31,51 @@ export default function ListOfItems({
       {site?.headerTitle && isHome && <HeroHeader blog={blog} />}
       <Container>
         <div className="py-12">
-          <div className="mb-4 space-y-6">
-            <div className="mb-2 text-4xl font-bold text-gray-900 ">
-              {!selectedTag
-                ? `${
-                    searchValue.length > 0 ? filteredArticles.length : 'Latest'
-                  } ${route}`
-                : `${selectedTag} ${route}`}
+          <div className="mb-4 space-y-4">
+            <div className="text-4xl font-bold text-gray-900 ">
+              {!selectedTag ? (
+                `${searchValue.length > 0 ? filteredArticles.length : 'Latest'} ${route}`
+              ) : (
+                <span>
+                  <span className="capitalize">{selectedTag}</span> {' '}
+                  {route}
+                </span>
+              )}
             </div>
+            {routeSettings?.description && (
+              <div className="text-xl text-gray-500">{routeSettings?.description}</div>
+            )}
 
             <>
-              <div className="relative max-w-sm">
-                <input
-                  className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg"
-                  type="text"
-                  placeholder={`Search ${route}`}
-                  value={searchValue}
-                  onChange={(e: any) => {
-                    const value = e.target.value;
-                    setSelectedTag(null);
-                    setSearchValue(value);
-                  }}
-                />
-                <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
-              </div>
-              <div className="flex flex-wrap justify-start gap-4">
-                {categories?.map(tag => (
-                  <Category
-                    tag={tag}
-                    key={tag}
-                    selectedTag={selectedTag}
-                    setSearchValue={setSearchValue}
-                    setSelectedTag={setSelectedTag}
+              {routeSettings?.isSearchVisible && (
+                <div className="relative max-w-sm">
+                  <input
+                    className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg"
+                    type="text"
+                    placeholder={`Search ${route}`}
+                    value={searchValue}
+                    onChange={(e: any) => {
+                      const value = e.target.value;
+                      setSelectedTag(null);
+                      setSearchValue(value);
+                    }}
                   />
-                ))}
-              </div>
+                  <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
+                </div>
+              )}
+              {routeSettings?.isTagsVisible && (
+                <div className="flex flex-wrap justify-start gap-4">
+                  {categories?.map(tag => (
+                    <Category
+                      tag={tag}
+                      key={tag}
+                      selectedTag={selectedTag}
+                      setSearchValue={setSearchValue}
+                      setSelectedTag={setSelectedTag}
+                    />
+                  ))}
+                </div>
+              )}
             </>
           </div>
 
@@ -77,15 +87,18 @@ export default function ListOfItems({
             />
 
             {isHome && (
-              <div className="py-16">
-                <div className="flex items-center justify-between">
-                  <div />
-                  <Link href={`/${route}`}>
-                    <span className="text-lg font-semibold text-gray-900 cursor-pointer hover:underline">
-                      Read more {route} ➜
-                    </span>
-                  </Link>
-                </div>
+              <div className="pt-8">
+                <Link href={`/${route}`}>
+                  <span className="relative flex justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-3 py-2 space-x-2 text-sm font-medium text-center text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:opacity-90"
+                    >
+                      <div>More {route}</div>
+                      <IconChevronRight className="w-4" />
+                    </button>
+                  </span>
+                </Link>
               </div>
             )}
           </div>

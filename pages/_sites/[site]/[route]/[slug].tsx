@@ -9,6 +9,7 @@ import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
 import absoluteUrl from 'next-absolute-url';
 import { getSiteOptions } from 'lib/utils';
+import { IconChevronRight } from '@tabler/icons';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
   const publishedOn = getLocalizedDate(page.published);
@@ -79,9 +80,16 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
             <Container>
               <div className="flex items-center justify-between my-8">
                 <div className="text-3xl font-bold text-gray-900 capitalize">{route}</div>
-                <Link href="/">
-                  <span className="font-semibold text-gray-900 cursor-pointer">
-                    More {route} ➜
+
+                <Link href={`/${route}`}>
+                  <span className="relative flex justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-3 py-2 space-x-2 text-sm font-medium text-center text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:opacity-90"
+                    >
+                      <div> More {route}</div>
+                      <IconChevronRight className="w-4" />
+                    </button>
                   </span>
                 </Link>
               </div>
