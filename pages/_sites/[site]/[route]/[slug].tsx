@@ -7,11 +7,14 @@ import Container from 'components/base/Container';
 import ArticleList from 'components/base/ArticleList';
 import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
-import absoluteUrl from 'next-absolute-url';
 import { getSiteOptions } from 'lib/utils';
 import { IconChevronRight } from '@tabler/icons';
+import { useRouter } from 'next/router';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
+  const router = useRouter();
+  if (router.isFallback) return <div>loading</div>;
+
   const publishedOn = getLocalizedDate(page.published);
 
   const ogImage = `${origin}/api/og-image?title=${encodeURIComponent(
@@ -23,6 +26,8 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
   const routeSettings = blog.settingData?.links.find(setting =>
     setting?.url?.includes(route)
   );
+
+  console.log(blog);
 
   return (
     <>
@@ -106,15 +111,21 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
   );
 };
 
-export const getServerSideProps = async context => {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+export async function getStaticPaths() {
+  // When this is true (in preview environments) don't
+  // prerender any static pages
+  // (faster builds, but slower initial page load)
+  return {
+    paths: [],
+    fallback: true
+  };
+}
 
-  const { site, slug, route } = context.query;
-  const { req } = context;
-  const { origin } = absoluteUrl(req);
+export const getStaticProps = async context => {
+  const { site, slug, route } = context.params;
+  // const { origin } = absoluteUrl(req);
+
+  // console.log(notionBlogId);
 
   const blog = await prisma.blogWebsite.findFirst({
     where: getSiteOptions(site),
@@ -136,9 +147,10 @@ export const getServerSideProps = async context => {
       },
       route,
       blockMap,
-      page,
-      origin
-    }
+      page
+      // origin
+    },
+    revalidate: 60
   };
 };
 

@@ -8,7 +8,15 @@ export default function ArticleCard({ article, route }: any) {
   const formattedTime = getLocalizedDate(article.published);
 
   return (
-    <Link href={`/${route}/${slug}`}>
+    <Link
+      href={{
+        pathname: '/[route]/[slug]',
+        query: {
+          route,
+          slug
+        }
+      }}
+    >
       <div
         className={`flex flex-col overflow-hidden cursor-pointer group ${
           !article?.coverImage && 'border p-6 rounded-lg hover:bg-gray-100 transition'

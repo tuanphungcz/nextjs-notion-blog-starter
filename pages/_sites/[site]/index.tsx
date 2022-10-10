@@ -4,8 +4,12 @@ import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
 import { getAllPosts } from 'lib/posts';
 import { getSiteOptions } from 'lib/utils';
+import { useRouter } from 'next/router';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
+  const router = useRouter();
+  if (router.isFallback) return <div>loading</div>;
+
   if (!blog) {
     return (
       <div>
@@ -20,14 +24,24 @@ export default function Index({ articles, categories, blog, routes, route }: any
   return <ListOfItems {...listProps} />;
 }
 
-export async function getServerSideProps(context: any) {
-  context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+export async function getStaticPaths() {
+  // When this is true (in preview environments) don't
+  // prerender any static pages
+  // (faster builds, but slower initial page load)
+  return {
+    paths: [],
+    fallback: true
+  };
+}
 
-  const { site } = context.query;
-  const { host } = context.req.headers;
+export async function getStaticProps(context: any) {
+  // context.res.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=10, stale-while-revalidate=59'
+  // );
+
+  const { site } = context.params;
+  // const { host } = context.req.headers;
 
   if (!site) {
     return {
@@ -68,7 +82,8 @@ export async function getServerSideProps(context: any) {
       route,
       categories,
       routes,
-      host
-    }
+      host: 123
+    },
+    revalidate: 60
   };
 }
