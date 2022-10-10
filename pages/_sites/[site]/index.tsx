@@ -4,7 +4,6 @@ import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
 import { getAllPosts } from 'lib/posts';
 import { getSiteOptions } from 'lib/utils';
-// import { IconSlice } from '@tabler/icons';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
   if (!blog) {

@@ -11,17 +11,17 @@ const updateBlog = async (req: any, res: any) => {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
+    const blog = await prisma.blogWebsite.findFirst(id);
+
     const slugCount = await prisma.blogWebsite.count({
       where: { slug: slug.toLowerCase() }
     });
 
-    if (slugCount > 0) {
+    if (slugCount > 0 && blog.slug !== slug.toLowerCase()) {
       return res
         .status(400)
         .json({ error: 'Slug already exists, please choose a different slug' });
     }
-
-    const blog = await prisma.blogWebsite.findFirst(id);
 
     if (blog.email !== session?.user?.email) {
       return res.status(402).json({ error: 'Not the owner of this blog' });

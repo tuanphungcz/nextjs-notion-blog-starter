@@ -45,7 +45,7 @@ export default function ListOfItems({
                 <input
                   className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg"
                   type="text"
-                  placeholder="Search articles"
+                  placeholder={`Search ${route}`}
                   value={searchValue}
                   onChange={(e: any) => {
                     const value = e.target.value;
