@@ -107,6 +107,11 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
 };
 
 export const getServerSideProps = async context => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+
   const { site, slug, route } = context.query;
   const { req } = context;
   const { origin } = absoluteUrl(req);
