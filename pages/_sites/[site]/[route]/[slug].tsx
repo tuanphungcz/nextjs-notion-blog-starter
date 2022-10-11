@@ -7,9 +7,10 @@ import Container from 'components/base/Container';
 import ArticleList from 'components/base/ArticleList';
 import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
-import { getSiteOptions } from 'lib/utils';
+import { flattenDeep, getSiteOptions } from 'lib/utils';
 import { IconChevronRight } from '@tabler/icons';
 import { useRouter } from 'next/router';
+import slugify from 'slugify';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
   const router = useRouter();
@@ -22,8 +23,6 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
   const ogImage = `https://blogfolio.co/api/og?title=${encodeURIComponent(
     page.title
   )}&domain=${encodeURIComponent(blog?.customDomain || blog?.slug + '.blogfolio.co')}`;
-
-  console.log(ogImage);
 
   const coverImage = page?.coverImage?.[0].url || '';
 
@@ -114,19 +113,77 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
 };
 
 export async function getStaticPaths() {
-  // When this is true (in preview environments) don't
-  // prerender any static pages
-  // (faster builds, but slower initial page load)
+  const blogs = await prisma.blogWebsite.findMany({
+    select: {
+      customDomain: true,
+      slug: true,
+      notionBlogDatabaseId: true
+    }
+  });
+
+  const x = await Promise.all(
+    blogs.map(async blog => {
+      const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
+      let articles: any[] = [];
+
+      allPosts.forEach((article: any) => {
+        articles.push({
+          route: article?.route,
+          slug: slugify(article?.title).toLowerCase()
+        });
+      });
+
+      return articles
+        .filter(item => item?.route)
+        .map(article => ({
+          route: article.route,
+          slug: article.slug,
+          subdomain: blog.slug,
+          customDomain: blog.customDomain
+        }));
+    })
+  );
+
+  const flattenBlogs = flattenDeep(x);
+
+  const paths = flattenBlogs.flatMap(blog => {
+    if (blog?.subdomain === null || blog?.customDomain === null) return [];
+
+    if (blog.customDomain) {
+      return [
+        {
+          params: {
+            site: blog.customDomain,
+            route: blog.route,
+            slug: blog.slug
+          }
+        },
+        {
+          params: {
+            site: blog.subdomain,
+            route: blog.route,
+            slug: blog.slug
+          }
+        }
+      ];
+    } else {
+      return {
+        params: {
+          site: blog.subdomain,
+          route: blog.route,
+          slug: blog.slug
+        }
+      };
+    }
+  });
+
   return {
-    paths: [],
+    paths: paths,
     fallback: true
   };
 }
-
 export const getStaticProps = async context => {
   const { site, slug, route } = context.params;
-  console.log(site, slug, route);
-  // const { origin } = absoluteUrl(req);
 
   const blog = await prisma.blogWebsite.findFirst({
     where: getSiteOptions(site),

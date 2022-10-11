@@ -55,3 +55,8 @@ export const parsePageId = (
 
 export const getSiteOptions = (site: string) =>
   site.includes('.') ? { customDomain: site } : { slug: site };
+
+export const flattenDeep = arr =>
+  arr.flatMap((subArray, index) =>
+    Array.isArray(subArray) ? flattenDeep(subArray) : subArray
+  );
