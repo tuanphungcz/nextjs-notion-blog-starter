@@ -13,13 +13,17 @@ import { useRouter } from 'next/router';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
   const router = useRouter();
-  if (router.isFallback) return <div />;
+  if (router.isFallback) {
+    return <div />;
+  }
 
   const publishedOn = getLocalizedDate(page.published);
 
-  const ogImage = `${origin}/api/og-image?title=${encodeURIComponent(
+  const ogImage = `https://blogfolio.co/api/og?title=${encodeURIComponent(
     page.title
-  )}&date=${encodeURIComponent(publishedOn)}`;
+  )}&domain=${encodeURIComponent(blog?.customDomain || blog?.slug + '.blogfolio.co')}`;
+
+  console.log(ogImage);
 
   const coverImage = page?.coverImage?.[0].url || '';
 
@@ -121,6 +125,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async context => {
   const { site, slug, route } = context.params;
+  console.log(site, slug, route);
   // const { origin } = absoluteUrl(req);
 
   const blog = await prisma.blogWebsite.findFirst({
