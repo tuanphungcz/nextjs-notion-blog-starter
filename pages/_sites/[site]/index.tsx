@@ -7,9 +7,6 @@ import { getSiteOptions } from 'lib/utils';
 import { useRouter } from 'next/router';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
-  const router = useRouter();
-  if (router.isFallback) return <div>loading</div>;
-
   if (!blog) {
     return (
       <div>
@@ -25,23 +22,30 @@ export default function Index({ articles, categories, blog, routes, route }: any
 }
 
 export async function getStaticPaths() {
-  // When this is true (in preview environments) don't
-  // prerender any static pages
-  // (faster builds, but slower initial page load)
+  const blogs = await prisma.blogWebsite.findMany({
+    select: {
+      customDomain: true,
+      slug: true
+    }
+  });
+
+  const allPaths = [
+    ...blogs.map(({ slug }) => slug),
+    ...blogs.map(({ customDomain }) => customDomain)
+  ].filter(path => path);
+
   return {
-    paths: [],
+    paths: allPaths.map(path => ({
+      params: {
+        site: path
+      }
+    })),
     fallback: true
   };
 }
 
 export async function getStaticProps(context: any) {
-  // context.res.setHeader(
-  //   'Cache-Control',
-  //   'public, s-maxage=10, stale-while-revalidate=59'
-  // );
-
   const { site } = context.params;
-  // const { host } = context.req.headers;
 
   if (!site) {
     return {
