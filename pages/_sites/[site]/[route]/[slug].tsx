@@ -27,8 +27,6 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
     setting?.url?.includes(route)
   );
 
-  console.log(blog);
-
   return (
     <>
       <Layout
@@ -124,8 +122,6 @@ export async function getStaticPaths() {
 export const getStaticProps = async context => {
   const { site, slug, route } = context.params;
   // const { origin } = absoluteUrl(req);
-
-  // console.log(notionBlogId);
 
   const blog = await prisma.blogWebsite.findFirst({
     where: getSiteOptions(site),
