@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import 'styles/globals.css';
 import { Router } from 'next/router';
+import useLogRocket from 'hooks/useLogrocket';
 
 Router.events.on('routeChangeStart', url => {
   NProgress.start();
@@ -19,6 +20,8 @@ Router.events.on('routeChangeComplete', url => {
 NProgress.configure({ showSpinner: false });
 
 export default function App({ Component, pageProps }: any) {
+  useLogRocket();
+
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
       {process.env.NEXT_PUBLIC_UMAMI_ID &&
