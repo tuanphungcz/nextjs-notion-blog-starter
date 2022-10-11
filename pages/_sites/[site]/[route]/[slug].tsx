@@ -126,6 +126,8 @@ export async function getStaticPaths() {
       const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
       let articles: any[] = [];
 
+      console.log('blog & length:', blog?.slug, blog?.customDomain, allPosts.length);
+
       allPosts.forEach((article: any) => {
         articles.push({
           route: article?.route,
@@ -145,6 +147,8 @@ export async function getStaticPaths() {
   );
 
   const flattenBlogs = flattenDeep(x);
+
+  console.log('articles length', flattenBlogs.length);
 
   const paths = flattenBlogs.flatMap(blog => {
     if (blog?.subdomain === null || blog?.customDomain === null) return [];
