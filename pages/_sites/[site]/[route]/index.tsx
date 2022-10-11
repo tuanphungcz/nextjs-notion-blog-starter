@@ -8,7 +8,9 @@ import { useRouter } from 'next/router';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
   const router = useRouter();
-  if (router.isFallback) return <div />;
+  if (router.isFallback) {
+    return <div />;
+  }
 
   if (!blog) {
     return (
@@ -87,7 +89,7 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: true
+    fallback: 'blocking'
   };
 }
 

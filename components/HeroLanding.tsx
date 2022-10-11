@@ -62,7 +62,15 @@ export default function HeroLanding() {
             </div>
           </div>
 
-          <a href="https://tuan.blogfolio.co" target="_blank" rel="noopener noreferrer">
+          <a
+            href={
+              process.env.NEXT_PUBLIC_IS_LOCALHOST
+                ? 'http://tuan.localhost:3000'
+                : 'https://tuan.blogfolio.co'
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <span className="relative inline-flex">
               <button
                 type="button"

@@ -20,9 +20,13 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
 
   const publishedOn = getLocalizedDate(page.published);
 
-  const ogImage = `https://blogfolio.co/api/og?title=${encodeURIComponent(
-    page.title
-  )}&domain=${encodeURIComponent(blog?.customDomain || blog?.slug + '.blogfolio.co')}`;
+  const ogImage = `${
+    process.env.NEXT_PUBLIC_IS_LOCALHOST
+      ? 'http://localhost:3000'
+      : 'https://blogfolio.co'
+  }/api/og?title=${encodeURIComponent(page.title)}&domain=${encodeURIComponent(
+    blog?.customDomain || blog?.slug + '.blogfolio.co'
+  )}`;
 
   const coverImage = page?.coverImage?.[0].url || '';
 
@@ -40,48 +44,45 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
         baseUrl={origin}
       >
         <div>
-          <div
-            className={`px-6 py-16 pb-48 mx-auto -mb-48 text-center ${
-              coverImage && 'bg-gray-100'
-            } md:pb-96 md:-mb-96`}
-          >
-            <div className="max-w-3xl mx-auto">
-              <div className="flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
-                <div className="">{publishedOn}</div>
+          <div className={` py-16 pb-48 mx-auto -mb-48 ${coverImage && 'bg-gray-100'}`}>
+            <Container small>
+              <div className="mb-2 text-sm text-gray-500">
+                <div className="text-lg">{publishedOn}</div>
               </div>
-              <div className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:text-w-4xl">
+              <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
                 {page.title}
               </div>
-              <div className="max-w-3xl mx-auto mt-3 text-xl leading-8 text-gray-500 sm:mt-4">
+              <div className="mx-auto mt-3 text-lg notion-text sm:mt-4">
                 {page.summary}
               </div>
-            </div>
+            </Container>
           </div>
 
-          <div className="max-w-5xl px-6 mx-auto my-8 md:px-8">
-            {coverImage && (
+          {coverImage && (
+            <Container small>
               <img
-                className="object-cover w-full mx-auto rounded-lg aspect-video"
+                className="object-cover w-full mx-auto my-8 rounded-lg aspect-video"
                 src={coverImage}
                 alt="article cover"
               />
-            )}
-          </div>
+            </Container>
+          )}
 
-          <div className="max-w-4xl px-6 mx-auto mb-24 space-y-8 md:px-8">
+          <Container small>
             <NotionRenderer
               blockMap={blockMap}
               customBlockComponents={{
                 text: ({ renderComponent, blockValue }) => {
                   return (
                     blockValue?.properties && (
-                      <div className="leading-[32px] text-lg">{renderComponent()}</div>
+                      <div className="text-lg">{renderComponent()}</div>
                     )
                   );
                 }
               }}
             />
-          </div>
+          </Container>
+
           <div className="py-12 border-t">
             <Container>
               <div className="flex items-center justify-between my-8">
@@ -99,8 +100,11 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
                   </span>
                 </Link>
               </div>
+
               <ArticleList
-                articles={moreArticles}
+                articles={
+                  routeSettings?.cols === 3 ? moreArticles : moreArticles.slice(0, 2)
+                }
                 routeSettings={routeSettings}
                 route={route}
               />
@@ -121,7 +125,7 @@ export async function getStaticPaths() {
     }
   });
 
-  const x = await Promise.all(
+  const fetchBlogs = await Promise.all(
     blogs.map(async blog => {
       const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
       let articles: any[] = [];
@@ -129,10 +133,12 @@ export async function getStaticPaths() {
       console.log('blog & length:', blog?.slug, blog?.customDomain, allPosts.length);
 
       allPosts.forEach((article: any) => {
-        articles.push({
-          route: article?.route,
-          slug: slugify(article?.title).toLowerCase()
-        });
+        if (article?.title && article?.route) {
+          return articles.push({
+            route: article?.route,
+            slug: slugify(article?.title).toLowerCase()
+          });
+        }
       });
 
       return articles
@@ -146,9 +152,7 @@ export async function getStaticPaths() {
     })
   );
 
-  const flattenBlogs = flattenDeep(x);
-
-  console.log('articles length', flattenBlogs.length);
+  const flattenBlogs = flattenDeep(fetchBlogs);
 
   const paths = flattenBlogs.flatMap(blog => {
     if (blog?.subdomain === null || blog?.customDomain === null) return [];
