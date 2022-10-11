@@ -16,6 +16,8 @@ Router.events.on('routeChangeComplete', url => {
   NProgress.done(false);
 });
 
+NProgress.configure({ showSpinner: false });
+
 export default function App({ Component, pageProps }: any) {
   return (
     <SessionProvider session={pageProps.session} refetchInterval={0}>
