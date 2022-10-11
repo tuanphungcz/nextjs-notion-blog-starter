@@ -1,5 +1,7 @@
 import { Input, TextArea } from './base/Form';
 import Card from './base/Card';
+import { IconExternalLink } from '@tabler/icons';
+import Link from 'next/link';
 
 export default function EditForm({
   blog,
@@ -10,6 +12,7 @@ export default function EditForm({
   onSubmitForm,
   control
 }: any) {
+  const defaultBaseInputs = getDefaultBaseInputs(blog);
   return (
     <form onSubmit={handleSubmit(onSubmitForm)} className="w-full space-y-8">
       <Card className="bg-white sm:rounded">
@@ -71,10 +74,27 @@ export default function EditForm({
   );
 }
 
-const defaultBaseInputs = [
+const getDefaultBaseInputs = blog => [
   {
     id: 'slug',
-    label: 'Blogfolio domain',
+    label: (
+      <div className="flex items-center space-x-2">
+        <div>Blogfolio domain</div>
+        {blog?.slug && (
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={
+              process.env.NEXT_PUBLIC_IS_LOCALHOST
+                ? `http://${blog.slug}.localhost:3000`
+                : `https://${blog.slug}.blogfolio.co`
+            }
+          >
+            <IconExternalLink className="w-4" />
+          </a>
+        )}
+      </div>
+    ),
     component: Input,
     placeholder: '',
     helper: '',
@@ -98,8 +118,8 @@ const defaultBaseInputs = [
             https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850
           </a>
         </div>
-        <div className="mt-1" /> or copy this database id for
-        testing <span className='font-semibold'>6a05e6e596ac4bc6b591734f5c3d9850</span>
+        <div className="mt-1" /> or copy this database id for testing{' '}
+        <span className="font-semibold">6a05e6e596ac4bc6b591734f5c3d9850</span>
       </div>
     )
   }
