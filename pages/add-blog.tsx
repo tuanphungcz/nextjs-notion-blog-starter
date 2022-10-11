@@ -24,7 +24,7 @@ export default function Index() {
   const { register, handleSubmit, setValue, watch, control, formState } = useForm({
     defaultValues: {
       slug: autoSlug,
-      // notionBlogDatabaseId: 'https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850',
+      notionBlogDatabaseId: 'https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850',
       settingData: basicJson
     }
   });
@@ -78,16 +78,25 @@ const basicJson = `
     {
       "name": "Articles",
       "url": "/articles",
-      "description": null,
+      "description": "Welcome to my blog. Here you can find all my articles.",
       "isDefault": true,
       "isSearchVisible": true,
       "isTagsVisible": true,
       "cols": 3
     },
     {
+      "name": "Projects",
+      "url": "/projects",
+      "description": "I have worked on a few projects over the years. Here are some of them.",
+      "isDefault": false,
+      "isSearchVisible": false,
+      "isTagsVisible": true,
+      "cols": 2
+    },
+    {
       "name": "Snippets",
       "url": "/snippets",
-      "description": null,
+      "description": "There are my collection of code snippets that I find useful. I hope you find them useful too.",
       "isDefault": false,
       "isSearchVisible": true,
       "isTagsVisible": true,

@@ -41,10 +41,10 @@ export default function EditForm({
         </div>
         <div className="p-8 border-b md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Notion integration
+            Site settings in JSON
           </h3>
           <p className="mt-2 text-sm text-gray-500">
-            This is your Notion database ID. You can find it in the URL of your database.
+            This is the settings for the website. You can edit it in JSON format.
           </p>
         </div>
 
@@ -102,7 +102,7 @@ const getDefaultBaseInputs = blog => [
   },
   {
     id: 'notionBlogDatabaseId',
-    label: 'Notion blog database id',
+    label: 'Notion database Url',
     component: Input,
     placeholder: '',
     helper: (
