@@ -1,10 +1,20 @@
-import "react-notion/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
+import 'react-notion/src/styles.css';
+import 'prismjs/themes/prism-tomorrow.css';
+import NProgress from 'nprogress';
 
 import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import 'styles/globals.css';
+import { Router } from 'next/router';
+
+Router.events.on('routeChangeStart', url => {
+  NProgress.start();
+});
+
+Router.events.on('routeChangeComplete', url => {
+  NProgress.done(false);
+});
 
 export default function App({ Component, pageProps }: any) {
   return (

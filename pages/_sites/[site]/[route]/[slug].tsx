@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
   const router = useRouter();
-  if (router.isFallback) return <div>loading</div>;
+  if (router.isFallback) return <div />;
 
   const publishedOn = getLocalizedDate(page.published);
 

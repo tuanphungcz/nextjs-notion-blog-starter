@@ -11,8 +11,6 @@ import absoluteUrl from 'next-absolute-url';
 export default function MyBlogs({ blogs, protocol, host, session }) {
   const router = useRouter();
 
-  console.log(session)
-
   const removeBlog = async (id: any) => {
     await fetcher('/api/delete-blog', {
       body: JSON.stringify({ id }),
