@@ -10,7 +10,6 @@ export const config = {
 export default function handler(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-
     // ?title=<title>
     const hasTitle = searchParams.has('title');
     const title = hasTitle
