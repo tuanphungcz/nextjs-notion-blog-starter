@@ -43,7 +43,7 @@ export async function getStaticPaths() {
         site: path
       }
     })),
-    fallback: true
+    fallback: false
   };
 }
 
