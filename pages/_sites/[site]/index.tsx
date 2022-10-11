@@ -7,6 +7,9 @@ import { getSiteOptions } from 'lib/utils';
 import { useRouter } from 'next/router';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
+  const router = useRouter();
+  if (router.isFallback) return <div />;
+
   if (!blog) {
     return (
       <div>
