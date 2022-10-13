@@ -9,15 +9,10 @@ import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
 import { flattenDeep, getSiteOptions } from 'lib/utils';
 import { IconChevronRight } from '@tabler/icons';
-import { useRouter } from 'next/router';
 import slugify from 'slugify';
+import { SecondaryButton } from 'components/base/Button';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div />;
-  }
-
   const publishedOn = getLocalizedDate(page.published);
 
   const ogImage = `${
@@ -89,15 +84,10 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
                 <div className="text-3xl font-bold text-gray-900 capitalize">{route}</div>
 
                 <Link href={`/${route}`}>
-                  <span className="relative flex justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-3 py-2 space-x-2 text-sm font-medium text-center text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:opacity-90"
-                    >
-                      <div> More {route}</div>
-                      <IconChevronRight className="w-4" />
-                    </button>
-                  </span>
+                  <SecondaryButton>
+                    <div> More {route}</div>
+                    <IconChevronRight className="w-4" />
+                  </SecondaryButton>
                 </Link>
               </div>
 
@@ -187,7 +177,7 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: true
+    fallback: 'blocking'
   };
 }
 export const getStaticProps = async context => {

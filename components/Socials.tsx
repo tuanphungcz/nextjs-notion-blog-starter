@@ -1,4 +1,5 @@
 import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons';
+import NewTabLink from './base/NewTabLink';
 
 export default function Socials({ blog }) {
   const socialIcons = blog.settingData?.site?.socials;
@@ -8,21 +9,21 @@ export default function Socials({ blog }) {
       name: 'Twitter',
       href: socialIcons?.twitter,
       icon: (
-        <IconBrandTwitter className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
+        <IconBrandTwitter className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
     },
     {
       name: 'GitHub',
       href: socialIcons?.github,
       icon: (
-        <IconBrandGithub className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
+        <IconBrandGithub className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
     },
     {
       name: 'LinkedIn',
       href: socialIcons?.linkedIn,
       icon: (
-        <IconBrandLinkedin className="w-6 text-gray-400 transition cursor-pointer hover:text-gray-600" />
+        <IconBrandLinkedin className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
       )
     }
   ];
@@ -32,16 +33,14 @@ export default function Socials({ blog }) {
       {socials.map(
         item =>
           item?.href && (
-            <a
+            <NewTabLink
               key={item.name}
               href={item.href}
-              className="text-gray-400 transform hover:text-gray-500 filter hover:contrast-0"
-              target="_blank"
-              rel="noreferrer"
+              className="px-2 transform rounded-full h-9 w-9 text-gray-40 hover:bg-gray-50 hover:text-gray-500 filter"
             >
               <span className="sr-only">{item.name}</span>
               {item.icon}
-            </a>
+            </NewTabLink>
           )
       )}
     </div>

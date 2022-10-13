@@ -1,6 +1,7 @@
+import { SignInButton } from 'components/base/Button';
 import Container from 'components/base/Container';
 import Dropdown from 'components/Dropdown';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function AppNavbar() {
@@ -19,19 +20,7 @@ export default function AppNavbar() {
             </div>
           </Link>
           <div className="flex justify-center space-x-6 md:order-2">
-            {session ? (
-              <Dropdown />
-            ) : (
-              <div
-                className="flex items-center px-3 py-2 space-x-2 text-sm font-semibold text-center text-gray-700 transition bg-white border border-gray-300 rounded shadow-sm cursor-pointer hover:opacity-90"
-                onClick={e => {
-                  e.preventDefault();
-                  signIn('google', { callbackUrl: '/my-blogs' });
-                }}
-              >
-                Get started
-              </div>
-            )}
+            {session ? <Dropdown /> : <SignInButton />}
           </div>
         </div>
       </Container>

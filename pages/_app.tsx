@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: any) {
           />
         )}
       <Toaster />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </SessionProvider>
   );
 }

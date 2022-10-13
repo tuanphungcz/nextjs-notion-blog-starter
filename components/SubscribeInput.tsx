@@ -3,6 +3,7 @@ import { isValidEmail } from 'lib/utils';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { PrimaryButton } from './base/Button';
 import ConfettiCanvas from './ConfettiCanvas';
 
 const CONVERTKIT_API = '/api/subscribe-convertkit';
@@ -50,18 +51,15 @@ export default function SubscribeInput() {
           <input
             {...register('email')}
             type="email"
-            className="w-full px-3 py-2 text-sm text-gray-600 placeholder-gray-500 border rounded-md"
+            className="w-full px-3 py-2 text-sm text-gray-600 placeholder-gray-500 border rounded-lg"
             placeholder="Enter your email"
           />
         </div>
         <div>
           <ConfettiCanvas getInstance={getInstance} />
-          <button
-            type="submit"
-            className="block w-full px-3 py-2 text-sm font-medium text-white transform bg-gray-800 border border-transparent rounded-md hover:bg-gray-900 sm:px-6"
-          >
+          <PrimaryButton>
             {formState === 'loading' ? 'Subscribing...' : 'Subscribe'}
-          </button>
+          </PrimaryButton>
         </div>
       </form>
       {formState === 'success' ? (
@@ -72,8 +70,7 @@ export default function SubscribeInput() {
           🎉 Give me more confetti
         </div>
       ) : (
-        <div className="mt-2 text-sm text-gray-500">
-        </div>
+        <div className="mt-2 text-sm text-gray-500"></div>
       )}
     </>
   );

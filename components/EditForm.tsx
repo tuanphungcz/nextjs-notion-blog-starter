@@ -1,7 +1,8 @@
 import { Input, TextArea } from './base/Form';
 import Card from './base/Card';
 import { IconExternalLink } from '@tabler/icons';
-import Link from 'next/link';
+import { PrimaryButton } from './base/Button';
+import NewTabLink from './base/NewTabLink';
 
 export default function EditForm({
   blog,
@@ -62,12 +63,7 @@ export default function EditForm({
           ))}
         </div>
         <div className="flex justify-end p-8 space-x-4">
-          <button
-            type="submit"
-            className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-          >
-            <div>{blog?.slug ? 'Update blog' : ' Create blog'}</div>
-          </button>
+          <PrimaryButton>{blog?.slug ? 'Update blog' : ' Create blog'}</PrimaryButton>
         </div>
       </Card>
     </form>
@@ -81,9 +77,7 @@ const getDefaultBaseInputs = blog => [
       <div className="flex items-center space-x-2">
         <div>Blogfolio domain</div>
         {blog?.slug && (
-          <a
-            target="_blank"
-            rel="noreferrer"
+          <NewTabLink
             href={
               process.env.NEXT_PUBLIC_IS_LOCALHOST
                 ? `http://${blog.slug}.localhost:3000`
@@ -91,7 +85,7 @@ const getDefaultBaseInputs = blog => [
             }
           >
             <IconExternalLink className="w-4" />
-          </a>
+          </NewTabLink>
         )}
       </div>
     ),
@@ -109,14 +103,12 @@ const getDefaultBaseInputs = blog => [
       <div>
         <div>
           You can clone this template to get started:{' '}
-          <a
+          <NewTabLink
             href="https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850"
-            target="_blank"
-            rel="noreferrer"
             className="font-semibold hover:underline"
           >
             https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850
-          </a>
+          </NewTabLink>
         </div>
         <div className="mt-1" /> or copy this database id for testing{' '}
         <span className="font-semibold">6a05e6e596ac4bc6b591734f5c3d9850</span>

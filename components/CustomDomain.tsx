@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useSWR from 'swr';
+import { PrimaryButton, SecondaryButton } from './base/Button';
 import Card from './base/Card';
 import { Input } from './base/Form';
+import NewTabLink from './base/NewTabLink';
 
 export default function CustomDomain({ blog }) {
   const [customDomainValue, setCustomDomainValue] = useState(blog?.customDomain);
@@ -68,13 +70,9 @@ export default function CustomDomain({ blog }) {
               prefix={<IconLink />}
             />
             <div className="flex justify-end space-x-4">
-              <button
-                onClick={onCreateCustomDomain}
-                type="button"
-                className="px-4 py-1.5 text-sm font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-              >
+              <PrimaryButton onClick={onCreateCustomDomain}>
                 <div>Add domain</div>
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         )}
@@ -83,15 +81,11 @@ export default function CustomDomain({ blog }) {
           <div className="p-8 space-y-4">
             <div className="flex justify-between pb-4">
               <div className="">
-                <a
-                  href={`https://${blog?.customDomain}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <NewTabLink href={`https://${blog?.customDomain}`}>
                   <div className="flex items-center p-2 space-x-2 text-xl font-medium truncate transition rounded cursor-pointer hover:bg-gray-100">
                     <div>{blog?.customDomain}</div> <IconExternalLink />
                   </div>
-                </a>
+                </NewTabLink>
 
                 <div className="flex items-center px-2">
                   <div
@@ -106,16 +100,10 @@ export default function CustomDomain({ blog }) {
               </div>
 
               <div className="flex items-center">
-                <button
-                  onClick={onDeleteCustomDomain}
-                  type="button"
-                  className="px-4 py-1.5 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-                >
-                  <div className="flex items-center space-x-2">
-                    <IconTrash className="w-4 text-white" />
-                    <span>Delete</span>
-                  </div>
-                </button>
+                <SecondaryButton onClick={onDeleteCustomDomain}>
+                  <IconTrash className="w-4" />
+                  <span>Delete</span>
+                </SecondaryButton>
               </div>
             </div>
             <div className="overflow-hidden overflow-x-auto border-gray-200 rounded-sm">

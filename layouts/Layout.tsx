@@ -1,6 +1,6 @@
 // import Subscribe from 'components/Subscribe';
 import Footer from './Footer';
-import Header from './Navbar';
+import BlogNavbar from './BlogNavbar';
 import { MetaHead } from './MetaHead';
 
 export function Layout(props) {
@@ -22,7 +22,7 @@ export function Layout(props) {
   return (
     <>
       <MetaHead {...metaHeadProps} />
-      <Header blog={blog} />
+      <BlogNavbar blog={blog} />
       <div className="pt-14">{children}</div>
       {/* {formId && apiKey && <Subscribe />} */}
       <Footer blog={blog} />
