@@ -3,11 +3,11 @@ import { Layout } from 'layouts/Layout';
 import { filterArticles } from 'lib/filterArticles';
 import { useState } from 'react';
 import ArticleList from './base/ArticleList';
-import Category from './Category';
 import Container from './base/Container';
 import HeroHeader from './HeroHeader';
 import Link from 'next/link';
 import { SecondaryButton } from './base/Button';
+import TagItem from './base/TagItem';
 
 export default function ListOfItems({
   blog,
@@ -24,6 +24,12 @@ export default function ListOfItems({
   const routeSettings = blog?.settingData?.links.find(setting =>
     setting?.url?.includes(route)
   );
+
+  const onCategoryClick = (category: string) => {
+    setSearchValue('');
+
+    return selectedTag === category ? setSelectedTag(null) : setSelectedTag(category);
+  };
 
   const site = blog?.settingData?.site;
 
@@ -66,13 +72,14 @@ export default function ListOfItems({
               {routeSettings?.isTagsVisible && (
                 <div className="flex flex-wrap justify-start gap-4">
                   {categories?.map(tag => (
-                    <Category
+                    <TagItem
                       tag={tag}
                       key={tag}
-                      selectedTag={selectedTag}
-                      setSearchValue={setSearchValue}
-                      setSelectedTag={setSelectedTag}
-                    />
+                      isSelected={selectedTag === tag}
+                      onClick={() => onCategoryClick(tag)}
+                    >
+                      {tag || 'All'}
+                    </TagItem>
                   ))}
                 </div>
               )}

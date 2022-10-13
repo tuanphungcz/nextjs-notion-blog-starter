@@ -1,23 +1,12 @@
 import 'react-notion/src/styles.css';
 import 'prismjs/themes/prism-tomorrow.css';
-import NProgress from 'nprogress';
+import NextNProgress from 'nextjs-progressbar';
 
 import { SessionProvider } from 'next-auth/react';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import 'styles/globals.css';
-import { Router } from 'next/router';
 import useLogRocket from 'hooks/useLogrocket';
-
-Router.events.on('routeChangeStart', url => {
-  NProgress.start();
-});
-
-Router.events.on('routeChangeComplete', url => {
-  NProgress.done(false);
-});
-
-NProgress.configure({ showSpinner: false });
 
 export default function App({ Component, pageProps }: any) {
   useLogRocket();
@@ -32,6 +21,8 @@ export default function App({ Component, pageProps }: any) {
             src={process.env.NEXT_PUBLIC_UMAMI_URL}
           />
         )}
+      <NextNProgress options={{ showSpinner: false }} />
+
       <Toaster />
       <Component {...pageProps} />
     </SessionProvider>
