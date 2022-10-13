@@ -15,12 +15,10 @@ const ArticlePage = ({
   title,
   coverImage,
   publishedDate,
-  lastEditedAt,
   summary,
   moreArticles
 }) => {
   const publishedOn = getLocalizedDate(publishedDate);
-  const modifiedDate = getLocalizedDate(lastEditedAt);
 
   const slug = slugify(title).toLowerCase();
 
@@ -46,12 +44,6 @@ const ArticlePage = ({
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
                 <div className="">{publishedOn}</div>
-                {publishedOn !== modifiedDate && (
-                  <>
-                    <span className="">•</span>
-                    <span className="0">Updated on {modifiedDate}</span>
-                  </>
-                )}
               </div>
               <div className="font-extrabold tracking-tight text-gray-900 text-w-4xl sm:text-4xl">
                 {title}
@@ -108,7 +100,7 @@ export const getStaticPaths = async () => {
     if (result.object === 'page') {
       paths.push({
         params: {
-          slug: slugify(result.properties.Name.title[0].plain_text).toLowerCase()
+          slug: slugify(result.properties.title.title[0].plain_text).toLowerCase()
         }
       });
     }
