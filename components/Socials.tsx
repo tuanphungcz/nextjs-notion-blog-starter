@@ -31,13 +31,7 @@ export default function Socials() {
           rel="noreferrer"
         >
           <span className="sr-only">{item.name}</span>
-          <Image
-            src={item.icon}
-            alt="social-icon"
-            width={24}
-            height={24}
-            objectFit="cover"
-          />
+          <img src={item.icon} alt="social-icon" className="w-6 h-6" />
         </a>
       ))}
     </div>

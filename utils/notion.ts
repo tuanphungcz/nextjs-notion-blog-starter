@@ -43,7 +43,7 @@ const mapArticleProperties = article => {
     },
     coverImage:
       properties?.coverImage?.files[0]?.file?.url ||
-      properties?.CoverImage?.files[0]?.external?.url ||
+      properties?.coverImage?.files[0]?.external?.url ||
       '/image-background.png',
     publishedDate: properties.published?.date?.start,
     summary: properties?.summary.rich_text[0]?.plain_text ?? ''

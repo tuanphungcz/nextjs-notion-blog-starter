@@ -6,11 +6,9 @@ export default function HeroHeader() {
   return (
     <div className="py-24 text-center bg-gray-100">
       {siteData?.profileUrl && (
-        <Image
+        <img
           src={siteData.profileUrl}
-          className="mx-auto rounded-full"
-          width={96}
-          height={96}
+          className="w-24 h-24 mx-auto rounded-full"
           alt="profile"
         />
       )}
@@ -21,7 +19,7 @@ export default function HeroHeader() {
         {siteData.headerDescription}
       </div>
 
-      <div className='mt-12'>
+      <div className="mt-12">
         <SubscribeInput />
       </div>
     </div>
