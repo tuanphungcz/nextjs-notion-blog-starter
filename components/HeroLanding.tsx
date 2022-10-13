@@ -52,7 +52,7 @@ export default function HeroLanding() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-16">
-        <img src={'/preview/1.jpg'} className="rounded-xl" alt="hero" />
+        <img src="/preview/4.jpg" className="rounded-xl" alt="hero" />
       </div>
     </div>
   );
