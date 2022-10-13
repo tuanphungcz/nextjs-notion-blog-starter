@@ -4,14 +4,8 @@ import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
 import { getAllPosts } from 'lib/posts';
 import { getSiteOptions } from 'lib/utils';
-import { useRouter } from 'next/router';
 
 export default function Index({ articles, categories, blog, routes, route }: any) {
-  const router = useRouter();
-  if (router.isFallback) {
-    return <div />;
-  }
-
   if (!blog) {
     return (
       <div>

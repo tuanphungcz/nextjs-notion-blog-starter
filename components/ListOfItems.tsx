@@ -7,6 +7,7 @@ import Category from './Category';
 import Container from './base/Container';
 import HeroHeader from './HeroHeader';
 import Link from 'next/link';
+import { SecondaryButton } from './base/Button';
 
 export default function ListOfItems({
   blog,
@@ -37,8 +38,7 @@ export default function ListOfItems({
                 `${searchValue.length > 0 ? filteredArticles.length : 'Latest'} ${route}`
               ) : (
                 <span>
-                  <span className="capitalize">{selectedTag}</span> {' '}
-                  {route}
+                  <span className="capitalize">{selectedTag}</span> {route}
                 </span>
               )}
             </div>
@@ -87,17 +87,12 @@ export default function ListOfItems({
             />
 
             {isHome && (
-              <div className="pt-8">
+              <div className="pt-8 text-center">
                 <Link href={`/${route}`}>
-                  <span className="relative flex justify-center">
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-3 py-2 space-x-2 text-sm font-medium text-center text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:bg-gray-50 hover:opacity-90"
-                    >
-                      <div>More {route}</div>
-                      <IconChevronRight className="w-4" />
-                    </button>
-                  </span>
+                  <SecondaryButton>
+                    <div>More {route}</div>
+                    <IconChevronRight className="w-4" />
+                  </SecondaryButton>
                 </Link>
               </div>
             )}

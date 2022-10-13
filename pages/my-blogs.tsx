@@ -7,6 +7,7 @@ import Container from 'components/base/Container';
 import { fetcher } from 'lib/utils';
 import { useEffect } from 'react';
 import absoluteUrl from 'next-absolute-url';
+import { PrimaryButton } from 'components/base/Button';
 
 export default function MyBlogs({ blogs, protocol, host, session }) {
   const router = useRouter();
@@ -41,11 +42,7 @@ export default function MyBlogs({ blogs, protocol, host, session }) {
             </div>
           </div>
           <Link passHref href="/add-blog">
-            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-              <div className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-black border border-transparent rounded-lg shadow-sm cursor-pointer hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
-                New blog
-              </div>
-            </div>
+            <PrimaryButton>New blog</PrimaryButton>
           </Link>
         </div>
         <div className="mt-8 overflow-auto rounded-lg shadow ring-1 ring-black ring-opacity-5">

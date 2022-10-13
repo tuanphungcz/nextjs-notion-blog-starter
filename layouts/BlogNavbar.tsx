@@ -11,7 +11,7 @@ import Link from 'next/link';
 //   ]
 // };
 
-export default function Navbar({ blog }) {
+export default function BlogNavbar({ blog }) {
   const links = blog.settingData?.links || [];
   const site = blog.settingData?.site;
 

@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <>
       <AppNavbar />
-      <Container>
+      <Container small>
         <HeroLanding />
       </Container>
     </>
