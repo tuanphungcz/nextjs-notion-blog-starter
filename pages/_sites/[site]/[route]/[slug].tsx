@@ -7,9 +7,8 @@ import Container from 'components/base/Container';
 import ArticleList from 'components/base/ArticleList';
 import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
-import { flattenDeep, getSiteOptions } from 'lib/utils';
+import { getSiteOptions } from 'lib/utils';
 import { IconChevronRight } from '@tabler/icons';
-import slugify from 'slugify';
 import { SecondaryButton } from 'components/base/Button';
 
 const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
@@ -39,15 +38,19 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
         baseUrl={origin}
       >
         <div>
-          <div className={` py-16 pb-48 mx-auto -mb-48 ${coverImage && 'bg-gray-100'}`}>
+          <div
+            className={` py-16 pb-48 mx-auto -mb-48 text-center ${
+              coverImage && 'bg-gray-100'
+            }`}
+          >
             <Container small>
-              <div className="mb-2 text-sm text-gray-500">
+              <div className="mb-4 text-sm text-gray-500">
                 <div className="text-lg">{publishedOn}</div>
               </div>
-              <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+              <div className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl sm:leading-[56px] ">
                 {page.title}
               </div>
-              <div className="mx-auto mt-3 text-lg notion-text sm:mt-4">
+              <div className="mx-auto mt-6 text-lg notion-text sm:mt-4">
                 {page.summary}
               </div>
             </Container>
@@ -107,76 +110,76 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
 };
 
 export async function getStaticPaths() {
-  const blogs = await prisma.blogWebsite.findMany({
-    select: {
-      customDomain: true,
-      slug: true,
-      notionBlogDatabaseId: true
-    }
-  });
+  // const blogs = await prisma.blogWebsite.findMany({
+  //   select: {
+  //     customDomain: true,
+  //     slug: true,
+  //     notionBlogDatabaseId: true
+  //   }
+  // });
 
-  const fetchBlogs = await Promise.all(
-    blogs.map(async blog => {
-      const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
-      let articles: any[] = [];
+  // const fetchBlogs = await Promise.all(
+  //   blogs.map(async blog => {
+  //     const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
+  //     let articles: any[] = [];
 
-      console.log('blog & length:', blog?.slug, blog?.customDomain, allPosts.length);
+  //     console.log('blog & length:', blog?.slug, blog?.customDomain, allPosts.length);
 
-      allPosts.forEach((article: any) => {
-        if (article?.title && article?.route) {
-          return articles.push({
-            route: article?.route,
-            slug: slugify(article?.title).toLowerCase()
-          });
-        }
-      });
+  //     allPosts.forEach((article: any) => {
+  //       if (article?.title && article?.route) {
+  //         return articles.push({
+  //           route: article?.route,
+  //           slug: slugify(article?.title).toLowerCase()
+  //         });
+  //       }
+  //     });
 
-      return articles
-        .filter(item => item?.route)
-        .map(article => ({
-          route: article.route,
-          slug: article.slug,
-          subdomain: blog.slug,
-          customDomain: blog.customDomain
-        }));
-    })
-  );
+  //     return articles
+  //       .filter(item => item?.route)
+  //       .map(article => ({
+  //         route: article.route,
+  //         slug: article.slug,
+  //         subdomain: blog.slug,
+  //         customDomain: blog.customDomain
+  //       }));
+  //   })
+  // );
 
-  const flattenBlogs = flattenDeep(fetchBlogs);
+  // const flattenBlogs = flattenDeep(fetchBlogs);
 
-  const paths = flattenBlogs.flatMap(blog => {
-    if (blog?.subdomain === null || blog?.customDomain === null) return [];
+  // const paths = flattenBlogs.flatMap(blog => {
+  //   if (blog?.subdomain === null || blog?.customDomain === null) return [];
 
-    if (blog.customDomain) {
-      return [
-        {
-          params: {
-            site: blog.customDomain,
-            route: blog.route,
-            slug: blog.slug
-          }
-        },
-        {
-          params: {
-            site: blog.subdomain,
-            route: blog.route,
-            slug: blog.slug
-          }
-        }
-      ];
-    } else {
-      return {
-        params: {
-          site: blog.subdomain,
-          route: blog.route,
-          slug: blog.slug
-        }
-      };
-    }
-  });
+  //   if (blog.customDomain) {
+  //     return [
+  //       {
+  //         params: {
+  //           site: blog.customDomain,
+  //           route: blog.route,
+  //           slug: blog.slug
+  //         }
+  //       },
+  //       {
+  //         params: {
+  //           site: blog.subdomain,
+  //           route: blog.route,
+  //           slug: blog.slug
+  //         }
+  //       }
+  //     ];
+  //   } else {
+  //     return {
+  //       params: {
+  //         site: blog.subdomain,
+  //         route: blog.route,
+  //         slug: blog.slug
+  //       }
+  //     };
+  //   }
+  // });
 
   return {
-    paths: paths,
+    paths: [],
     fallback: 'blocking'
   };
 }
