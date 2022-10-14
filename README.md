@@ -1,19 +1,13 @@
-> **October 2022:** I am releasing a new verssion which allows user to create multiple blog posts. The previous version [Nextjs Notion Blog Starter](https://github.com/tuanphungcz/blogfolio.co/tree/blog-starter) is still available under the [blog-starter](https://github.com/tuanphungcz/blogfolio.co) branch.
+> **October 2022:** I am releasing a new verssion which allows user to create multiple blog posts. The previous version [Nextjs Notion Blog Starter](http://nextjs-notion-blog-starter.vercel.app/) is still available under the [blog-starter](https://github.com/tuanphungcz/blogfolio.co/tree/blog-starter) branch.
 
 ---
 
 <a href="https://blogfolio.co">
-  <img alt="Dub – an open-source link shortener SaaS with built-in analytics + free custom domains." src="https://blogfolio.co/preview/v1.jpg">
-  <h1 align="center">Blogfolio.co</h1>
+  <img alt="Blogfolio –  An open-source link notion-powered blog starter with Nextjs and Tailwind" src="https://blogfolio.co/preview/v1.jpg">
 </a>
 
-<p align="center">
-  An open-source link notion-powered blog starter with Nextjs and Tailwind + free custom domains.
-</p>
 
-<br/>
-
-# Introduction
+# Blogfolio.co
 
 Blogfolio is a open-source blog starter built with Nextjs and Tailwind. It uses Notion as a CMS and is deployed on Vercel. Build on top of [Notion API worker](https://github.com/splitbee/notion-api-worker) and [React-notion](https://github.com/splitbee/react-notion)
 

@@ -1,5 +1,5 @@
 import { IconBrandGithub, IconExternalLink } from '@tabler/icons';
-import { SecondaryButton, SignInButton } from './base/Button';
+import { PrimaryButton, SecondaryButton, SignInButton } from './base/Button';
 import NewTabLink from './base/NewTabLink';
 
 export default function HeroLanding() {
@@ -37,7 +37,7 @@ export default function HeroLanding() {
                 : 'https://tuan.blogfolio.co'
             }
           >
-            <SecondaryButton>
+            <PrimaryButton>
               <div className="flex items-center space-x-2">
                 <div>Demo blog</div>
                 <IconExternalLink className="w-5" />
@@ -46,7 +46,7 @@ export default function HeroLanding() {
                 <span className="absolute inline-flex w-full h-full bg-green-400 rounded-full opacity-75 animate-ping"></span>
                 <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>
               </div>
-            </SecondaryButton>
+            </PrimaryButton>
           </NewTabLink>
         </div>
       </div>

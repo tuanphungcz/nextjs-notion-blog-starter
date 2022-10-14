@@ -12,6 +12,7 @@ const mapArticleProperties = article => {
     categories,
     summary,
     route,
+    externalLink: article?.externalLink || null,
     coverImage: article?.coverImage?.length > 0 && article?.coverImage[0].url,
     published: article?.published,
     lastEdited: article?.published,

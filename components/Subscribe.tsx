@@ -8,7 +8,7 @@ export default function Subscribe() {
         <div className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Subscribe to the newsletter
         </div>
-        <div className="max-w-2xl mx-auto my-4 text-lg text-gray-500">
+        <div className="max-w-xl mx-auto my-4 text-lg text-gray-500">
           Get emails from me about web development, tech, and early access to new
           articles.
         </div>

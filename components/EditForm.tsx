@@ -63,7 +63,9 @@ export default function EditForm({
           ))}
         </div>
         <div className="flex justify-end p-8 space-x-4">
-          <PrimaryButton>{blog?.slug ? 'Update blog' : ' Create blog'}</PrimaryButton>
+          <PrimaryButton type="submit">
+            {blog?.slug ? 'Update blog' : ' Create blog'}
+          </PrimaryButton>
         </div>
       </Card>
     </form>
