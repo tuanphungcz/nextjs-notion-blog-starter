@@ -8,7 +8,7 @@ export default function AppNavbar() {
   const { data: session } = useSession();
 
   return (
-    <div className="bg-white border-b">
+    <div className="bg-white">
       <Container small>
         <div className="flex items-center justify-between w-full py-4">
           <Link href="/">

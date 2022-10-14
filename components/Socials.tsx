@@ -1,45 +1,35 @@
 import { IconBrandGithub, IconBrandLinkedin, IconBrandTwitter } from '@tabler/icons';
 import NewTabLink from './base/NewTabLink';
 
-export default function Socials({ blog }) {
-  const socialIcons = blog.settingData?.site?.socials;
-
+export default function Socials({ socialIcons }) {
   const socials = [
     {
       name: 'Twitter',
       href: socialIcons?.twitter,
-      icon: (
-        <IconBrandTwitter className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
-      )
+      icon: IconBrandTwitter
     },
     {
       name: 'GitHub',
       href: socialIcons?.github,
-      icon: (
-        <IconBrandGithub className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
-      )
+      icon: IconBrandGithub
     },
     {
       name: 'LinkedIn',
       href: socialIcons?.linkedIn,
-      icon: (
-        <IconBrandLinkedin className="w-full h-full text-gray-400 transition cursor-pointer hover:text-gray-600" />
-      )
+      icon: IconBrandLinkedin
     }
   ];
 
   return (
-    <div className="flex justify-center space-x-6">
+    <div className="flex items-center gap-6">
       {socials.map(
         item =>
           item?.href && (
-            <NewTabLink
-              key={item.name}
-              href={item.href}
-              className="px-2 transform rounded-full h-9 w-9 text-gray-40 hover:bg-gray-50 hover:text-gray-500 filter"
-            >
-              <span className="sr-only">{item.name}</span>
-              {item.icon}
+            <NewTabLink key={item.name} href={item.href}>
+              <div className="relative group">
+                <item.icon className="relative z-50 w-6 text-gray-500 transition cursor-pointer hover:text-gray-900" />
+                <div className="absolute z-0 transition scale-95 opacity-0 rounded-xl -inset-y-2 -inset-x-2 bg-zinc-50 group-hover:scale-100 group-hover:opacity-100 "></div>
+              </div>
             </NewTabLink>
           )
       )}

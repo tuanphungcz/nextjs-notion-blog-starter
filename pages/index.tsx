@@ -1,14 +1,13 @@
-import Container from 'components/base/Container';
 import HeroLanding from 'components/HeroLanding';
 import AppNavbar from 'layouts/AppNavbar';
 
 export default function Index() {
   return (
-    <>
-      <AppNavbar />
-      <Container small>
+    <div className="pb-24 bg-gray-100 ">
+      <div className="h-screen max-w-5xl px-4 mx-auto bg-white sm:px-16 md:px-24">
+        <AppNavbar />
         <HeroLanding />
-      </Container>
-    </>
+      </div>
+    </div>
   );
 }

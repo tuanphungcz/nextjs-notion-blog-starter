@@ -3,11 +3,11 @@ import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 const commonButtonProps =
-  'inline-flex items-center px-4 py-2 text-sm space-x-2 font-medium transition rounded-lg shadow-sm cursor-pointer font-medium relative';
+  'inline-flex items-center px-4 py-2 text-sm space-x-2 font-medium transition rounded-xl cursor-pointer font-medium relative';
 
 export const PrimaryButton = ({ children, ...other }) => {
   return (
-    <div
+    <button
       {...other}
       className={classNames(
         'text-white  bg-gray-900 border border-gray-300  hover:opacity-90',
@@ -15,21 +15,21 @@ export const PrimaryButton = ({ children, ...other }) => {
       )}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
 export const SecondaryButton = ({ children, ...other }) => {
   return (
-    <div
+    <button
       {...other}
       className={classNames(
-        ' text-gray-700  bg-white border border-gray-300 hover:bg-gray-50 hover:opacity-90',
+        ' text-gray-700  bg-white border border-gray-200 hover:bg-gray-50 hover:opacity-90',
         commonButtonProps
       )}
     >
       {children}
-    </div>
+    </button>
   );
 };
 
@@ -38,7 +38,7 @@ export const SignInButton = () => {
   const { push } = useRouter();
 
   return (
-    <PrimaryButton
+    <SecondaryButton
       onClick={e => {
         e.preventDefault();
         !session?.user
@@ -56,6 +56,6 @@ export const SignInButton = () => {
           <div>Get started</div>
         </div>
       )}
-    </PrimaryButton>
+    </SecondaryButton>
   );
 };

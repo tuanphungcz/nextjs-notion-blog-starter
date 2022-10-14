@@ -6,7 +6,22 @@ module.exports = {
     './lib/**/*.tsx'
   ],
   theme: {
-    extend: {}
+    extend: {
+      fontSize: {
+        base: [
+          '1rem',
+          {
+            lineHeight: '1.75rem'
+          }
+        ],
+        sm: [
+          '0.875rem',
+          {
+            lineHeight: '1.5rem'
+          }
+        ]
+      }
+    }
   },
   plugins: [require('@tailwindcss/line-clamp')]
 };

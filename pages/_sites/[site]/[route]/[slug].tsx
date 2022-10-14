@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import { filterArticlesWithMetadata, getArticlePage, shuffleArray } from 'lib/notion';
-import { Layout } from 'layouts/Layout';
 import getLocalizedDate from 'lib/getLocalizedDate';
 import prisma, { blogSelect } from 'lib/prisma';
-import Container from 'components/base/Container';
 import ArticleList from 'components/base/ArticleList';
 import { getAllPosts, getPageById } from 'lib/posts';
 import { NotionRenderer } from 'react-notion';
 import { getSiteOptions } from 'lib/utils';
 import { IconChevronRight } from '@tabler/icons';
 import { SecondaryButton } from 'components/base/Button';
+import BlogLaylout from 'layouts/BlogLayout';
 
-const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticles }) => {
+const ArticlePage = ({ route, blog, blockMap, page, moreArticles }) => {
+  console.log(blog)
   const publishedOn = getLocalizedDate(page.published);
 
   const ogImage = `${
@@ -29,83 +29,56 @@ const ArticlePage = ({ summary, route, blog, blockMap, page, origin, moreArticle
   );
 
   return (
-    <>
-      <Layout
-        description={summary}
-        imageUrl={ogImage}
-        blog={blog}
-        title={page.title}
-        baseUrl={origin}
-      >
-        <div>
-          <div
-            className={` py-16 pb-48 mx-auto -mb-48 text-center ${
-              coverImage && 'bg-gray-100'
-            }`}
-          >
-            <Container small>
-              <div className="mb-4 text-sm text-gray-500">
-                <div className="text-lg">{publishedOn}</div>
-              </div>
-              <div className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl sm:leading-[56px] ">
-                {page.title}
-              </div>
-              <div className="mx-auto mt-6 text-lg notion-text sm:mt-4">
-                {page.summary}
-              </div>
-            </Container>
-          </div>
-
-          {coverImage && (
-            <Container small>
-              <img
-                className="object-cover w-full mx-auto my-8 rounded-lg aspect-video"
-                src={coverImage}
-                alt="article cover"
-              />
-            </Container>
-          )}
-
-          <Container small>
-            <NotionRenderer
-              blockMap={blockMap}
-              customBlockComponents={{
-                text: ({ renderComponent, blockValue }) => {
-                  return (
-                    blockValue?.properties && (
-                      <div className="text-lg">{renderComponent()}</div>
-                    )
-                  );
-                }
-              }}
-            />
-          </Container>
-
-          <div className="py-12 border-t">
-            <Container>
-              <div className="flex items-center justify-between my-8">
-                <div className="text-3xl font-bold text-gray-900 capitalize">{route}</div>
-
-                <Link href={`/${route}`}>
-                  <SecondaryButton>
-                    <div> More {route}</div>
-                    <IconChevronRight className="w-4" />
-                  </SecondaryButton>
-                </Link>
-              </div>
-
-              <ArticleList
-                articles={
-                  routeSettings?.cols === 3 ? moreArticles : moreArticles.slice(0, 2)
-                }
-                routeSettings={routeSettings}
-                route={route}
-              />
-            </Container>
-          </div>
+    <BlogLaylout
+      blog={blog}
+      ogImage={ogImage}
+      title={blog.title}
+      description={blog.summary}
+      icon={blog.settingData?.site?.profileUrl}
+      baseUrl={null}
+    >
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-4 text-lg text-gray-500">{publishedOn}</div>
+        <div className=" font-extrabold tracking-tight text-gray-900 text-3xl sm:text-5xl sm:leading-[56px]">
+          {page.title}
         </div>
-      </Layout>
-    </>
+        <div className="mx-auto mt-6 text-lg notion-text sm:mt-4">{page.summary}</div>
+
+        {coverImage && (
+          <img
+            className="object-cover w-full mx-auto my-8 rounded-lg aspect-video"
+            src={coverImage}
+            alt="article cover"
+          />
+        )}
+
+        <NotionRenderer
+          blockMap={blockMap}
+          customBlockComponents={{
+            text: ({ renderComponent, blockValue }) =>
+              blockValue?.properties && <div className="">{renderComponent()}</div>
+          }}
+        />
+      </div>
+      <div className="py-12 mt-12 border-t">
+        <div className="flex items-center justify-between my-8">
+          <div className="text-3xl font-bold text-gray-900 capitalize">{route}</div>
+
+          <Link href={`/${route}`}>
+            <SecondaryButton>
+              <div> More {route}</div>
+              <IconChevronRight className="w-4" />
+            </SecondaryButton>
+          </Link>
+        </div>
+
+        <ArticleList
+          articles={routeSettings?.cols === 3 ? moreArticles : moreArticles.slice(0, 3)}
+          routeSettings={routeSettings}
+          route={route}
+        />
+      </div>
+    </BlogLaylout>
   );
 };
 
