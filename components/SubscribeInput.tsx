@@ -41,7 +41,7 @@ export default function SubscribeInput() {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid items-center max-w-sm grid-flow-row gap-4 mx-auto sm:grid-flow-col"
+        className="grid items-center justify-center max-w-sm grid-flow-col gap-4 mx-auto"
       >
         <div className="w-full">
           <label htmlFor="cta-email" className="sr-only">
