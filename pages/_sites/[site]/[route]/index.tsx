@@ -21,8 +21,8 @@ export default function Index({ articles, categories, blog, routes, route }: any
   return (
     <BlogLaylout
       blog={blog}
-      title="Tuan Phung - Frontend developer"
-      description="Hi I'm Tuan a web developer"
+      title={blog.settingData?.site?.title}
+      description={blog.settingData?.site?.description}
       icon={blog.settingData?.site?.profileUrl}
       ogImage={null}
       baseUrl={null}

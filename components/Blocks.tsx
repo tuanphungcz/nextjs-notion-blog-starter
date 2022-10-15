@@ -1,5 +1,5 @@
 import { IconChevronRight, IconGitFork, IconStar } from '@tabler/icons';
-import sanitizeHtml from 'sanitize-html';
+import DOMPurify from 'isomorphic-dompurify';
 
 import Link from 'next/link';
 import Socials from './Socials';
@@ -13,7 +13,7 @@ export const AboutMeBlock = ({ block, blog }) => {
         </div>
         <div className="mt-6 text-base text-zinc-600 ">
           <div
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(block.description) }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(block.description) }}
           ></div>
         </div>
       </div>
@@ -43,25 +43,25 @@ export const WorkExperienceBlock = ({ block }) => {
                   <h2 className="text-base font-semibold text-zinc-800">
                     <span className="relative z-10 text">
                       <div
-                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
-                      ></div>
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(item.title)
+                        }}
+                      />
                     </span>
                   </h2>
-                  <p className="relative z-10 text-sm text-zinc-500 ">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
-                    ></div>
-                  </p>
-                  <p className="relative z-10 mt-2 space-y-2 text-sm text-zinc-600 ">
-                    {item.longDescription.split('\n').map((i, key) => {
+                  <div className="relative z-10 text-sm text-zinc-500 ">
+                    {item.description}
+                  </div>
+                  <div className="relative z-10 mt-2 space-y-2 text-sm text-zinc-600 ">
+                    {DOMPurify.sanitize(item.longDescription).split('\n').map((i, key) => {
                       return (
                         <div
                           key={key}
-                          dangerouslySetInnerHTML={{ __html: sanitizeHtml(i) }}
-                        ></div>
+                          dangerouslySetInnerHTML={{ __html: i }}
+                        />
                       );
                     })}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@ export const RepositoryBlock = ({ block }) => {
         {block.items.map((item, i) => {
           return (
             <li
-              key={item.title + i}
+              key={item.url + i}
               className="relative flex flex-col items-start cursor-pointer group"
               onClick={() => {
                 if (item.url) {
