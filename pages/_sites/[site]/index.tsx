@@ -13,9 +13,9 @@ import {
 } from 'components/Blocks';
 import ArticleCard from 'components/ArticleCard';
 import BlogLaylout from 'layouts/BlogLayout';
-import data from '../../../data.json';
+// import data from '../../../data.json';
 
-const { blocks } = data;
+// const { blocks } = data;
 
 const types = {
   ['ABOUT_ME']: AboutMeBlock,
@@ -37,14 +37,14 @@ export default function Index({ articles, blog, route }: any) {
   return (
     <BlogLaylout
       blog={blog}
-      title="Tuan Phung - Frontend developer"
-      description="Hi I'm Tuan a web developer"
+      title={blog.settingData?.site?.title}
+      description={blog.settingData?.site?.description}
       icon={blog.settingData?.site?.profileUrl}
       ogImage={null}
       baseUrl={null}
     >
       <div>
-        {blocks.map(block => {
+        {blog.settingData?.blocks.map(block => {
           const Component = types[block.type];
           return <Component key={block.type} blog={blog} block={block} />;
         })}

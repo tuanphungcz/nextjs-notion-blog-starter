@@ -1,5 +1,4 @@
 import AppDropdown from 'components/AppDropdown';
-import Container from 'components/base/Container';
 import Socials from 'components/Socials';
 import Link from 'next/link';
 
