@@ -13,6 +13,9 @@ import {
 } from 'components/Blocks';
 import ArticleCard from 'components/ArticleCard';
 import BlogLaylout from 'layouts/BlogLayout';
+import data from '../../../data.json';
+
+const { blocks } = data;
 
 const types = {
   ['ABOUT_ME']: AboutMeBlock,
@@ -41,7 +44,7 @@ export default function Index({ articles, blog, route }: any) {
       baseUrl={null}
     >
       <div>
-        {blog.settingData?.blocks.map(block => {
+        {blocks.map(block => {
           const Component = types[block.type];
           return <Component key={block.type} blog={blog} block={block} />;
         })}
@@ -51,7 +54,7 @@ export default function Index({ articles, blog, route }: any) {
             Latest articles
           </div>
           <div className="mt-8">
-            <div className={`grid gap-16 sm:grid-cols-2 auto-rows-max`}>
+            <div className={`grid gap-12 sm:grid-cols-2 auto-rows-max`}>
               {articles.slice(0, 4).map(article => (
                 <ArticleCard
                   article={article}

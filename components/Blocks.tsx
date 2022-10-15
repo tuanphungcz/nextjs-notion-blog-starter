@@ -1,4 +1,6 @@
-import { IconGitFork, IconStar } from '@tabler/icons';
+import { IconChevronRight, IconGitFork, IconStar } from '@tabler/icons';
+import sanitizeHtml from 'sanitize-html';
+
 import Link from 'next/link';
 import Socials from './Socials';
 
@@ -9,7 +11,11 @@ export const AboutMeBlock = ({ block, blog }) => {
         <div className="text-3xl font-bold tracking-tight sm:text-4xl text-zinc-800 ">
           {block.title}
         </div>
-        <div className="mt-6 text-base text-zinc-600 ">{block.description}</div>
+        <div className="mt-6 text-base text-zinc-600 ">
+          <div
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(block.description) }}
+          ></div>
+        </div>
       </div>
       <div className="flex gap-6 mt-6">
         <Socials socialIcons={blog.settingData?.site?.socials} />
@@ -24,7 +30,7 @@ export const WorkExperienceBlock = ({ block }) => {
       <div className="mt-24 mb-10 text-2xl font-bold tracking-tight text-zinc-800">
         {block.title}
       </div>
-      <div className="grid max-w-xl gap-16">
+      <div className="grid max-w-xl gap-12">
         {block.jobs.map(item => {
           return (
             <div key={item?.title} className="relative group">
@@ -35,13 +41,26 @@ export const WorkExperienceBlock = ({ block }) => {
                 />
                 <div>
                   <h2 className="text-base font-semibold text-zinc-800">
-                    <span className="relative z-10 text-sm">{item.title}</span>
+                    <span className="relative z-10 text">
+                      <div
+                        dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.title) }}
+                      ></div>
+                    </span>
                   </h2>
                   <p className="relative z-10 text-sm text-zinc-500 ">
-                    {item.description}
+                    <div
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.description) }}
+                    ></div>
                   </p>
-                  <p className="relative z-10 mt-2 text-sm text-zinc-600 ">
-                    {item.longDescription}
+                  <p className="relative z-10 mt-2 space-y-2 text-sm text-zinc-600 ">
+                    {item.longDescription.split('\n').map((i, key) => {
+                      return (
+                        <div
+                          key={key}
+                          dangerouslySetInnerHTML={{ __html: sanitizeHtml(i) }}
+                        ></div>
+                      );
+                    })}
                   </p>
                 </div>
               </div>
@@ -60,7 +79,7 @@ export const RecommendationBlock = ({ block }) => {
         {block.title}
       </div>
 
-      <div className="grid gap-16 sm:grid-cols-2">
+      <div className="grid gap-12 sm:grid-cols-2">
         {block.items.map(item => {
           return (
             <li
@@ -92,8 +111,8 @@ export const RecommendationBlock = ({ block }) => {
                 {item.description}
               </p>
               {item?.url && (
-                <div className="relative z-10 flex items-center mt-4 text-xs font-medium text-gray-600">
-                  Read more on Linkedin ➜
+                <div className="relative z-10 flex items-center mt-4 space-x-2 text-xs font-medium text-gray-600">
+                  <div>Read more</div> <IconChevronRight className="w-4" />
                 </div>
               )}
             </li>
@@ -111,7 +130,7 @@ export const RepositoryBlock = ({ block }) => {
         {block.title}
       </div>
 
-      <div className="grid gap-16 sm:grid-cols-2">
+      <div className="grid gap-12 sm:grid-cols-2">
         {block.items.map((item, i) => {
           return (
             <li

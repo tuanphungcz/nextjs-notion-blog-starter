@@ -2,6 +2,7 @@ import slugify from 'slugify';
 import getLocalizedDate from 'lib/getLocalizedDate';
 import Link from 'next/link';
 import TagItem from './base/TagItem';
+import { IconChevronRight } from '@tabler/icons';
 
 export default function ArticleCard({ article, route }: any) {
   const slug = slugify(article.title).toLowerCase();
@@ -46,8 +47,8 @@ export default function ArticleCard({ article, route }: any) {
               {formattedTime}
             </time>
 
-            <div className="relative z-10 flex items-center pt-4 text-xs font-medium text-gray-700">
-              Read more ➜
+            <div className="relative z-10 flex items-center mt-4 space-x-2 text-xs font-medium text-gray-600">
+              <div>Read more</div> <IconChevronRight className="w-4" />
             </div>
           </div>
         </div>

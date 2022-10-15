@@ -4,11 +4,6 @@ import NewTabLink from './base/NewTabLink';
 export default function Socials({ socialIcons }) {
   const socials = [
     {
-      name: 'Twitter',
-      href: socialIcons?.twitter,
-      icon: IconBrandTwitter
-    },
-    {
       name: 'GitHub',
       href: socialIcons?.github,
       icon: IconBrandGithub
@@ -17,6 +12,11 @@ export default function Socials({ socialIcons }) {
       name: 'LinkedIn',
       href: socialIcons?.linkedIn,
       icon: IconBrandLinkedin
+    },
+    {
+      name: 'Twitter',
+      href: socialIcons?.twitter,
+      icon: IconBrandTwitter
     }
   ];
 
