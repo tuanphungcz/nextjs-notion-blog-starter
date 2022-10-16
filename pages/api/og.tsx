@@ -17,7 +17,7 @@ export default function handler(req: NextRequest) {
       : 'My default title';
 
     const hasDomain = searchParams.has('domain');
-    const domain = hasDomain ? searchParams.get('domain')?.slice(0, 100) : 'blogfolio.co';
+    const domain = hasDomain ? searchParams.get('domain')?.slice(0, 100) : process.env.NEXT_PUBLIC_APP_DOMAIN_URL;
 
     return new ImageResponse(
       (

@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 // export const navSettings = {
 //   links: [
-//     { name: 'Articles', url: '/', template: 3, isDefault: true },
-//     { name: 'Projects', url: '/projects', isDefault: false },
-//     { name: 'Snippets', url: '/snippets', template: 2, isDefault: false }
+//     { name: 'Articles', url: '/', template: 3, isDefaultPosts: true },
+//     { name: 'Projects', url: '/projects', isDefaultPosts: false },
+//     { name: 'Snippets', url: '/snippets', template: 2, isDefaultPosts: false }
 //   ]
 // };
 

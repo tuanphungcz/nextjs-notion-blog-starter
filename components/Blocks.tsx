@@ -87,7 +87,7 @@ export const RecommendationBlock = ({ block }) => {
               className="relative flex flex-col items-start cursor-pointer group"
               onClick={() => {
                 if (item.url) {
-                  window.open(item.url, '_blank');
+                  // window.open('item.url, '_blank');
                 }
               }}
             >

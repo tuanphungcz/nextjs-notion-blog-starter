@@ -25,11 +25,11 @@ export default function BlogLaylout({
     <>
       <MetaHead {...metaHeadProps} />
       <div className="pb-24 bg-gray-100">
-        <div className="max-w-5xl px-6 mx-auto bg-white sm:px-16 md:px-24">
+        <div className="max-w-6xl px-6 mx-auto bg-white sm:px-16 md:px-24">
           <BlogNavbar blog={blog} />
         </div>
 
-        <div className="max-w-5xl px-6 py-4 pt-16 mx-auto tracking-tight bg-white rounded-b-xl sm:px-16 md:px-24">
+        <div className="max-w-6xl px-6 py-4 pt-16 mx-auto tracking-tight bg-white rounded-b-xl sm:px-16 md:px-24">
           <PageTransition>
             {children}
             <Footer blog={blog} />

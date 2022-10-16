@@ -13,9 +13,6 @@ import {
 } from 'components/Blocks';
 import ArticleCard from 'components/ArticleCard';
 import BlogLaylout from 'layouts/BlogLayout';
-// import data from '../../../data.json';
-
-// const { blocks } = data;
 
 const types = {
   ['ABOUT_ME']: AboutMeBlock,
@@ -44,9 +41,12 @@ export default function Index({ articles, blog, route }: any) {
       baseUrl={null}
     >
       <div>
+        {/* <AboutMeBlock blog={blog} block={block} /> */}
         {blog.settingData?.blocks.map(block => {
-          const Component = types[block.type];
-          return <Component key={block.type} blog={blog} block={block} />;
+          if (block.type === 'ABOUT_ME') {
+            const Component = types[block.type] || <div />;
+            return <Component key={block.type} blog={blog} block={block} />;
+          }
         })}
 
         <div>
@@ -54,8 +54,10 @@ export default function Index({ articles, blog, route }: any) {
             Latest articles
           </div>
           <div className="mt-8">
-            <div className={`grid gap-12 sm:grid-cols-2 auto-rows-max`}>
-              {articles.slice(0, 4).map(article => (
+            <div
+              className={`grid gap-8 lg:gap-12 sm:grid-cols-2 md:grid-cols-3 auto-rows-max`}
+            >
+              {articles.slice(0, 3).map(article => (
                 <ArticleCard
                   article={article}
                   key={article.id}
@@ -88,19 +90,24 @@ export async function getStaticPaths() {
   //   }
   // });
 
-  // const allPaths = [
-  //   ...blogs.map(({ slug }) => slug),
-  //   ...blogs.map(({ customDomain }) => customDomain)
-  // ].filter(path => path);
+  const blogs = [
+    { slug: 'tuan', customDomain: 'phung.io' },
+    { slug: 'demo', customDomain: null }
+  ];
 
-  // return {
-  //   paths: allPaths.map(path => ({
-  //     params: {
-  //       site: path
-  //     }
-  //   })),
-  //   fallback: 'blocking'
-  // };
+  const allPaths = [
+    ...blogs.map(({ slug }) => slug),
+    ...blogs.map(({ customDomain }) => customDomain)
+  ].filter(path => path);
+
+  return {
+    paths: allPaths.map(path => ({
+      params: {
+        site: path
+      }
+    })),
+    fallback: 'blocking'
+  };
 
   return {
     paths: [],
@@ -134,7 +141,9 @@ export async function getStaticProps(context: any) {
 
   const parsedSettingData = JSON.parse(blog?.settingData);
 
-  const route = parsedSettingData?.links.find(item => item?.isDefault).name.toLowerCase();
+  const route = parsedSettingData?.links
+    .find(item => item?.isDefaultPosts)
+    .name.toLowerCase();
 
   const allPosts = await getAllPosts(blog.notionBlogDatabaseId);
 

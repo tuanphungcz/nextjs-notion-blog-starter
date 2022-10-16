@@ -11,15 +11,15 @@ import { SecondaryButton } from 'components/base/Button';
 import BlogLaylout from 'layouts/BlogLayout';
 
 const ArticlePage = ({ route, blog, blockMap, page, moreArticles }) => {
-  console.log(blog)
+  console.log(blog);
   const publishedOn = getLocalizedDate(page.published);
 
   const ogImage = `${
-    process.env.NEXT_PUBLIC_IS_LOCALHOST
+    process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
-      : 'https://blogfolio.co'
+      : `https://${process.env.NEXT_PUBLIC_APP_DOMAIN_URL}`
   }/api/og?title=${encodeURIComponent(page.title)}&domain=${encodeURIComponent(
-    blog?.customDomain || blog?.slug + '.blogfolio.co'
+    blog?.customDomain || blog?.slug + process.env.NEXT_PUBLIC_APP_DOMAIN_URL
   )}`;
 
   const coverImage = page?.coverImage?.[0].url || '';
@@ -180,9 +180,8 @@ export const getStaticProps = async context => {
       route,
       blockMap,
       page
-      // origin
     },
-    revalidate: 60
+    revalidate: 1
   };
 };
 
