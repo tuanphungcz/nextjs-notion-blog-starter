@@ -41,36 +41,32 @@ export default function ListOfItems({ blog, articles, route, categories, isHome 
           )}
 
           <>
-            {routeSettings?.isSearchVisible && (
-              <div className="relative max-w-xs">
-                <input
-                  className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg"
-                  type="text"
-                  placeholder={`Search ${route}`}
-                  value={searchValue}
-                  onChange={(e: any) => {
-                    const value = e.target.value;
-                    setSelectedTag(null);
-                    setSearchValue(value);
-                  }}
-                />
-                <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
-              </div>
-            )}
-            {routeSettings?.isTagsVisible && (
-              <div className="flex flex-wrap justify-start gap-4">
-                {categories?.map(tag => (
-                  <TagItem
-                    tag={tag}
-                    key={tag}
-                    isSelected={selectedTag === tag}
-                    onClick={() => onCategoryClick(tag)}
-                  >
-                    {tag || 'All'}
-                  </TagItem>
-                ))}
-              </div>
-            )}
+            <div className="relative max-w-xs">
+              <input
+                className="block w-full px-4 py-2 text-gray-700 border border-gray-300 rounded-lg"
+                type="text"
+                placeholder={`Search ${route}`}
+                value={searchValue}
+                onChange={(e: any) => {
+                  const value = e.target.value;
+                  setSelectedTag(null);
+                  setSearchValue(value);
+                }}
+              />
+              <IconSearch className="absolute w-5 text-gray-400 right-4 top-2" />
+            </div>
+            <div className="flex flex-wrap justify-start gap-4">
+              {categories?.map(tag => (
+                <TagItem
+                  tag={tag}
+                  key={tag}
+                  isSelected={selectedTag === tag}
+                  onClick={() => onCategoryClick(tag)}
+                >
+                  {tag || 'All'}
+                </TagItem>
+              ))}
+            </div>
           </>
         </div>
 

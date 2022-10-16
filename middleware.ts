@@ -25,7 +25,7 @@ export function middleware(req: any) {
     .replace(`.blogfolio.co`, '')
     .replace(`.localhost:3000`, '');
 
-  if (host === 'localhost:3000' || host === 'blogfolio.co') {
+  if (host === 'localhost:3000' || host === `${process.env.NEXT_PUBLIC_APP_DOMAIN_URL}`) {
     url.pathname = `${url.pathname}`;
     return NextResponse.rewrite(url);
   }

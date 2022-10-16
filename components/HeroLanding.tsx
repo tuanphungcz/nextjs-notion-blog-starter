@@ -1,5 +1,5 @@
 import { IconBrandGithub, IconExternalLink } from '@tabler/icons';
-import { PrimaryButton, SecondaryButton, SignInButton } from './base/Button';
+import { PrimaryButton, SignInButton } from './base/Button';
 import NewTabLink from './base/NewTabLink';
 
 export default function HeroLanding() {
@@ -32,9 +32,9 @@ export default function HeroLanding() {
           <SignInButton />
           <NewTabLink
             href={
-              process.env.NEXT_PUBLIC_IS_LOCALHOST
-                ? 'http://tuan.localhost:3000'
-                : 'https://tuan.blogfolio.co'
+              process.env.NODE_ENV === 'development'
+                ? `http://${process.env.NEXT_PUBLIC_DEMO_BLOG}.localhost:3000`
+                : `https://${process.env.NEXT_PUBLIC_DEMO_BLOG}.${process.env.NEXT_PUBLIC_APP_DOMAIN_URL}`
             }
           >
             <PrimaryButton>
@@ -51,9 +51,9 @@ export default function HeroLanding() {
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto mt-16">
+      {/* <div className="max-w-3xl mx-auto mt-16">
         <img src="/preview/4.jpg" className="rounded-xl" alt="hero" />
-      </div>
+      </div> */}
     </div>
   );
 }

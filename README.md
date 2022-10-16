@@ -16,6 +16,7 @@ Blogfolio is a open-source blog starter built with Nextjs and Tailwind. It uses 
 ## ✨ Live Demo
 
 - [Homepage](https://blogfolio.co/) - Deployed from `main` branch
+- [Blog demo](https://demo.blogfolio.co) - Demo blog from blogfolio with a subdomain: [demo.blogfolio.co](https://demo.blogfolio.co))
 - [My personal site](https://phung.io) - Built from blogfolio with a subdomain: [tuan.blogfolio.co](https://tuan.blogfolio.co))
 - [Will be added]() - I wrote an article on how to use this starter to start your blog
 
@@ -76,7 +77,9 @@ VERCEL_PROJECT_ID=
 
 SERVICE_WORKER_API=
 
-NEXT_PUBLIC_IS_LOCALHOST=true
+NEXT_PUBLIC_APP_DOMAIN_URL=
+NEXT_PUBLIC_DEMO_BLOG=
+
 
 ```
 

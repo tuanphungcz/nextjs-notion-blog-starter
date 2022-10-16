@@ -81,7 +81,7 @@ const getDefaultBaseInputs = blog => [
         {blog?.slug && (
           <NewTabLink
             href={
-              process.env.NEXT_PUBLIC_IS_LOCALHOST
+              process.env.NODE_ENV === 'development'
                 ? `http://${blog.slug}.localhost:3000`
                 : `https://${blog.slug}.blogfolio.co`
             }
@@ -94,7 +94,7 @@ const getDefaultBaseInputs = blog => [
     component: Input,
     placeholder: '',
     helper: '',
-    suffix: '.blogfolio.co'
+    suffix: `.${process.env.NEXT_PUBLIC_APP_DOMAIN_URL}`
   },
   {
     id: 'notionBlogDatabaseId',

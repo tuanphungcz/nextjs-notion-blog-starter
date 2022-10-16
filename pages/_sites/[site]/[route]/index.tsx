@@ -2,11 +2,20 @@ import Link from 'next/link';
 import { filterArticlesWithMetadata } from 'lib/notion';
 import prisma, { blogSelect } from 'lib/prisma';
 import ListOfItems from 'components/ListOfItems';
-import { getAllPosts } from 'lib/posts';
+import { getAllPosts, getPageById } from 'lib/posts';
 import { getSiteOptions } from 'lib/utils';
 import BlogLaylout from 'layouts/BlogLayout';
+import { NotionRenderer } from 'react-notion';
+import { AboutMeBlock } from 'components/Blocks';
 
-export default function Index({ articles, categories, blog, routes, route }: any) {
+export default function Index({
+  articles,
+  blockMap,
+  categories,
+  blog,
+  routes,
+  route
+}: any) {
   if (!blog) {
     return (
       <div>
@@ -27,7 +36,31 @@ export default function Index({ articles, categories, blog, routes, route }: any
       ogImage={null}
       baseUrl={null}
     >
-      <ListOfItems {...listProps} />
+      {blockMap ? (
+        <div>
+          {blog.settingData?.blocks.map(block => {
+            if (block.type === 'ABOUT_ME') {
+              return <AboutMeBlock key={block.type} blog={blog} block={block} />;
+            }
+          })}
+          <div className="mt-16">
+            <NotionRenderer
+              blockMap={blockMap}
+              customBlockComponents={{
+                text: ({ renderComponent, blockValue }) =>
+                  blockValue?.properties && (
+                    <div className="text-sm text-zinc-600">{renderComponent()}</div>
+                  ),
+                callout: ({ renderComponent }) => (
+                  <div className="text-sm text-zinc-600">{renderComponent()}</div>
+                )
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <ListOfItems {...listProps} />
+      )}
     </BlogLaylout>
   );
 }
@@ -129,6 +162,26 @@ export async function getStaticProps(context: any) {
   }
 
   const parsedSettingData = JSON.parse(blog?.settingData);
+
+  const routeSettings = parsedSettingData?.links.find(setting =>
+    setting?.url?.includes(route)
+  );
+
+  if (routeSettings?.notionPage) {
+    const blockMap = await getPageById(routeSettings?.notionPage);
+
+    return {
+      props: {
+        blog: {
+          ...blog,
+          settingData: parsedSettingData
+        },
+        blockMap
+      },
+      revalidate: 60
+    };
+  }
+
   const allPosts = await getAllPosts(blog?.notionBlogDatabaseId);
   const { categories, routes, articles } = filterArticlesWithMetadata(allPosts, route);
 

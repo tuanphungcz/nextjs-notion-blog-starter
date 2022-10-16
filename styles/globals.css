@@ -6,6 +6,10 @@
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+html,body {
+  background-color: #F3F4F6;
+}
+
 .notion .notion-image-inset {
   border-radius: 8px;
 }
@@ -25,4 +29,21 @@
 
 .notion > * {
   padding: 16px 0;
+}
+
+.notion-page-icon {
+  width: 40px !important;
+  border-radius: 100% !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  margin-right: 12px !important;
+}
+
+.notion-callout {
+  padding: 0 !important;
+  border-width: 0px;
+  align-items: flex-start;
+  margin: 12px 0;
+  max-width: 520px;
 }

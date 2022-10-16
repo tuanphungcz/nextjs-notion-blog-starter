@@ -79,7 +79,7 @@ const basicJson = `
       "name": "Articles",
       "url": "/articles",
       "description": "Welcome to my blog. Here you can find all my articles.",
-      "isDefault": true,
+      "isDefaultPosts": true,
       "isSearchVisible": true,
       "isTagsVisible": true,
       "cols": 3
@@ -88,7 +88,7 @@ const basicJson = `
       "name": "Projects",
       "url": "/projects",
       "description": "I have worked on a few projects over the years. Here are some of them.",
-      "isDefault": false,
+      "isDefaultPosts": false,
       "isSearchVisible": false,
       "isTagsVisible": true,
       "cols": 2
@@ -97,7 +97,7 @@ const basicJson = `
       "name": "Snippets",
       "url": "/snippets",
       "description": "There are my collection of code snippets that I find useful. I hope you find them useful too.",
-      "isDefault": false,
+      "isDefaultPosts": false,
       "isSearchVisible": true,
       "isTagsVisible": true,
       "cols": 3
