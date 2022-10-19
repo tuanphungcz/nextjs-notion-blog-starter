@@ -24,7 +24,7 @@ export default function Index() {
   const { register, handleSubmit, setValue, watch, control, formState } = useForm({
     defaultValues: {
       slug: autoSlug,
-      notionBlogDatabaseId: 'https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850',
+      notionBlogDatabaseId: 'https://www.notion.so/phung/0074736e006c48828f4843fea835bd97',
       settingData: basicJson
     }
   });
@@ -75,47 +75,39 @@ export default function Index() {
 const basicJson = `
 {
   "links": [
+    { "name": "Home", "url": "/" },
     {
       "name": "Articles",
       "url": "/articles",
       "description": "Welcome to my blog. Here you can find all my articles.",
-      "isDefaultPosts": true,
-      "isSearchVisible": true,
-      "isTagsVisible": true,
-      "cols": 3
-    },
-    {
-      "name": "Projects",
-      "url": "/projects",
-      "description": "I have worked on a few projects over the years. Here are some of them.",
-      "isDefaultPosts": false,
-      "isSearchVisible": false,
-      "isTagsVisible": true,
-      "cols": 2
+      "isDefaultPosts": true
     },
     {
       "name": "Snippets",
       "url": "/snippets",
       "description": "There are my collection of code snippets that I find useful. I hope you find them useful too.",
-      "isDefaultPosts": false,
-      "isSearchVisible": true,
-      "isTagsVisible": true,
-      "cols": 3
-    }
+      "isDefaultPosts": false
+    },
+    { "name": "Github repo", "url": "https://github.com/tuanphungcz/blogfolio.co" }
   ],
   "site": {
-    "headerDescription": "Notion-powered blog starter with Nextjs and Tailwind ",
-    "headerTitle": "Hello, this is a blog starter",
-    "profileUrl": "https://raw.githubusercontent.com/tuanphungcz/blogfolio.co/main/public/nextjs-logo.png",
-    "footerText": "© All rights reserved",
-    "convertkitApiKey": "",
-    "convertkitFormid": "",
-    "blogName": "Blog starter",
+    "description": "Software developer with a passion for learning new things.",
+    "title": "Software developer",
+    "profileUrl": "https://i.postimg.cc/hP4QqFTF/joseph-gonzalez-i-Fg-Rcq-Hznqg-unsplash-1-1.jpg",
+    "blogName": "Software developer",
     "socials": {
       "github": "https://github.com/tuanphungcz/blogfolio.co",
       "twitter": "https://github.com/tuanphungcz/blogfolio.co",
       "linkedIn": "https://github.com/tuanphungcz/blogfolio.co"
     }
-  }
+  },
+  "blocks": [
+    {
+      "type": "ABOUT_ME",
+      "title": "Software developer with a passion for learning new things.",
+      "description": "I'm John Smith — A Software developer based in Prague . I focus on fit and finish to solve problems and create seamless experiences. I also enjoy working with Notion and OSS stuff. <u><a href='https://github.com/tuanphungcz/blogfolio.co' target='_blank'>Let's get in touch.</a></u>"
+    }
+  ]
 }
+
 `;

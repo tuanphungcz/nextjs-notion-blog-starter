@@ -112,8 +112,8 @@ const getDefaultBaseInputs = blog => [
             https://phung.notion.site/6a05e6e596ac4bc6b591734f5c3d9850
           </NewTabLink>
         </div>
-        <div className="mt-1" /> or copy this database id for testing{' '}
-        <span className="font-semibold">6a05e6e596ac4bc6b591734f5c3d9850</span>
+        {/* <div className="mt-1" /> or copy this database id for testing{' '}
+        <span className="font-semibold">6a05e6e596ac4bc6b591734f5c3d9850</span> */}
       </div>
     )
   }

@@ -90,24 +90,24 @@ export async function getStaticPaths() {
   //   }
   // });
 
-  const blogs = [
-    { slug: 'tuan', customDomain: 'phung.io' },
-    { slug: 'demo', customDomain: null }
-  ];
+  // const blogs = [
+  //   { slug: 'tuan', customDomain: 'phung.io' },
+  //   { slug: 'demo', customDomain: null }
+  // ];
 
-  const allPaths = [
-    ...blogs.map(({ slug }) => slug),
-    ...blogs.map(({ customDomain }) => customDomain)
-  ].filter(path => path);
+  // const allPaths = [
+  //   ...blogs.map(({ slug }) => slug),
+  //   ...blogs.map(({ customDomain }) => customDomain)
+  // ].filter(path => path);
 
-  return {
-    paths: allPaths.map(path => ({
-      params: {
-        site: path
-      }
-    })),
-    fallback: 'blocking'
-  };
+  // return {
+  //   paths: allPaths.map(path => ({
+  //     params: {
+  //       site: path
+  //     }
+  //   })),
+  //   fallback: 'blocking'
+  // };
 
   return {
     paths: [],

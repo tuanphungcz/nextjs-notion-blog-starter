@@ -57,20 +57,13 @@ model VerificationToken {
 model BlogWebsite {
   id                   String   @id @default(cuid())
   email                String
+  slug                 String   @unique
   userId               String
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
-  slug                 String   @unique
   notionBlogDatabaseId String
-  blogName             String?
-  headerTitle          String?
-  headerDescription    String?
-  profileUrl           String?
-  footerText           String?
-  github               String?
-  twitter              String?
-  linkedin             String?
   customDomain         String?
   settingData          String?
+
   user User @relation(fields: [userId], references: [id])
 }

@@ -70,7 +70,7 @@ CREATE TABLE "BlogWebsite" (
     "linkedin" TEXT NOT NULL,
     "notionSecret" TEXT NOT NULL,
     "notionBlogDatabaseId" TEXT NOT NULL,
-    "convertkitFormId" TEXT NOT NULL,
+    "convertkitFormid" TEXT NOT NULL,
     "convertKitApiKey" TEXT NOT NULL,
     "umamiId" TEXT NOT NULL,
     "umamiUrl" TEXT NOT NULL,
