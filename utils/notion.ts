@@ -1,4 +1,4 @@
-import { Client } from '@notionhq/client';
+import { Client, LogLevel } from '@notionhq/client';
 import slugify from 'slugify';
 
 const notion = new Client({

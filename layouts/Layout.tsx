@@ -3,11 +3,11 @@ import Footer from './Footer';
 import Header from './Navbar';
 import { MetaHead } from './MetaHead';
 
+const FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
+const API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
+
 export function Layout(props) {
   const { children, date, imageUrl, title, description, ogUrl } = props;
-
-  const FORM_ID = process.env.NEXT_PUBLIC_CONVERTKIT_FORM_ID;
-  const API_KEY = process.env.NEXT_PUBLIC_CONVERTKIT_API_KEY;
 
   const metaHeadProps = {
     date,
