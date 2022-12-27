@@ -29,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-hot-toast": "^2.3.0",
+    "react-useanimations": "^2.10.0",
     "slugify": "^1.6.1"
   },
   "devDependencies": {
