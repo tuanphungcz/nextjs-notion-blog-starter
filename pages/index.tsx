@@ -40,11 +40,10 @@ export const getStaticProps = async () => {
   const data = await getAllArticles(process.env.BLOG_DATABASE_ID);
 
   const { articles, categories } = convertToArticleList(data);
-  console.log(articles[0].author.name);
 
   return {
     props: {
-      articles: JSON.parse(JSON.stringify(articles)),
+      articles,
       categories
     },
     revalidate: 30
