@@ -6,12 +6,10 @@ import { useState } from 'react';
 import ArticleList from 'components/ArticleList';
 import { filterArticles } from 'utils/filterArticles';
 import Category from 'components/Category';
-import useTheme from 'hooks/useTheme';
 
 export default function Index({ articles, categories }) {
   const [selectedTag, setSelectedTag] = useState<string>(null);
   const filteredArticles = filterArticles(articles, selectedTag);
-  const { theme, toggleTheme } = useTheme();
 
   return (
     <Layout>
@@ -34,13 +32,6 @@ export default function Index({ articles, categories }) {
           <ArticleList articles={filteredArticles} />
         </div>
       </Container>
-      <button
-        type="button"
-        onClick={toggleTheme}
-        className="fixed bottom-0 right-0 text-sm bg-slate-900 text-white rounded-md m-4 px-5 py-2 dark:bg-slate-100 dark:text-slate-800 sm:text-l md:text-xl z-20"
-      >
-        {theme === 'light' ? 'Dark' : 'Light'}
-      </button>
     </Layout>
   );
 }
@@ -49,10 +40,11 @@ export const getStaticProps = async () => {
   const data = await getAllArticles(process.env.BLOG_DATABASE_ID);
 
   const { articles, categories } = convertToArticleList(data);
+  console.log(articles[0].author.name);
 
   return {
     props: {
-      articles,
+      articles: JSON.parse(JSON.stringify(articles)),
       categories
     },
     revalidate: 30
