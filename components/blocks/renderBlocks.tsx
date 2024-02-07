@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
-import Text from 'components/notionBlocks/Text';
-import AnchorLink from 'components/notionBlocks/AnchorLink';
-import CodeBlock from 'components/notionBlocks/CodeBlock';
-import Callout from 'components/notionBlocks/Callout';
-import YoutubeEmbed from 'components/notionBlocks/YoutubeEmbed';
+import Text from 'components/blocks/Text';
+import AnchorLink from 'components/blocks/AnchorLink';
+import CodeBlock from 'components/blocks/CodeBlock';
 
 export function renderBlocks(block) {
   const { type, id } = block;
@@ -83,7 +81,7 @@ export function renderBlocks(block) {
       const caption = value.caption.length >= 1 ? value.caption[0].plain_text : '';
       return (
         <figure className="mt-0">
-            <Image
+          <Image
             className="rounded-lg aspect-video"
             objectFit="cover"
             src={src}
@@ -106,17 +104,28 @@ export function renderBlocks(block) {
       );
     case 'callout':
       return (
-        <Callout>
+        <div className="flex p-3 space-x-4 bg-gray-100 rounded-lg">
           {value.icon && <span className="text-2xl">{value.icon.emoji}</span>}
           <div className="leading-[28px] text-base">
             <Text text={value.text} />
           </div>
-        </Callout>
+        </div>
       );
     case 'table_of_contents':
       return <div>TOC</div>;
     case 'video':
-      return <YoutubeEmbed url={value?.external?.url || ''} />;
+      return (
+        <div className="relative overflow-hidden">
+          <iframe
+            className="w-full h-96 md:h-[680px]"
+            src={value?.external?.url || ''}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="Embedded youtube"
+          />
+        </div>
+      );
     case 'quote':
       return (
         <blockquote className="p-4 rounded-r-lg bg-gray-50">

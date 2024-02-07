@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import SubscribeInput from './SubscribeInput';
+import siteData from 'siteData';
 
 export default function HeroHeader({ blog }: any) {
   return (
     <div className="py-24 text-center bg-gray-100">
-      {blog?.profileUrl && (
+      {siteData?.profileUrl && (
         <Image
-          src={blog.profileUrl}
+          src={siteData.profileUrl}
           className="mx-auto rounded-full"
           width={96}
           height={96}
@@ -14,10 +15,10 @@ export default function HeroHeader({ blog }: any) {
         />
       )}
       <div className="mt-4 text-3xl font-extrabold text-gray-900">
-        {blog?.headerTitle}
+        {siteData?.headerTitle}
       </div>
       <div className="max-w-2xl mx-auto mt-2 text-xl text-gray-500">
-        {blog?.headerDescription}
+        {siteData?.headerDescription}
       </div>
 
       <div className="mt-12">

@@ -1,19 +1,19 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { getAllArticles, getArticlePage, getArticlePageData } from 'utils/notion';
-import { Layout } from 'layouts/Layout';
+import { Layout } from 'layout/Layout';
 import Image from 'next/image';
-import { renderBlocks } from 'components/notionBlocks/renderBlocks';
+import { renderBlocks } from 'components/blocks/renderBlocks';
 import getLocalizedDate from 'utils/getLocalizedDate';
 import Container from 'components/Container';
 import slugify from 'slugify';
-import ArticleList from 'components/ArticleList';
-import siteData from 'data/siteData';
+import siteData from 'siteData';
+import ArticleCard from 'components/ArticleCard';
 
 const ArticlePage = ({
   content,
   title,
-  coverImage,
+  thumbnail,
   publishedDate,
   lastEditedAt,
   summary,
@@ -66,9 +66,9 @@ const ArticlePage = ({
             <Image
               className="rounded-lg aspect-video"
               objectFit="cover"
-              src={coverImage}
+              src={thumbnail}
               placeholder="blur"
-              blurDataURL={coverImage}
+              blurDataURL={thumbnail}
               layout="intrinsic"
               width={1200}
               height={684}
@@ -91,7 +91,11 @@ const ArticlePage = ({
                   </span>
                 </Link>
               </div>
-              <ArticleList articles={moreArticles} />
+              <div className="grid gap-10 lg:gap-12 sm:grid-cols-2">
+                {moreArticles.map(article => (
+                  <ArticleCard article={article} key={article.id} />
+                ))}
+              </div>
             </Container>
           </div>
         </div>
@@ -108,7 +112,7 @@ export const getStaticPaths = async () => {
     if (result.object === 'page') {
       paths.push({
         params: {
-          slug: slugify(result.properties.Name.title[0].plain_text).toLowerCase()
+          slug: slugify(result.properties.title.title[0].plain_text).toLowerCase()
         }
       });
     }

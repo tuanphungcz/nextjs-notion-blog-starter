@@ -1,21 +1,21 @@
-import siteData from 'data/siteData';
+import siteData from 'siteData';
 import Image from 'next/image';
 
-export default function Socials({ blog }) {
+export default function Socials() {
   const socials = [
     {
       name: 'Twitter',
-      href: blog?.twitter,
+      href: siteData?.twitter,
       icon: '/socials/twitter.svg'
     },
     {
       name: 'GitHub',
-      href: blog?.github,
+      href: siteData?.github,
       icon: '/socials/github.svg'
     },
     {
       name: 'LinkedIn',
-      href: blog?.linkedin,
+      href: siteData?.linkedin,
       icon: '/socials/linkedin.svg'
     }
   ];

@@ -1,7 +1,7 @@
 import { Client } from '@notionhq/client';
 import slugify from 'slugify';
 
-const notion = new Client({
+export const notion = new Client({
   auth: process.env.NOTION_SECRET
 });
 
@@ -9,21 +9,11 @@ export const getAllArticles = async databaseId => {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
-      or: [
-        {
-          property: 'Status',
-          select: {
-            equals: '✅ Published'
-          }
-        }
-      ]
-    },
-    sorts: [
-      {
-        property: 'Published',
-        direction: 'descending'
+      property: 'status',
+      select: {
+        equals: '✅ Published'
       }
-    ]
+    }
   });
 
   return response.results;
@@ -34,20 +24,16 @@ const mapArticleProperties = article => {
 
   return {
     id: id,
-    title: properties?.Name.title[0].plain_text || '',
+    title: properties?.title.title[0].plain_text || '',
     categories:
-      properties?.Categories?.multi_select.map((category: any) => category.name) || [],
-    author: {
-      name: properties.Author.created_by.name,
-      imageUrl: properties.Author.created_by.avatar_url
-    },
-    coverImage:
-      properties?.CoverImage?.files[0]?.file?.url ||
-      properties?.CoverImage?.files[0]?.external?.url ||
+      properties?.categories?.multi_select.map((category: any) => category.name) || [],
+    thumbnail:
+      properties?.thumbnail?.files[0]?.file?.url ||
+      properties?.thumbnail?.files[0]?.external?.url ||
       '/image-background.png',
-    publishedDate: properties.Published?.date?.start,
+    publishedDate: properties.published?.date?.start,
     lastEditedAt: properties.LastEdited?.last_edited_time,
-    summary: properties?.Summary.rich_text[0]?.plain_text ?? ''
+    summary: properties?.summary.rich_text[0]?.plain_text ?? ''
   };
 };
 
@@ -57,7 +43,7 @@ export const convertToArticleList = (tableData: any) => {
   const articles = tableData.map((article: any) => {
     const { properties } = article;
 
-    properties?.Categories?.multi_select?.forEach((category: any) => {
+    properties?.categories?.multi_select?.forEach((category: any) => {
       const { name } = category;
       if (!categories.includes(name) && name) {
         categories.push(name);
@@ -76,13 +62,13 @@ export const getMoreArticlesToSuggest = async (databaseId, currentArticleTitle) 
     filter: {
       and: [
         {
-          property: 'Status',
+          property: 'status',
           select: {
             equals: '✅ Published'
           }
         },
         {
-          property: 'Name',
+          property: 'title',
           text: {
             does_not_equal: currentArticleTitle
           }
@@ -102,7 +88,7 @@ export const getArticlePage = (data, slug) => {
   const response = data.find(result => {
     if (result.object === 'page') {
       const resultSlug = slugify(
-        result.properties.Name.title[0].plain_text
+        result.properties.title.title[0].plain_text
       ).toLowerCase();
       return resultSlug === slug;
     }
@@ -130,7 +116,7 @@ export const getArticlePageData = async (page: any, slug: any, databaseId) => {
   let content = [];
   let title = '';
 
-  title = page.properties.Name.title[0].plain_text;
+  title = page.properties.title.title[0].plain_text;
 
   const moreArticles: any = await getMoreArticlesToSuggest(databaseId, title);
 

@@ -1,7 +1,7 @@
 export type Article = {
   title: string;
   categories?: Array<string>;
-  coverImage: string;
+  thumbnail: string;
   summary: string;
   publishedDate?: any;
   lastUpdatedDate?: any;
