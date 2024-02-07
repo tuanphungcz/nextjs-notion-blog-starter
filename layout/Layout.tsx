@@ -20,10 +20,9 @@ export function Layout(props) {
   return (
     <>
       <MetaHead {...metaHeadProps} />
-      <Header blog={blog} />
+      <Header />
       <div className="pt-14">{children}</div>
       {FORM_ID && API_KEY && <Subscribe />}
-
       <Footer blog={blog} />
     </>
   );

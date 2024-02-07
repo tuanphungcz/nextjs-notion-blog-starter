@@ -12,8 +12,6 @@ export default function ArticleCard({ article }: Props) {
 
   const formattedTime = getLocalizedDate(article.publishedDate);
 
-  console.log(article.coverImage)
-
   return (
     <a href={`/blog/${slug}`}>
       <div className="flex flex-col overflow-hidden cursor-pointer group">
@@ -31,8 +29,8 @@ export default function ArticleCard({ article }: Props) {
           <div className=" filter contrast-[0.9]">
             <Image
               className="object-cover w-full h-48 transition rounded-lg aspect-video group-hover:opacity-90 bg-gray-50"
-              src={article.coverImage}
-              blurDataURL={article.coverImage}
+              src={article.thumbnail}
+              blurDataURL={article.thumbnail}
               objectFit="cover"
               placeholder="blur"
               layout="intrinsic"
