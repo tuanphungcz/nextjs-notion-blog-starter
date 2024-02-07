@@ -22,7 +22,7 @@ export default function Text({ text }) {
         style={color !== 'default' ? { color } : {}}
       >
         {text.link ? (
-          <a className="text-gray-700 underline" href={text.link.url}>
+          <a className="text-gray-700 underline break-all" href={text.link.url}>
             {text.content}
           </a>
         ) : (
