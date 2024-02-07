@@ -28,22 +28,22 @@
 
 - `layouts/*` - The different layouts used on each page.
 - `components/*` - Components used throughout the site.
-- `components/notionBlocks/*` - Custom blocks made for Notion rendering.
+- `components/blocks/*` - Custom blocks made for Notion rendering.
 - `utils/*` - Short for "utilities", a collection of helpful utilities or code for external services.
 - `pages/api/*` - [API routes](https://nextjs.org/docs/api-routes/introduction) powering [`/og-image`](https://github.com/neg4n/next-api-og-image) dynamic OG image and [`/subscribe-convertkit`](https://github.com/tuanphungcz/nextjs-notion-blog-starter/blob/main/pages/api/subscribe-convertkit.tsx) newsletter subscription.
 - `pages/blog/*` - Static pre-rendered blog pages that fetch information from the Notion API.
 - `pages/*` - All other static pages.
 - `public/*` - Static assets including images, fonts, and videos.
 - `styles/*` - global styles and Tailwind.
-- `data/*` - a simple file containing global data about the site.
+- `siteData.ts` - a simple file containing global data about the site.
 
 ## 🏃‍♂️ Running Locally
 
 ```bash
 git clone https://github.com/tuanphungcz/nextjs-notion-blog-starter
 cd nextjs-notion-blog-starter
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Create a `.env` file similar to `.env.example` and include the appropriate keys.
