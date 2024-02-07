@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import { getAllArticles, getArticlePage, getArticlePageData } from 'utils/notion';
-import { Layout } from 'layout/Layout';
+import { Layout } from 'layouts/Layout';
 import Image from 'next/image';
 import { renderBlocks } from 'components/blocks/renderBlocks';
 import getLocalizedDate from 'utils/getLocalizedDate';
@@ -42,18 +42,18 @@ const ArticlePage = ({
         ogUrl={`/blog/${slug}`}
       >
         <div>
-          <div className="px-6 py-16 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
+          <div className="px-6 py-16 pt-16 sm:pt-32 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
             <div className="max-w-3xl mx-auto">
-              <div className="flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
+              <div className="sm:flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
                 <div className="">{publishedOn}</div>
                 {publishedOn !== modifiedDate && (
                   <>
-                    <span className="">•</span>
+                    <span className="sm:block hidden">•</span>
                     <span className="0">Updated on {modifiedDate}</span>
                   </>
                 )}
               </div>
-              <div className="font-extrabold tracking-tight text-gray-900 text-w-4xl sm:text-4xl">
+              <div className="font-extrabold tracking-tight text-gray-900 text-w-4xl sm:text-4xl text-2xl">
                 {title}
               </div>
               <div className="max-w-3xl mx-auto mt-3 text-xl leading-8 text-gray-500 sm:mt-4">
@@ -132,7 +132,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: result,
-    revalidate: 30
+    revalidate: 60 * 60
   };
 };
 

@@ -1,5 +1,5 @@
 import { convertToArticleList, getAllArticles, notion } from 'utils/notion';
-import { Layout } from 'layout/Layout';
+import { Layout } from 'layouts/Layout';
 import HeroHeader from 'components/HeroHeader';
 import Container from 'components/Container';
 import { Fragment, useState } from 'react';
@@ -60,6 +60,6 @@ export const getStaticProps = async () => {
       articles,
       categories
     },
-    revalidate: 30
+    revalidate: 60 * 60
   };
 };
