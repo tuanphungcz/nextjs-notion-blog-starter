@@ -42,7 +42,7 @@ const ArticlePage = ({
         ogUrl={`/blog/${slug}`}
       >
         <div>
-          <div className="px-6 py-16 pt-16 sm:pt-32 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
+          <div className="px-6 py-16 pt-16 pb-48 mx-auto -mb-48 text-center bg-gray-100 md:pb-96 md:-mb-96">
             <div className="max-w-3xl mx-auto">
               <div className="sm:flex items-center justify-center mb-2 space-x-2 text-sm text-gray-500">
                 <div className="">{publishedOn}</div>
