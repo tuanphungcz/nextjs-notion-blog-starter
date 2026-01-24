@@ -132,7 +132,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   return {
     props: result,
-    revalidate: 60 * 60
+    revalidate: 60 * 60 * 24 // 24 hours - reduced from 1 hour to save Vercel ISR costs
   };
 };
 

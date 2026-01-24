@@ -60,6 +60,6 @@ export const getStaticProps = async () => {
       articles,
       categories
     },
-    revalidate: 60 * 60
+    revalidate: 60 * 60 * 24 // 24 hours - reduced from 1 hour to save Vercel ISR costs
   };
 };
