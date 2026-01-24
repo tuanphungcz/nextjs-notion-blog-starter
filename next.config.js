@@ -1,12 +1,9 @@
 module.exports = {
   images: {
-    unoptimized: true
-  },
-  images: {
     domains: [
       's3.us-west-2.amazonaws.com', // Images coming from Notion
       'via.placeholder.com', // for articles that do not have a cover image
-      'images.unsplash.com', // For blog articles that use an external cover ima ge
+      'images.unsplash.com', // For blog articles that use an external cover image
       'pbs.twimg.com', // Twitter Profile Picture
       'dwgyu36up6iuz.cloudfront.net',
       'cdn.hashnode.com',
@@ -15,5 +12,13 @@ module.exports = {
       'nextjs-notion-blog-starter.vercel.app',
       'prod-files-secure.s3.us-west-2.amazonaws.com'
     ]
+  },
+  webpack: (config, { isServer }) => {
+    // Fix for chrome-aws-lambda .map files issue
+    config.module.rules.push({
+      test: /\.map$/,
+      use: 'ignore-loader'
+    });
+    return config;
   }
 };

@@ -45,8 +45,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: ^7.50.0
-        version: 7.71.1(react@18.3.1)
+        specifier: 7.50.0
+        version: 7.50.0(react@18.3.1)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -66,6 +66,9 @@ importers:
       eslint-config-next:
         specifier: ^12.3.4
         version: 12.3.7(eslint@8.21.0)(typescript@4.9.5)
+      ignore-loader:
+        specifier: ^0.1.2
+        version: 0.1.2
       postcss:
         specifier: ^8.4.33
         version: 8.5.6
@@ -953,6 +956,9 @@ packages:
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
+  ignore-loader@0.1.2:
+    resolution: {integrity: sha512-yOJQEKrNwoYqrWLS4DcnzM7SEQhRKis5mB+LdKKh4cPmGYlLPR0ozRzHV5jmEk2IxptqJNQA5Cc0gw8Fj12bXA==}
+
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
@@ -1482,11 +1488,11 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
-  react-hook-form@7.71.1:
-    resolution: {integrity: sha512-9SUJKCGKo8HUSsCO+y0CtqkqI5nNuaDqTxyqPsZPqIwudpj4rCrAz/jZV+jn57bx5gtZKOh3neQu94DXMc+w5w==}
-    engines: {node: '>=18.0.0'}
+  react-hook-form@7.50.0:
+    resolution: {integrity: sha512-AOhuzM3RdP09ZCnq+Z0yvKGHK25yiOX5phwxjV9L7U6HMla10ezkBnvQ+Pk4GTuDfsC5P2zza3k8mawFwFLVuQ==}
+    engines: {node: '>=12.22.0'}
     peerDependencies:
-      react: ^16.8.0 || ^17 || ^18 || ^19
+      react: ^16.8.0 || ^17 || ^18
 
   react-hot-toast@2.6.0:
     resolution: {integrity: sha512-bH+2EBMZ4sdyou/DPrfgIouFpcRLCJ+HoCA32UoAYHn6T3Ur5yfcDCeSr5mwldl6pFOsiocmrXMuoCJ1vV8bWg==}
@@ -2504,7 +2510,7 @@ snapshots:
       eslint: 8.21.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 2.7.1(eslint-plugin-import@2.32.0(eslint@8.21.0))(eslint@8.21.0)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1)(eslint@8.21.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.21.0))(eslint@8.21.0))(eslint@8.21.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.21.0)
       eslint-plugin-react: 7.37.5(eslint@8.21.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.21.0)
@@ -2526,7 +2532,7 @@ snapshots:
     dependencies:
       debug: 4.4.3
       eslint: 8.21.0
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1)(eslint@8.21.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.21.0))(eslint@8.21.0))(eslint@8.21.0)
       glob: 7.2.3
       is-glob: 4.0.3
       resolve: 1.22.11
@@ -2545,7 +2551,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1)(eslint@8.21.0):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.21.0)(typescript@4.9.5))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.21.0))(eslint@8.21.0))(eslint@8.21.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -2913,6 +2919,8 @@ snapshots:
       - supports-color
 
   ieee754@1.2.1: {}
+
+  ignore-loader@0.1.2: {}
 
   ignore@5.3.2: {}
 
@@ -3439,7 +3447,7 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
-  react-hook-form@7.71.1(react@18.3.1):
+  react-hook-form@7.50.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
